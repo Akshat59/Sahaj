@@ -37,10 +37,13 @@
             this.tsmi1_view = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi1_viewlogs = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi1_help = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportIssueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contactUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lbl_exit = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ddl_env = new System.Windows.Forms.ComboBox();
+            this.lbl_environment = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabCtrl_home = new System.Windows.Forms.TabControl();
             this.tabPage_welcome = new System.Windows.Forms.TabPage();
@@ -82,7 +85,7 @@
             this.tsmi2_petrolPump = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi2_bulkUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage_booking = new System.Windows.Forms.TabPage();
-            this.tabPage_Admin = new System.Windows.Forms.TabPage();
+            this.tabPage_admin = new System.Windows.Forms.TabPage();
             this.menuStrip_Home.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -101,6 +104,7 @@
             this.lbl_titleHome.Size = new System.Drawing.Size(105, 45);
             this.lbl_titleHome.TabIndex = 2;
             this.lbl_titleHome.Text = "Sahaj";
+            this.lbl_titleHome.Click += new System.EventHandler(this.lbl_titleHome_Click);
             // 
             // lbl_logOut
             // 
@@ -143,9 +147,9 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click_1);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // tsmi1_view
             // 
@@ -158,29 +162,36 @@
             // tsmi1_viewlogs
             // 
             this.tsmi1_viewlogs.Name = "tsmi1_viewlogs";
-            this.tsmi1_viewlogs.Size = new System.Drawing.Size(152, 22);
-            this.tsmi1_viewlogs.Text = "logs";
+            this.tsmi1_viewlogs.Size = new System.Drawing.Size(99, 22);
+            this.tsmi1_viewlogs.Text = "Logs";
             this.tsmi1_viewlogs.Click += new System.EventHandler(this.logsToolStripMenuItem_Click);
             // 
             // tsmi1_help
             // 
             this.tsmi1_help.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reportIssueToolStripMenuItem,
             this.contactUsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.tsmi1_help.Name = "tsmi1_help";
             this.tsmi1_help.Size = new System.Drawing.Size(44, 20);
             this.tsmi1_help.Text = "Help";
             // 
+            // reportIssueToolStripMenuItem
+            // 
+            this.reportIssueToolStripMenuItem.Name = "reportIssueToolStripMenuItem";
+            this.reportIssueToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.reportIssueToolStripMenuItem.Text = "Report Issue";
+            // 
             // contactUsToolStripMenuItem
             // 
             this.contactUsToolStripMenuItem.Name = "contactUsToolStripMenuItem";
-            this.contactUsToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.contactUsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.contactUsToolStripMenuItem.Text = "Contact Us";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // lbl_exit
@@ -201,6 +212,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.ddl_env);
+            this.panel1.Controls.Add(this.lbl_environment);
             this.panel1.Controls.Add(this.menuStrip_Home);
             this.panel1.Controls.Add(this.lbl_exit);
             this.panel1.Controls.Add(this.lbl_titleHome);
@@ -210,6 +223,31 @@
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.panel1.Size = new System.Drawing.Size(862, 45);
             this.panel1.TabIndex = 8;
+            // 
+            // ddl_env
+            // 
+            this.ddl_env.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddl_env.FormattingEnabled = true;
+            this.ddl_env.Location = new System.Drawing.Point(514, 11);
+            this.ddl_env.Name = "ddl_env";
+            this.ddl_env.Size = new System.Drawing.Size(80, 21);
+            this.ddl_env.TabIndex = 7;
+            this.ddl_env.Visible = false;
+            this.ddl_env.SelectedIndexChanged += new System.EventHandler(this.ddl_env_SelectedIndexChanged);
+            this.ddl_env.SelectionChangeCommitted += new System.EventHandler(this.ddl_env_SelectedIndexChanged_1);
+            // 
+            // lbl_environment
+            // 
+            this.lbl_environment.AutoSize = true;
+            this.lbl_environment.BackColor = System.Drawing.Color.RoyalBlue;
+            this.lbl_environment.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbl_environment.Font = new System.Drawing.Font("Wide Latin", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_environment.Location = new System.Drawing.Point(621, 11);
+            this.lbl_environment.Name = "lbl_environment";
+            this.lbl_environment.Size = new System.Drawing.Size(27, 21);
+            this.lbl_environment.TabIndex = 6;
+            this.lbl_environment.Text = "<>";
+            this.lbl_environment.Visible = false;
             // 
             // panel2
             // 
@@ -226,22 +264,22 @@
             // 
             // tabCtrl_home
             // 
-            this.tabCtrl_home.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabCtrl_home.Controls.Add(this.tabPage_welcome);
             this.tabCtrl_home.Controls.Add(this.tabPage_notifications);
             this.tabCtrl_home.Controls.Add(this.tabPage_search);
             this.tabCtrl_home.Controls.Add(this.tabPage_view);
             this.tabCtrl_home.Controls.Add(this.tabPage_manage);
             this.tabCtrl_home.Controls.Add(this.tabPage_booking);
-            this.tabCtrl_home.Controls.Add(this.tabPage_Admin);
+            this.tabCtrl_home.Controls.Add(this.tabPage_admin);
+            this.tabCtrl_home.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabCtrl_home.HotTrack = true;
             this.tabCtrl_home.Location = new System.Drawing.Point(0, 0);
             this.tabCtrl_home.Margin = new System.Windows.Forms.Padding(0, 200, 0, 0);
             this.tabCtrl_home.Name = "tabCtrl_home";
             this.tabCtrl_home.SelectedIndex = 0;
             this.tabCtrl_home.Size = new System.Drawing.Size(864, 391);
             this.tabCtrl_home.TabIndex = 7;
+            this.tabCtrl_home.SelectedIndexChanged += new System.EventHandler(this.tabCtrl_home_SelectedIndexChanged);
             // 
             // tabPage_welcome
             // 
@@ -283,6 +321,7 @@
             // 
             // tabPage_manage
             // 
+            this.tabPage_manage.AutoScroll = true;
             this.tabPage_manage.Controls.Add(this.menuStrip_Manage);
             this.tabPage_manage.Location = new System.Drawing.Point(4, 22);
             this.tabPage_manage.Name = "tabPage_manage";
@@ -451,6 +490,7 @@
             this.tsmi2_emp_addNew.Name = "tsmi2_emp_addNew";
             this.tsmi2_emp_addNew.Size = new System.Drawing.Size(123, 22);
             this.tsmi2_emp_addNew.Text = "Add New";
+            this.tsmi2_emp_addNew.Click += new System.EventHandler(this.tsmi2_emp_addNew_Click);
             // 
             // tsmi2_emp_modify
             // 
@@ -541,34 +581,33 @@
             this.tabPage_booking.Text = "Bookings";
             this.tabPage_booking.UseVisualStyleBackColor = true;
             // 
-            // tabPage_Admin
+            // tabPage_admin
             // 
-            this.tabPage_Admin.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Admin.Name = "tabPage_Admin";
-            this.tabPage_Admin.Size = new System.Drawing.Size(856, 365);
-            this.tabPage_Admin.TabIndex = 4;
-            this.tabPage_Admin.Text = "Admin";
-            this.tabPage_Admin.UseVisualStyleBackColor = true;
+            this.tabPage_admin.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_admin.Name = "tabPage_admin";
+            this.tabPage_admin.Size = new System.Drawing.Size(856, 365);
+            this.tabPage_admin.TabIndex = 4;
+            this.tabPage_admin.Text = "Admin";
+            this.tabPage_admin.UseVisualStyleBackColor = true;
             // 
             // frm_Home
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoScrollMargin = new System.Drawing.Size(1, 1);
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(864, 445);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip_Home;
-            this.MaximizeBox = false;
             this.Name = "frm_Home";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.frm_Home_Load);
             this.menuStrip_Home.ResumeLayout(false);
             this.menuStrip_Home.PerformLayout();
@@ -639,7 +678,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmi2_petrolPump;
         private System.Windows.Forms.ToolStripMenuItem tsmi2_bulkUpload;
         private System.Windows.Forms.TabPage tabPage_booking;
-        private System.Windows.Forms.TabPage tabPage_Admin;
+        private System.Windows.Forms.TabPage tabPage_admin;
         private System.Windows.Forms.ToolStripMenuItem tsmi1_viewlogs;
+        private System.Windows.Forms.ToolStripMenuItem reportIssueToolStripMenuItem;
+        private System.Windows.Forms.Label lbl_environment;
+        private System.Windows.Forms.ComboBox ddl_env;
     }
 }

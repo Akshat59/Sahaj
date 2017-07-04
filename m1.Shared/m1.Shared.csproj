@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppCommon.cs" />
     <Compile Include="AppGlobal.cs" />
     <Compile Include="AppLogging.cs" />
     <Compile Include="Collections\SqlScriptCollection.cs" />

@@ -14,7 +14,10 @@ namespace m1.Shared.NPOI
         public void testt()
         {
             HSSFWorkbook hssfwb;
-            using (FileStream file = new FileStream(@"c:\test.xls", FileMode.Open, FileAccess.Read))
+
+            string _filePath = @"c:\test.xls";
+
+            using (FileStream file = new FileStream(_filePath, FileMode.Open, FileAccess.Read))
             {
                 hssfwb = new HSSFWorkbook(file);
             }

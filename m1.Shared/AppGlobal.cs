@@ -10,6 +10,8 @@ namespace m1.Shared
     {
         public static string appLog = string.Empty;
         public static string sqlLog = string.Empty;
+        public static string CurrentAppEnv = AppConstants.AppEnvironments.Keys.First(); //Setting Dev
+        public static string CurrentUserRole = AppConstants.AppUserRoles.Keys.First(); //Setting Admin
 
         public static string appErrorLog = string.Empty;
         public static string sqlErrorLog = string.Empty;

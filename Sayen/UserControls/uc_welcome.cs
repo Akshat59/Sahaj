@@ -32,9 +32,6 @@ namespace Sayen.UserControls
             else { lbl_u_fullname.Text = ""; lbl_u_fullname.Visible = false;}
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
     }
 }

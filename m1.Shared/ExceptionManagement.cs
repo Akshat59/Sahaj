@@ -12,6 +12,9 @@ namespace m1.Shared
         public static string logAppException(Exception Ex)
         {
             _appErrorLog = "\r\n" + Ex.Message+"\r\n"+Ex.InnerException + "\r\n" + Ex.StackTrace;
+
+            //Code to write logs to file...................
+
             return Ex.Message;
         }
     }

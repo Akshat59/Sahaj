@@ -12,7 +12,7 @@ namespace Sayen.userForms
 {
     public partial class frm_Backdoor : Form
     {
-        frm_login _obj;
+        frm_login _objFormLogin;
 
         public frm_Backdoor()
         {
@@ -23,11 +23,12 @@ namespace Sayen.userForms
         #region Controls
         public frm_Backdoor(frm_login obj)
         {
-            InitializeComponent();            
-            _obj = obj;
-            _obj.Enabled = false;
+            InitializeComponent();
+            _objFormLogin = obj;
+            _objFormLogin.Enabled = false;
             this.LoadFormBackdoor();
         }
+
 
         private void txt_passkey_TextChanged(object sender, EventArgs e)
         {
@@ -41,22 +42,22 @@ namespace Sayen.userForms
         private void lbl_viewLogs_Click(object sender, EventArgs e)
         {
             string _message = AppGlobal.appErrorLog + "\r\n" + AppGlobal.sqlErrorLog;
-            if (_message.Trim().Length < 1) { _message = "No Logs to Show"; }
+            if (_message.Trim().Length < 1) { _message = UserMessages.NoLogsMsg; }
 
-            MessageBox.Show(_message.Trim(), "App Logs");
+            MessageBox.Show(_message.Trim(), UserMessages.ShowLogTitle);
         }
 
         private void lbl_goBack_Click(object sender, EventArgs e)
         {
             this.Hide();
-            _obj.Enabled = true;
-            _obj.Activate();
+            _objFormLogin.Enabled = true;
+            _objFormLogin.Activate();
         }
 
         private void frm_Backdoor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _obj.Enabled = true;
-            _obj.Activate();
+            _objFormLogin.Enabled = true;
+            _objFormLogin.Activate();
         }
 
         #endregion Controls
@@ -66,7 +67,7 @@ namespace Sayen.userForms
         {
             this.Size = new Size(192, 58);
             this.ActiveControl = lbl_viewLogs;
-            ddl_Environment.DataSource = new BindingSource(ApplicationConstants.AppEnvironments,null);
+            ddl_Environment.DataSource = new BindingSource(AppConstants.AppEnvironments,null);
             ddl_Environment.ValueMember = "Value";
             ddl_Environment.DisplayMember = "Key";
 
