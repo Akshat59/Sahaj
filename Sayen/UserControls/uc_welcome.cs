@@ -32,6 +32,9 @@ namespace Sayen.UserControls
             else { lbl_u_fullname.Text = ""; lbl_u_fullname.Visible = false;}
         }
 
-        
+        private void pb_pflPic_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

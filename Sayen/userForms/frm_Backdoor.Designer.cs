@@ -84,6 +84,7 @@
             this.ddl_Environment.Name = "ddl_Environment";
             this.ddl_Environment.Size = new System.Drawing.Size(80, 19);
             this.ddl_Environment.TabIndex = 3;
+            this.ddl_Environment.SelectedIndexChanged += new System.EventHandler(this.ddl_Environment_SelectedIndexChanged);
             // 
             // lbl_Environment
             // 

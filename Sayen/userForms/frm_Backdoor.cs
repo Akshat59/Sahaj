@@ -70,9 +70,14 @@ namespace Sayen.userForms
             ddl_Environment.DataSource = new BindingSource(AppConstants.AppEnvironments,null);
             ddl_Environment.ValueMember = "Value";
             ddl_Environment.DisplayMember = "Key";
+            AppGlobal.CurrentAppEnv = ddl_Environment.Text;
 
         }
         #endregion UserMethods
 
+        private void ddl_Environment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AppGlobal.CurrentAppEnv = ddl_Environment.Text;
+        }
     }
 }

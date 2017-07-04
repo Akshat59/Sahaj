@@ -60,44 +60,39 @@
             // 
             // pb_pflPic
             // 
-            this.pb_pflPic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pb_pflPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pb_pflPic.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pb_pflPic.ErrorImage")));
             this.pb_pflPic.InitialImage = ((System.Drawing.Image)(resources.GetObject("pb_pflPic.InitialImage")));
-            this.pb_pflPic.Location = new System.Drawing.Point(645, 158);
+            this.pb_pflPic.Location = new System.Drawing.Point(645, 120);
             this.pb_pflPic.Name = "pb_pflPic";
             this.pb_pflPic.Size = new System.Drawing.Size(194, 218);
             this.pb_pflPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb_pflPic.TabIndex = 2;
             this.pb_pflPic.TabStop = false;
             this.pb_pflPic.WaitOnLoad = true;
+            this.pb_pflPic.Click += new System.EventHandler(this.pb_pflPic_Click);
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoSize = true;
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.lbl_greeting);
             this.panel1.Controls.Add(this.lbl_u_fullname);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.pb_pflPic);
-            this.panel1.Location = new System.Drawing.Point(-6, -7);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(868, 466);
+            this.panel1.Size = new System.Drawing.Size(842, 341);
             this.panel1.TabIndex = 7;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(6, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(859, 118);
+            this.pictureBox1.Size = new System.Drawing.Size(842, 118);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
@@ -111,13 +106,14 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.panel1);
             this.Name = "uc_welcome";
-            this.Size = new System.Drawing.Size(865, 462);
+            this.Size = new System.Drawing.Size(842, 341);
             this.Load += new System.EventHandler(this.uc_welcome_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pb_pflPic)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

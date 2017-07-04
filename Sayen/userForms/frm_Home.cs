@@ -17,12 +17,14 @@ namespace Sayen
         public frm_Home()
         {
             InitializeComponent();
+           
 
             //ddl_environment.DataSource = new BindingSource(AppConstants.AppEnvironments, null);
             //ddl_environment.ValueMember = "Value";
             //ddl_environment.DisplayMember = "Key";
 
         }
+
 
         #region Controls
         private void lbl_logOut_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -38,13 +40,17 @@ namespace Sayen
 
         private void tabCtrl_home_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabCtrl_home.SelectedTab.Name.Equals("tabPage_welcome"))
+            if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageManage))
             {
                 this.LoadWelcome();
             }
-            else if (tabCtrl_home.SelectedTab.Name.Equals("tabPage_search"))
+            else if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageSearch))
             {
                 this.LoadSearch();
+            }
+            else
+            {
+                //Show - Not Implemented
             }
         }
 
@@ -57,7 +63,8 @@ namespace Sayen
 
         private void frm_Home_Load(object sender, EventArgs e)
         {
-            this.LoadWelcome();
+            
+            LoadFormHome();
         }
 
 
@@ -67,6 +74,50 @@ namespace Sayen
             Application.Exit();
         }
 
+        private void lbl_titleHome_Click(object sender, EventArgs e)
+        {
+            if (AppGlobal.CurrentUserRole == "Admin")
+            {
+                ddl_env.Visible = true;
+                ddl_env.DataSource = new BindingSource(AppConstants.AppEnvironments, null);
+                ddl_env.ValueMember = "Value";
+                ddl_env.DisplayMember = "Key";
+
+            }
+        }
+
+        private void ddl_env_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ddl_env_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+            if (!ddl_env.Text.Equals(null) && (ddl_env.Text == "DEV" || ddl_env.Text == "TEST"))
+            {
+                AppGlobal.CurrentAppEnv = ddl_env.Text;
+                lbl_environment.Text = ddl_env.Text;
+                lbl_environment.Visible = true;
+                ddl_env.Visible = false;
+            }
+            else if (!ddl_env.Text.Equals(null) && ddl_env.Text == "PROD")
+            {
+                AppGlobal.CurrentAppEnv = ddl_env.Text;
+                lbl_environment.Text = ddl_env.Text;
+                lbl_environment.Visible = true;
+                ddl_env.Visible = false;
+            }
+            else //if (AppGlobal.CurrentAppEnv == "PROD")
+            {
+                AppGlobal.CurrentAppEnv = ddl_env.Text;
+                lbl_environment.Text = string.Empty;
+                //lbl_environment.Visible = false;
+                ddl_env.Visible = false;
+
+            }
+
+        }
 
         #endregion Controls
 
@@ -90,13 +141,16 @@ namespace Sayen
         private void tabPage_welcome_Click(object sender, EventArgs e)
         {
             this.LoadWelcome();
+            
         }
 
 
         public void LoadWelcome()
         {
             uc_welcome ucWel = new uc_welcome();
-            tabCtrl_home.TabPages["tabPage_welcome"].Controls.Add(ucWel);
+            ucWel.AutoSize = true;
+            ucWel.Dock = DockStyle.Fill;
+            tabCtrl_home.TabPages[AppConstants.TabPageWelcome].Controls.Add(ucWel);
 
         }
 
@@ -124,8 +178,10 @@ namespace Sayen
         #region ManageEmployee
         private void tsmi2_emp_addNew_Click(object sender, EventArgs e)
         {
-            uc_AddEmpl obj = new uc_AddEmpl();
-            this.LoadStripUC(obj, AppConstants.TabPageManage);
+            uc_AddEmpl _ucAddEmp = new uc_AddEmpl();
+            
+
+            this.LoadStripUC(_ucAddEmp, AppConstants.TabPageManage);
         }
         #endregion ManageEmployee
 
@@ -142,44 +198,22 @@ namespace Sayen
             tabCtrl_home.TabPages[stripID].Controls.Add(obj);
         }
 
+
+        private void LoadFormHome()
+        {
+            this.ActiveControl = this.tabCtrl_home;
+            tabCtrl_home.AutoSize = true;
+            tabCtrl_home.TabPages[0].AutoSize = true;
+            if (AppGlobal.CurrentAppEnv == "DEV" || AppGlobal.CurrentAppEnv == "TEST")
+            {
+                lbl_environment.Text = AppGlobal.CurrentAppEnv;
+                lbl_environment.Visible = true;
+            }
+            this.LoadWelcome();
+        }
+
         #endregion UserMethods
 
-        private void lbl_titleHome_Click(object sender, EventArgs e)
-        {
-            if (AppGlobal.CurrentUserRole == "Admin")
-            {
-                ddl_env.Visible = true;
-                ddl_env.DataSource = new BindingSource(AppConstants.AppEnvironments, null);
-                ddl_env.ValueMember = "Value";
-                ddl_env.DisplayMember = "Key";
-
-            }
-        }
-
-        private void ddl_env_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void ddl_env_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            
-            if (!ddl_env.Text.Equals(null)&&(ddl_env.Text == "DEV" || ddl_env.Text == "TEST"))
-            {
-                AppGlobal.CurrentAppEnv = ddl_env.Text;
-                lbl_environment.Text = ddl_env.Text;
-                lbl_environment.Visible = true;
-                ddl_env.Visible = false;
-            }
-            else //if (AppGlobal.CurrentAppEnv == "PROD")
-            {
-                AppGlobal.CurrentAppEnv = ddl_env.Text;
-                lbl_environment.Text = string.Empty;
-                lbl_environment.Visible = false;
-                ddl_env.Visible = false;
-
-            }
-
-        }
+       
     }
 }
