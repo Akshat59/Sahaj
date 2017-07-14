@@ -12,6 +12,8 @@ namespace m1.Shared.Entities
         {
            userEntity = new UserEntity();
            sessionEntity = new SessionEntity();
+            empCollection = new EmployeeCollection();
+            //empEntity = new EmployeeEntity();
         }
 
         #region Properties
@@ -30,6 +32,9 @@ namespace m1.Shared.Entities
             get { return userEntity; }
             set { userEntity = value; }
         }
+
+        public EmployeeCollection empCollection { get;  set; }
+        //public EmployeeEntity empEntity { get;  set; }
         #endregion
     }
 }

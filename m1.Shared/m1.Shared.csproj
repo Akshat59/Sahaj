@@ -56,6 +56,9 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DatabaseManagement\DatabaseManagement.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\BaseEntityCollection.cs" />
+    <Compile Include="Entities\EmployeeCollection.cs" />
+    <Compile Include="Entities\EmployeeEntity.cs" />
     <Compile Include="Entities\SessionEntity.cs" />
     <Compile Include="Entities\SqlScript.cs" />
     <Compile Include="Entities\UserLogonEntity.cs" />

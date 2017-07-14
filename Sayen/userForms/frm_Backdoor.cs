@@ -67,7 +67,7 @@ namespace Sayen.userForms
         {
             this.Size = new Size(192, 58);
             this.ActiveControl = lbl_viewLogs;
-            ddl_Environment.DataSource = new BindingSource(AppConstants.AppEnvironments,null);
+            ddl_Environment.DataSource = new BindingSource(AppConstants.d_AppEnvironments,null);
             ddl_Environment.ValueMember = "Value";
             ddl_Environment.DisplayMember = "Key";
             AppGlobal.CurrentAppEnv = ddl_Environment.Text;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using m1.BC;
 using m1.Shared.Entities;
+using m1.Shared;
 
-
-    namespace m1.BPC
+namespace m1.BPC
     {
         public class genBPC
         {
@@ -64,5 +64,14 @@ using m1.Shared.Entities;
             {
                 return GenBC.bcTestDatabaseConnection(GEntity);
             }
+
+        public void bpcSingleEmpInsert(EmployeeEntity e)
+        {
+            if (e.Optype == AppConstants.e_frmOperationType.S)
+            { 
+               
+             _genBC.bcInsertEmpDetails(e);
+            }
         }
+    }
     }

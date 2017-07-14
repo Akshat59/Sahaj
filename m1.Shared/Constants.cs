@@ -17,12 +17,14 @@ namespace m1.Shared
         public const string CallStatusFailure = "Failure";
         public const string CallStatusError = "Error";
 
-        public static Dictionary<string, string> AppEnvironments = new Dictionary<string, string>()
+        public static Dictionary<string, string> d_AppEnvironments = new Dictionary<string, string>()
         {
             { "DEV", "d1_dev" },
             { "TEST", "t1_dev" },
             { "PROD", "p1_dev" }
         };
+
+        public enum e_AppEnvironment { DEV,TEST,PROD };
 
         public static Dictionary<string, string> AppUserRoles = new Dictionary<string, string>()
         {
@@ -34,7 +36,7 @@ namespace m1.Shared
             { "Guest", "role_guest" }
         };
 
-        public static Dictionary<string, string> HomePageTabs = new Dictionary<string, string>()
+        public static Dictionary<string, string> d_HomePageTabs = new Dictionary<string, string>()
         {
             { "Welcome", "tabPage_welcome" },
             { "Notifications", "tabPage_notifications" },
@@ -45,7 +47,7 @@ namespace m1.Shared
             { "Admin", "tabPage_admin" },
         };
 
-        public static Dictionary<string, string> EmployeeType = new Dictionary<string, string>()
+        public static Dictionary<string, string> d_EmployeeType = new Dictionary<string, string>()
         {
             { "Driver", "emptype_driver_5531" },
             { "Conductor", "emptype_conductor_5532" },
@@ -60,10 +62,49 @@ namespace m1.Shared
         public const string TabPageManage = "tabPage_manage";
         public const string TabPageBooking = "tabPage_booking";
         public const string TabPageAdmin = "tabPage_admin";
+
+        public const string uc_title_AddEmployee = "Add Employee";
+        public const string uc_title_AddVehicle = "Add Vehicle";
+        public const string uc_title_AddPermit = "Add Permit";
+        public const string uc_title_AddInsurance = "Add Insurance";
+        public const string uc_title_AddRoute = "Add Route";
+        public const string uc_title_defaultBulkUpload = "Bulk Upload";
+
+        public static Dictionary<string, string> d_BulkUploadType = new Dictionary<string, string>()
+        {
+            { "blkup_Employee", "blkupload_employee_5541" }
+
+        };
+
+        public enum e_BulkUploadType { NONE,EMPLOYEE, VEHICLE, PERMIT, INSURANCE, ROUTE };
+        public enum e_DrivingLicence { HMV, HLTV, LMV };
+
+        /// <summary>
+        /// This enum have codes which signifies type of operation happening
+        /// V-View, S- Single Insert, B- Bulk Insert, X - Single Delete, U- Update
+        /// </summary>
+        public enum e_frmOperationType { V, S, B, X, U };
+
+        /// <summary>
+        /// This enum have codes which signifies type of Gender
+        /// M-Male, F- Female, X - Transgender, Z - NotSpecified
+        /// </summary>
+        public enum e_Gender { M,F,X,Z };
+
+        
+
     }
 
+    public struct AppKeys
+    {
+        public const string Yes = "Y";
+        public const string No = "N";
+        public const string Success = "S";
+        public const string Failure = "F";
+        public const string Active = "A";
+        public const string Deactive = "D";
+    }
 
-    
 
 
 

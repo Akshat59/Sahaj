@@ -620,6 +620,7 @@
             this.AutoScrollMargin = new System.Drawing.Size(1, 1);
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(890, 458);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

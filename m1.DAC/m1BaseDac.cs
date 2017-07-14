@@ -131,7 +131,41 @@ namespace m1.DAC
 
         }
 
-       
+        public int bExecuteNonQuery(string SQLselect, List<SqlParameter> sp)
+        {
+            int _ret;
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(SQLselect, myConnection);
+                    oCmd.CommandType = CommandType.Text;
+
+                    if (sp != null)
+                    {
+                        oCmd.Parameters.AddRange(sp.ToArray());
+                    }
+
+                    myConnection.Open();
+
+                    _ret = oCmd.ExecuteNonQuery();
+                }
+                return _ret;
+            }
+            catch (Exception Ex)
+            {
+                _sqlLog = "\r\n" + Ex.InnerException + "\r\n" + Ex.StackTrace;
+                return 1;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;
+               
+            }
+        }
+
+
         #region Scrap
         /*
           protected SqlDataReader ExecuteDataReader(string SQLselect)

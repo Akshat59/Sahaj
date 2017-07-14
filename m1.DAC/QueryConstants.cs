@@ -10,7 +10,8 @@ namespace m1.DAC
     public class QueryConstants
     {
         public const string ValidateUserLogin = "Query_ValidateUserLogin";
-        public const string GetAppInfo = "Query_GetAppInfo";        
+        public const string GetAppInfo = "Query_GetAppInfo";
+        public const string InsertEmpDetails = "Query_InsertEmpDetails";        
     }
 
     public class DatabaseConstants

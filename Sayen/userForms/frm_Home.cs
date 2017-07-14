@@ -79,7 +79,7 @@ namespace Sayen
             if (AppGlobal.CurrentUserRole == "Admin")
             {
                 ddl_env.Visible = true;
-                ddl_env.DataSource = new BindingSource(AppConstants.AppEnvironments, null);
+                ddl_env.DataSource = new BindingSource(AppConstants.d_AppEnvironments, null);
                 ddl_env.ValueMember = "Value";
                 ddl_env.DisplayMember = "Key";
 
@@ -178,8 +178,7 @@ namespace Sayen
         #region ManageEmployee
         private void tsmi2_emp_addNew_Click(object sender, EventArgs e)
         {
-            uc_AddEmpl _ucAddEmp = new uc_AddEmpl();
-            
+            uc_AddEmpl _ucAddEmp = new uc_AddEmpl(this,AppConstants.e_frmOperationType.S);          
 
             this.LoadStripUC(_ucAddEmp, AppConstants.TabPageManage);
         }
@@ -193,9 +192,19 @@ namespace Sayen
         #region UserMethods
 
         
-        void LoadStripUC(UserControl obj,string stripID)
+        public void LoadStripUC(UserControl obj,string stripID)
         {            
             tabCtrl_home.TabPages[stripID].Controls.Add(obj);
+        }
+
+        public void LoadStripUC_frmUC(UserControl objAdd, string stripID_add, UserControl objRmv, string stripID_rmv)
+        {
+            tabCtrl_home.TabPages[stripID_rmv].Controls.Remove(objRmv);
+            bool _b = this.Controls.ContainsKey("uc_AddEmpl");
+            bool _z = tabCtrl_home.TabPages[stripID_rmv].Controls.ContainsKey("uc_AddEmpl");
+            objRmv.Dispose();
+            objRmv = null;
+            tabCtrl_home.TabPages[stripID_add].Controls.Add(objAdd);
         }
 
 
@@ -204,7 +213,8 @@ namespace Sayen
             this.ActiveControl = this.tabCtrl_home;
             tabCtrl_home.AutoSize = true;
             tabCtrl_home.TabPages[0].AutoSize = true;
-            if (AppGlobal.CurrentAppEnv == "DEV" || AppGlobal.CurrentAppEnv == "TEST")
+            if (AppGlobal.CurrentAppEnv == AppConstants.d_AppEnvironments.FirstOrDefault(x => x.Key == AppConstants.e_AppEnvironment.DEV.ToString()).Key 
+                || AppGlobal.CurrentAppEnv == AppConstants.d_AppEnvironments.FirstOrDefault(x => x.Key == AppConstants.e_AppEnvironment.TEST.ToString()).Key)
             {
                 lbl_environment.Text = AppGlobal.CurrentAppEnv;
                 lbl_environment.Visible = true;

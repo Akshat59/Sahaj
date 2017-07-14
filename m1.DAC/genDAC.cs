@@ -11,7 +11,7 @@ using m1.Shared;
 
 namespace m1.DAC
 {
-    public class genDAC:m1BaseDac
+    public class genDAC : m1BaseDac
     {
         public genDAC()
         {
@@ -20,7 +20,7 @@ namespace m1.DAC
 
         #region PublicMethod
         public bool dacTestDatabaseConnection()
-        {         
+        {
             return base.TestDatabaseConnection();
         }
 
@@ -36,15 +36,15 @@ namespace m1.DAC
                 //new SqlParameter() {ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value= GEntity.UserEntity.User_pwd},
             };
 
-            using (dt = base.ExecuteDataAdapter(SQLselect,sp))
+            using (dt = base.ExecuteDataAdapter(SQLselect, sp))
             {
-                if (dt.Rows.Count < 1) 
-                { 
-                    return false;
-                } 
-                else 
+                if (dt.Rows.Count < 1)
                 {
-                   foreach (DataRow dr in dt.Rows)
+                    return false;
+                }
+                else
+                {
+                    foreach (DataRow dr in dt.Rows)
                     {
                         GEntity.UserEntity.User_id = dr["user_id"].ToString();
                         GEntity.UserEntity.User_name = dr["user_name"].ToString();
@@ -54,12 +54,51 @@ namespace m1.DAC
                         GEntity.UserEntity.Last_accessed = dr["last_accessed"].ToString();
                         GEntity.UserEntity.Last_pwd_change = dr["last_pwd_change"].ToString();
                         GEntity.UserEntity.Profilepic = dr["profilepic"].ToString();
-                        break; 
+                        break;
                     }
-                   AppGlobal.g_GEntity = GEntity;
-                   return true;
+                    AppGlobal.g_GEntity = GEntity;
+                    return true;
                 }
             }
+        }
+
+        public void dacInsertEmpDetails(EmployeeEntity emp)
+        {
+            string SQLselect = base.RetrieveSqlQuery(QueryConstants.InsertEmpDetails).ToString();
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= "u01001"},
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_id},
+                new SqlParameter() {ParameterName = "@firstname", SqlDbType = SqlDbType.NVarChar, Value= emp.Firstname},
+                new SqlParameter() {ParameterName = "@lastname", SqlDbType = SqlDbType.NVarChar, Value= emp.Lastname},
+                new SqlParameter() {ParameterName = "@petname", SqlDbType = SqlDbType.NVarChar, Value= emp.Petname},
+                new SqlParameter() {ParameterName = "@dob", SqlDbType = SqlDbType.NVarChar, Value= emp.Dob},
+                new SqlParameter() {ParameterName = "@gender", SqlDbType = SqlDbType.NVarChar, Value= emp.Gender},
+                new SqlParameter() {ParameterName = "@emptype", SqlDbType = SqlDbType.NVarChar, Value= emp.Emptype},
+                new SqlParameter() {ParameterName = "@designation", SqlDbType = SqlDbType.NVarChar, Value= emp.Designation},
+                new SqlParameter() {ParameterName = "@empaddress", SqlDbType = SqlDbType.NVarChar, Value= emp.Empaddress},
+                new SqlParameter() {ParameterName = "@pincode", SqlDbType = SqlDbType.NVarChar, Value= emp.Pincode},
+                new SqlParameter() {ParameterName = "@homephone", SqlDbType = SqlDbType.NVarChar, Value= emp.Homephone},
+                new SqlParameter() {ParameterName = "@mobile", SqlDbType = SqlDbType.NVarChar, Value= emp.Mobile},
+                new SqlParameter() {ParameterName = "@education", SqlDbType = SqlDbType.NVarChar, Value= emp.Education},
+                new SqlParameter() {ParameterName = "@aadhaarno", SqlDbType = SqlDbType.NVarChar, Value= emp.Aadhaarno},
+                new SqlParameter() {ParameterName = "@addressproof", SqlDbType = SqlDbType.NVarChar, Value= emp.Addressproof},
+                new SqlParameter() {ParameterName = "@dl_no", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_no},
+                new SqlParameter() {ParameterName = "@dl_htmv", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_htmv},
+                new SqlParameter() {ParameterName = "@dl_hmv", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_hmv},
+                new SqlParameter() {ParameterName = "@dl_lmv", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_lmv},
+                new SqlParameter() {ParameterName = "@dl_rto", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_rto},
+                new SqlParameter() {ParameterName = "@hiring_manager_id", SqlDbType = SqlDbType.NVarChar, Value= emp.Hiring_manager_id},
+                new SqlParameter() {ParameterName = "@experience", SqlDbType = SqlDbType.NVarChar, Value= emp.Experience},
+                new SqlParameter() {ParameterName = "@attributes", SqlDbType = SqlDbType.NVarChar, Value= emp.Attributes},
+                new SqlParameter() {ParameterName = "@otherdetails", SqlDbType = SqlDbType.NVarChar, Value= emp.Otherdetails},
+                new SqlParameter() {ParameterName = "@emp_status", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_status},
+            };
+
+            int _cnt = base.bExecuteNonQuery(SQLselect, sp);
+            if (_cnt <= 0) { emp.RetIndicator = AppKeys.Failure; }
+            else { emp.RetIndicator = AppKeys.Success; }
+           
         }
         #endregion PublicMethod
     }

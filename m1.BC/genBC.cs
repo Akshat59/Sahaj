@@ -36,5 +36,10 @@ namespace m1.BC
         {
             return GenDAC.dacTestDatabaseConnection();
         }
+
+        public void bcInsertEmpDetails(EmployeeEntity emp)
+        {
+            _genDAC.dacInsertEmpDetails(emp);
+        }
     }
 }

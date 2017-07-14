@@ -30,6 +30,7 @@ namespace Sayen.UserControls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txt_dlno = new System.Windows.Forms.TextBox();
             this.lbl_upload_dl = new System.Windows.Forms.LinkLabel();
             this.lbl_dlTypes = new System.Windows.Forms.Label();
@@ -43,7 +44,7 @@ namespace Sayen.UserControls
             this.lbl_petName = new System.Windows.Forms.Label();
             this.txt_petName = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.rdl_gendel_f = new System.Windows.Forms.RadioButton();
+            this.rdl_gender_f = new System.Windows.Forms.RadioButton();
             this.rdl_gender_m = new System.Windows.Forms.RadioButton();
             this.lbl_gender = new System.Windows.Forms.Label();
             this.lbl_pinCode = new System.Windows.Forms.Label();
@@ -72,55 +73,64 @@ namespace Sayen.UserControls
             this.ddl_designation = new System.Windows.Forms.ComboBox();
             this.txt_otherDetails = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.chk_dltype_lmv = new System.Windows.Forms.CheckBox();
-            this.chk_dltype_htmv = new System.Windows.Forms.CheckBox();
-            this.chk_dltype_hmv = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txt_rto = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.dtp_validity = new System.Windows.Forms.DateTimePicker();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_reset = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.rdl_bulkUpload = new System.Windows.Forms.RadioButton();
+            this.rdl_singleUpload = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_hiring_manager = new System.Windows.Forms.Label();
             this.ddl_hiring_manager = new System.Windows.Forms.ComboBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.btn_reset = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.dtp_validity = new System.Windows.Forms.DateTimePicker();
+            this.txt_rto = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.lbl_photograph = new System.Windows.Forms.Label();
             this.lbl_aadhaar = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.lbl_addressProof = new System.Windows.Forms.Label();
             this.lbl_drivingLicence = new System.Windows.Forms.Label();
-            this.lbl_dlno = new System.Windows.Forms.Label();
             this.label_upload_photo = new System.Windows.Forms.LinkLabel();
             this.lbl_filename_photo = new System.Windows.Forms.Label();
+            this.lbl_dlno = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.chk_dltype_lmv = new System.Windows.Forms.CheckBox();
+            this.chk_dltype_hmv = new System.Windows.Forms.CheckBox();
+            this.chk_dltype_htmv = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.dtp_dob = new System.Windows.Forms.DateTimePicker();
+            this.lbl_dob = new System.Windows.Forms.Label();
+            this.txt_age = new System.Windows.Forms.TextBox();
+            this.lbl_education = new System.Windows.Forms.Label();
+            this.txt_education = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_dlno
             // 
             this.txt_dlno.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txt_dlno.Location = new System.Drawing.Point(90, 99);
+            this.txt_dlno.Location = new System.Drawing.Point(90, 97);
             this.txt_dlno.Name = "txt_dlno";
             this.txt_dlno.Size = new System.Drawing.Size(200, 20);
-            this.txt_dlno.TabIndex = 5;
+            this.txt_dlno.TabIndex = 2;
             // 
             // lbl_upload_dl
             // 
             this.lbl_upload_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_upload_dl.AutoSize = true;
-            this.lbl_upload_dl.Location = new System.Drawing.Point(308, 102);
+            this.lbl_upload_dl.Location = new System.Drawing.Point(308, 100);
             this.lbl_upload_dl.Name = "lbl_upload_dl";
             this.lbl_upload_dl.Size = new System.Drawing.Size(41, 13);
             this.lbl_upload_dl.TabIndex = 6;
@@ -131,7 +141,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_dlTypes.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbl_dlTypes.AutoSize = true;
-            this.lbl_dlTypes.Location = new System.Drawing.Point(47, 6);
+            this.lbl_dlTypes.Location = new System.Drawing.Point(48, 127);
             this.lbl_dlTypes.Name = "lbl_dlTypes";
             this.lbl_dlTypes.Size = new System.Drawing.Size(36, 13);
             this.lbl_dlTypes.TabIndex = 29;
@@ -147,17 +157,19 @@ namespace Sayen.UserControls
             this.lbl_filename_address.Size = new System.Drawing.Size(61, 13);
             this.lbl_filename_address.TabIndex = 39;
             this.lbl_filename_address.Text = "<file name>";
+            this.lbl_filename_address.Visible = false;
             // 
             // lbl_filename_dl
             // 
             this.lbl_filename_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_filename_dl.AutoSize = true;
             this.lbl_filename_dl.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_filename_dl.Location = new System.Drawing.Point(371, 102);
+            this.lbl_filename_dl.Location = new System.Drawing.Point(371, 100);
             this.lbl_filename_dl.Name = "lbl_filename_dl";
             this.lbl_filename_dl.Size = new System.Drawing.Size(61, 13);
             this.lbl_filename_dl.TabIndex = 40;
             this.lbl_filename_dl.Text = "<file name>";
+            this.lbl_filename_dl.Visible = false;
             // 
             // lbl_firstName
             // 
@@ -174,7 +186,7 @@ namespace Sayen.UserControls
             this.lbl_title.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_title.AutoSize = true;
             this.lbl_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_title.Location = new System.Drawing.Point(300, 33);
+            this.lbl_title.Location = new System.Drawing.Point(265, 33);
             this.lbl_title.Name = "lbl_title";
             this.lbl_title.Size = new System.Drawing.Size(151, 25);
             this.lbl_title.TabIndex = 0;
@@ -193,22 +205,21 @@ namespace Sayen.UserControls
             // txt_firstName
             // 
             this.txt_firstName.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_firstName.Location = new System.Drawing.Point(80, 3);
+            this.txt_firstName.Location = new System.Drawing.Point(78, 3);
             this.txt_firstName.Name = "txt_firstName";
             this.txt_firstName.Size = new System.Drawing.Size(188, 20);
             this.txt_firstName.TabIndex = 0;
-            this.txt_firstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(Utilities.DontAllowDigit);
-
+            this.txt_firstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_firstName_KeyPress);
+            this.txt_firstName.Validating += new System.ComponentModel.CancelEventHandler(this.txt_firstName_Validating);
             // 
             // txt_lastName
             // 
             this.txt_lastName.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_lastName.Location = new System.Drawing.Point(80, 29);
+            this.txt_lastName.Location = new System.Drawing.Point(78, 29);
             this.txt_lastName.Name = "txt_lastName";
             this.txt_lastName.Size = new System.Drawing.Size(188, 20);
             this.txt_lastName.TabIndex = 1;
-            this.txt_lastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(Utilities.DontAllowDigit);
-
+            this.txt_lastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_lastName_KeyPress);
             // 
             // lbl_petName
             // 
@@ -223,33 +234,32 @@ namespace Sayen.UserControls
             // txt_petName
             // 
             this.txt_petName.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_petName.Location = new System.Drawing.Point(80, 54);
+            this.txt_petName.Location = new System.Drawing.Point(78, 54);
             this.txt_petName.Name = "txt_petName";
             this.txt_petName.Size = new System.Drawing.Size(188, 20);
             this.txt_petName.TabIndex = 2;
-            this.txt_petName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(Utilities.DontAllowDigit);
-
+            this.txt_petName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_petName_KeyPress);
             // 
             // panel2
             // 
             this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panel2.Controls.Add(this.rdl_gendel_f);
+            this.panel2.Controls.Add(this.rdl_gender_f);
             this.panel2.Controls.Add(this.rdl_gender_m);
-            this.panel2.Location = new System.Drawing.Point(80, 81);
+            this.panel2.Location = new System.Drawing.Point(78, 81);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(188, 30);
             this.panel2.TabIndex = 3;
             // 
-            // rdl_gendel_f
+            // rdl_gender_f
             // 
-            this.rdl_gendel_f.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.rdl_gendel_f.AutoSize = true;
-            this.rdl_gendel_f.Location = new System.Drawing.Point(115, 6);
-            this.rdl_gendel_f.Name = "rdl_gendel_f";
-            this.rdl_gendel_f.Size = new System.Drawing.Size(59, 17);
-            this.rdl_gendel_f.TabIndex = 1;
-            this.rdl_gendel_f.Text = "Female";
-            this.rdl_gendel_f.UseVisualStyleBackColor = true;
+            this.rdl_gender_f.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.rdl_gender_f.AutoSize = true;
+            this.rdl_gender_f.Location = new System.Drawing.Point(115, 6);
+            this.rdl_gender_f.Name = "rdl_gender_f";
+            this.rdl_gender_f.Size = new System.Drawing.Size(59, 17);
+            this.rdl_gender_f.TabIndex = 1;
+            this.rdl_gender_f.Text = "Female";
+            this.rdl_gender_f.UseVisualStyleBackColor = true;
             // 
             // rdl_gender_m
             // 
@@ -278,7 +288,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_pinCode.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_pinCode.AutoSize = true;
-            this.lbl_pinCode.Location = new System.Drawing.Point(3, 217);
+            this.lbl_pinCode.Location = new System.Drawing.Point(3, 250);
             this.lbl_pinCode.Name = "lbl_pinCode";
             this.lbl_pinCode.Size = new System.Drawing.Size(50, 13);
             this.lbl_pinCode.TabIndex = 10;
@@ -288,7 +298,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_homePhone.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_homePhone.AutoSize = true;
-            this.lbl_homePhone.Location = new System.Drawing.Point(3, 245);
+            this.lbl_homePhone.Location = new System.Drawing.Point(3, 278);
             this.lbl_homePhone.Name = "lbl_homePhone";
             this.lbl_homePhone.Size = new System.Drawing.Size(69, 13);
             this.lbl_homePhone.TabIndex = 11;
@@ -298,7 +308,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_mobileNo.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_mobileNo.AutoSize = true;
-            this.lbl_mobileNo.Location = new System.Drawing.Point(3, 275);
+            this.lbl_mobileNo.Location = new System.Drawing.Point(3, 306);
             this.lbl_mobileNo.Name = "lbl_mobileNo";
             this.lbl_mobileNo.Size = new System.Drawing.Size(38, 13);
             this.lbl_mobileNo.TabIndex = 12;
@@ -308,7 +318,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_address.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_address.AutoSize = true;
-            this.lbl_address.Location = new System.Drawing.Point(3, 181);
+            this.lbl_address.Location = new System.Drawing.Point(3, 215);
             this.lbl_address.Name = "lbl_address";
             this.lbl_address.Size = new System.Drawing.Size(45, 13);
             this.lbl_address.TabIndex = 13;
@@ -318,7 +328,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_empType.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_empType.AutoSize = true;
-            this.lbl_empType.Location = new System.Drawing.Point(3, 120);
+            this.lbl_empType.Location = new System.Drawing.Point(3, 146);
             this.lbl_empType.Name = "lbl_empType";
             this.lbl_empType.Size = new System.Drawing.Size(31, 13);
             this.lbl_empType.TabIndex = 14;
@@ -328,50 +338,47 @@ namespace Sayen.UserControls
             // 
             this.ddl_empType.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ddl_empType.FormattingEnabled = true;
-            this.ddl_empType.Location = new System.Drawing.Point(81, 117);
+            this.ddl_empType.Location = new System.Drawing.Point(79, 143);
             this.ddl_empType.Name = "ddl_empType";
             this.ddl_empType.Size = new System.Drawing.Size(185, 21);
-            this.ddl_empType.TabIndex = 4;
+            this.ddl_empType.TabIndex = 5;
             this.ddl_empType.SelectedIndexChanged += new System.EventHandler(this.ddl_empType_SelectedIndexChanged);
             // 
             // txt_address
             // 
             this.txt_address.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_address.Location = new System.Drawing.Point(80, 169);
+            this.txt_address.Location = new System.Drawing.Point(78, 202);
             this.txt_address.Multiline = true;
             this.txt_address.Name = "txt_address";
             this.txt_address.Size = new System.Drawing.Size(188, 38);
-            this.txt_address.TabIndex = 6;
+            this.txt_address.TabIndex = 7;
             // 
             // txt_pinCode
             // 
             this.txt_pinCode.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_pinCode.Location = new System.Drawing.Point(80, 213);
+            this.txt_pinCode.Location = new System.Drawing.Point(78, 247);
             this.txt_pinCode.Name = "txt_pinCode";
             this.txt_pinCode.Size = new System.Drawing.Size(188, 20);
-            this.txt_pinCode.TabIndex = 7;
-            this.txt_pinCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(Utilities.DontAllowAlphabet);
-
+            this.txt_pinCode.TabIndex = 8;
+            this.txt_pinCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_pinCode_KeyPress);
             // 
             // txt_homePhone
             // 
             this.txt_homePhone.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_homePhone.Location = new System.Drawing.Point(80, 241);
+            this.txt_homePhone.Location = new System.Drawing.Point(78, 275);
             this.txt_homePhone.Name = "txt_homePhone";
             this.txt_homePhone.Size = new System.Drawing.Size(188, 20);
-            this.txt_homePhone.TabIndex = 8;
-            this.txt_homePhone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(Utilities.DontAllowAlphabet);
-
+            this.txt_homePhone.TabIndex = 9;
+            this.txt_homePhone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_homePhone_KeyPress);
             // 
             // txt_mobileNo
             // 
             this.txt_mobileNo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_mobileNo.Location = new System.Drawing.Point(80, 271);
+            this.txt_mobileNo.Location = new System.Drawing.Point(78, 303);
             this.txt_mobileNo.Name = "txt_mobileNo";
             this.txt_mobileNo.Size = new System.Drawing.Size(188, 20);
-            this.txt_mobileNo.TabIndex = 9;
-            this.txt_mobileNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(Utilities.DontAllowAlphabet);
-
+            this.txt_mobileNo.TabIndex = 10;
+            this.txt_mobileNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_mobileNo_KeyPress);
             // 
             // lbl_attributes
             // 
@@ -387,7 +394,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_otherDetails.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_otherDetails.AutoSize = true;
-            this.lbl_otherDetails.Location = new System.Drawing.Point(3, 162);
+            this.lbl_otherDetails.Location = new System.Drawing.Point(3, 161);
             this.lbl_otherDetails.Name = "lbl_otherDetails";
             this.lbl_otherDetails.Size = new System.Drawing.Size(68, 13);
             this.lbl_otherDetails.TabIndex = 24;
@@ -428,8 +435,7 @@ namespace Sayen.UserControls
             this.txt_aadhaar.Name = "txt_aadhaar";
             this.txt_aadhaar.Size = new System.Drawing.Size(200, 20);
             this.txt_aadhaar.TabIndex = 0;
-            this.txt_aadhaar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(Utilities.DontAllowAlphabet);
-
+            this.txt_aadhaar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_aadhaar_KeyPress);
             // 
             // txt_addressProof
             // 
@@ -437,7 +443,8 @@ namespace Sayen.UserControls
             this.txt_addressProof.Location = new System.Drawing.Point(90, 33);
             this.txt_addressProof.Name = "txt_addressProof";
             this.txt_addressProof.Size = new System.Drawing.Size(200, 20);
-            this.txt_addressProof.TabIndex = 2;
+            this.txt_addressProof.TabIndex = 1;
+            this.txt_addressProof.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_addressProof_KeyPress);
             // 
             // lbl_filename_uid
             // 
@@ -449,6 +456,7 @@ namespace Sayen.UserControls
             this.lbl_filename_uid.Size = new System.Drawing.Size(61, 13);
             this.lbl_filename_uid.TabIndex = 38;
             this.lbl_filename_uid.Text = "<file name>";
+            this.lbl_filename_uid.Visible = false;
             // 
             // lbl_upload_uid
             // 
@@ -475,14 +483,18 @@ namespace Sayen.UserControls
             // btn_submit
             // 
             this.btn_submit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_submit.BackColor = System.Drawing.Color.SteelBlue;
+            this.btn_submit.FlatAppearance.BorderColor = System.Drawing.Color.Navy;
+            this.btn_submit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
+            this.btn_submit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btn_submit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_submit.Location = new System.Drawing.Point(122, 4);
+            this.btn_submit.Location = new System.Drawing.Point(257, 17);
             this.btn_submit.Name = "btn_submit";
             this.btn_submit.Size = new System.Drawing.Size(75, 23);
             this.btn_submit.TabIndex = 1;
             this.btn_submit.Text = "Submit";
-            this.btn_submit.UseVisualStyleBackColor = true;
-            this.btn_submit.Click += new System.EventHandler(this.button1_Click);
+            this.btn_submit.UseVisualStyleBackColor = false;
+            this.btn_submit.Click += new System.EventHandler(this.btn_submit_Click);
             // 
             // chk_prefill
             // 
@@ -493,6 +505,7 @@ namespace Sayen.UserControls
             this.chk_prefill.Name = "chk_prefill";
             this.chk_prefill.Size = new System.Drawing.Size(51, 17);
             this.chk_prefill.TabIndex = 42;
+            this.chk_prefill.TabStop = false;
             this.chk_prefill.Text = "Prefill";
             this.chk_prefill.UseVisualStyleBackColor = false;
             this.chk_prefill.CheckedChanged += new System.EventHandler(this.chk_prefill_CheckedChanged);
@@ -501,7 +514,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_designation.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_designation.AutoSize = true;
-            this.lbl_designation.Location = new System.Drawing.Point(3, 146);
+            this.lbl_designation.Location = new System.Drawing.Point(3, 176);
             this.lbl_designation.Name = "lbl_designation";
             this.lbl_designation.Size = new System.Drawing.Size(63, 13);
             this.lbl_designation.TabIndex = 43;
@@ -512,10 +525,10 @@ namespace Sayen.UserControls
             this.ddl_designation.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ddl_designation.Enabled = false;
             this.ddl_designation.FormattingEnabled = true;
-            this.ddl_designation.Location = new System.Drawing.Point(81, 143);
+            this.ddl_designation.Location = new System.Drawing.Point(79, 172);
             this.ddl_designation.Name = "ddl_designation";
             this.ddl_designation.Size = new System.Drawing.Size(185, 21);
-            this.ddl_designation.TabIndex = 5;
+            this.ddl_designation.TabIndex = 6;
             // 
             // txt_otherDetails
             // 
@@ -525,8 +538,6 @@ namespace Sayen.UserControls
             this.txt_otherDetails.Name = "txt_otherDetails";
             this.txt_otherDetails.Size = new System.Drawing.Size(332, 54);
             this.txt_otherDetails.TabIndex = 3;
-            this.txt_otherDetails.KeyPress += new System.Windows.Forms.KeyPressEventHandler(Utilities.DontAllowCharacters);
-
             // 
             // panel1
             // 
@@ -537,176 +548,34 @@ namespace Sayen.UserControls
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.BackColor = System.Drawing.Color.AliceBlue;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.tableLayoutPanel7);
-            this.panel1.Controls.Add(this.tableLayoutPanel6);
-            this.panel1.Controls.Add(this.tableLayoutPanel5);
             this.panel1.Controls.Add(this.tableLayoutPanel4);
             this.panel1.Controls.Add(this.tableLayoutPanel3);
             this.panel1.Controls.Add(this.tableLayoutPanel2);
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(782, 556);
+            this.panel1.Size = new System.Drawing.Size(885, 1326);
             this.panel1.TabIndex = 0;
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel7.ColumnCount = 6;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.04698F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.95302F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 77F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 69F));
-            this.tableLayoutPanel7.Controls.Add(this.chk_dltype_lmv, 3, 0);
-            this.tableLayoutPanel7.Controls.Add(this.chk_dltype_htmv, 2, 0);
-            this.tableLayoutPanel7.Controls.Add(this.lbl_dlTypes, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.chk_dltype_hmv, 1, 0);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(343, 205);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(434, 26);
-            this.tableLayoutPanel7.TabIndex = 2;
-            // 
-            // chk_dltype_lmv
-            // 
-            this.chk_dltype_lmv.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.chk_dltype_lmv.AutoSize = true;
-            this.chk_dltype_lmv.Location = new System.Drawing.Point(219, 4);
-            this.chk_dltype_lmv.Name = "chk_dltype_lmv";
-            this.chk_dltype_lmv.Size = new System.Drawing.Size(48, 17);
-            this.chk_dltype_lmv.TabIndex = 2;
-            this.chk_dltype_lmv.Text = "LMV";
-            this.chk_dltype_lmv.UseVisualStyleBackColor = true;
-            // 
-            // chk_dltype_htmv
-            // 
-            this.chk_dltype_htmv.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.chk_dltype_htmv.AutoSize = true;
-            this.chk_dltype_htmv.Location = new System.Drawing.Point(154, 4);
-            this.chk_dltype_htmv.Name = "chk_dltype_htmv";
-            this.chk_dltype_htmv.Size = new System.Drawing.Size(57, 17);
-            this.chk_dltype_htmv.TabIndex = 1;
-            this.chk_dltype_htmv.Text = "HTMV";
-            this.chk_dltype_htmv.UseVisualStyleBackColor = true;
-            // 
-            // chk_dltype_hmv
-            // 
-            this.chk_dltype_hmv.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.chk_dltype_hmv.AutoSize = true;
-            this.chk_dltype_hmv.Location = new System.Drawing.Point(89, 4);
-            this.chk_dltype_hmv.Name = "chk_dltype_hmv";
-            this.chk_dltype_hmv.Size = new System.Drawing.Size(50, 17);
-            this.chk_dltype_hmv.TabIndex = 0;
-            this.chk_dltype_hmv.Text = "HMV";
-            this.chk_dltype_hmv.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel6.ColumnCount = 4;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 206F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 69F));
-            this.tableLayoutPanel6.Controls.Add(this.label11, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.txt_rto, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.label10, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.dtp_validity, 1, 1);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(343, 232);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(434, 58);
-            this.tableLayoutPanel6.TabIndex = 3;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(45, 36);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(40, 13);
-            this.label11.TabIndex = 28;
-            this.label11.Text = "Validity";
-            // 
-            // txt_rto
-            // 
-            this.txt_rto.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txt_rto.Location = new System.Drawing.Point(91, 3);
-            this.txt_rto.Name = "txt_rto";
-            this.txt_rto.Size = new System.Drawing.Size(200, 20);
-            this.txt_rto.TabIndex = 0;
-            this.txt_rto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(Utilities.DontAllowDigit);
-
-            // 
-            // label10
-            // 
-            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(55, 7);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(30, 13);
-            this.label10.TabIndex = 27;
-            this.label10.Text = "RTO";
-            // 
-            // dtp_validity
-            // 
-            this.dtp_validity.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.dtp_validity.CustomFormat = "dd-MM-yyyy";
-            this.dtp_validity.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtp_validity.Location = new System.Drawing.Point(91, 32);
-            this.dtp_validity.Name = "dtp_validity";
-            this.dtp_validity.Size = new System.Drawing.Size(200, 20);
-            this.dtp_validity.TabIndex = 1;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Controls.Add(this.btn_reset, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.btn_submit, 1, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(570, 515);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(200, 30);
-            this.tableLayoutPanel5.TabIndex = 5;
-            // 
-            // btn_reset
-            // 
-            this.btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_reset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_reset.Location = new System.Drawing.Point(22, 4);
-            this.btn_reset.Name = "btn_reset";
-            this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 0;
-            this.btn_reset.Text = "Reset";
-            this.btn_reset.UseVisualStyleBackColor = true;
-            this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnCount = 4;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 186F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 272F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.lbl_title, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.chk_prefill, 2, 1);
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(24, 3);
+            this.tableLayoutPanel4.Controls.Add(this.chk_prefill, 3, 1);
+            this.tableLayoutPanel4.Controls.Add(this.panel3, 2, 1);
+            this.tableLayoutPanel4.Controls.Add(this.lbl_title, 1, 1);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(51, -1);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.38889F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 73.61111F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(753, 72);
-            this.tableLayoutPanel4.TabIndex = 49;
+            this.tableLayoutPanel4.TabIndex = 1;
             // 
             // label1
             // 
@@ -717,6 +586,40 @@ namespace Sayen.UserControls
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 19);
             this.label1.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.rdl_bulkUpload);
+            this.panel3.Controls.Add(this.rdl_singleUpload);
+            this.panel3.Location = new System.Drawing.Point(480, 22);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(199, 47);
+            this.panel3.TabIndex = 43;
+            // 
+            // rdl_bulkUpload
+            // 
+            this.rdl_bulkUpload.AutoSize = true;
+            this.rdl_bulkUpload.Location = new System.Drawing.Point(109, 14);
+            this.rdl_bulkUpload.Name = "rdl_bulkUpload";
+            this.rdl_bulkUpload.Size = new System.Drawing.Size(83, 17);
+            this.rdl_bulkUpload.TabIndex = 1;
+            this.rdl_bulkUpload.Text = "Bulk Upload";
+            this.rdl_bulkUpload.UseVisualStyleBackColor = true;
+            this.rdl_bulkUpload.CheckedChanged += new System.EventHandler(this.rdl_bulkUpload_CheckedChanged);
+            // 
+            // rdl_singleUpload
+            // 
+            this.rdl_singleUpload.AutoSize = true;
+            this.rdl_singleUpload.Checked = true;
+            this.rdl_singleUpload.Enabled = false;
+            this.rdl_singleUpload.Location = new System.Drawing.Point(7, 14);
+            this.rdl_singleUpload.Name = "rdl_singleUpload";
+            this.rdl_singleUpload.Size = new System.Drawing.Size(83, 17);
+            this.rdl_singleUpload.TabIndex = 0;
+            this.rdl_singleUpload.TabStop = true;
+            this.rdl_singleUpload.Text = "Single Insert";
+            this.rdl_singleUpload.UseVisualStyleBackColor = true;
+            this.rdl_singleUpload.CheckedChanged += new System.EventHandler(this.rdl_singleUpload_CheckedChanged);
             // 
             // tableLayoutPanel3
             // 
@@ -732,16 +635,17 @@ namespace Sayen.UserControls
             this.tableLayoutPanel3.Controls.Add(this.lbl_hiring_manager, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.ddl_hiring_manager, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.txt_experience, 1, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(344, 294);
+            this.tableLayoutPanel3.Controls.Add(this.panel5, 1, 4);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(395, 294);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 4;
+            this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(434, 204);
-            this.tableLayoutPanel3.TabIndex = 4;
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(434, 265);
+            this.tableLayoutPanel3.TabIndex = 2;
             // 
             // lbl_hiring_manager
             // 
@@ -763,6 +667,27 @@ namespace Sayen.UserControls
             this.ddl_hiring_manager.Size = new System.Drawing.Size(185, 21);
             this.ddl_hiring_manager.TabIndex = 0;
             // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.btn_submit);
+            this.panel5.Controls.Add(this.btn_reset);
+            this.panel5.Location = new System.Drawing.Point(89, 206);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(342, 56);
+            this.panel5.TabIndex = 4;
+            // 
+            // btn_reset
+            // 
+            this.btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_reset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_reset.Location = new System.Drawing.Point(171, 17);
+            this.btn_reset.Name = "btn_reset";
+            this.btn_reset.Size = new System.Drawing.Size(75, 23);
+            this.btn_reset.TabIndex = 0;
+            this.btn_reset.Text = "Reset";
+            this.btn_reset.UseVisualStyleBackColor = true;
+            this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -771,32 +696,70 @@ namespace Sayen.UserControls
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
+            this.tableLayoutPanel2.Controls.Add(this.dtp_validity, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.txt_rto, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.label11, 0, 7);
             this.tableLayoutPanel2.Controls.Add(this.lbl_photograph, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.lbl_aadhaar, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label10, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.lbl_dlTypes, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.txt_aadhaar, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.lbl_upload_uid, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_filename_dl, 3, 4);
             this.tableLayoutPanel2.Controls.Add(this.lbl_filename_uid, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.lbl_addressProof, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_upload_dl, 2, 4);
             this.tableLayoutPanel2.Controls.Add(this.txt_addressProof, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.lbl_upload_address, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.lbl_filename_address, 3, 1);
             this.tableLayoutPanel2.Controls.Add(this.lbl_drivingLicence, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_dlno, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.txt_dlno, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.label_upload_photo, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.lbl_filename_photo, 3, 2);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(343, 81);
+            this.tableLayoutPanel2.Controls.Add(this.lbl_dlno, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.txt_dlno, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.lbl_upload_dl, 2, 4);
+            this.tableLayoutPanel2.Controls.Add(this.lbl_filename_dl, 3, 4);
+            this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 5);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(394, 81);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowCount = 8;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(434, 124);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(434, 207);
             this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // dtp_validity
+            // 
+            this.dtp_validity.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.dtp_validity.CustomFormat = "dd-MM-yyyy";
+            this.dtp_validity.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtp_validity.Location = new System.Drawing.Point(90, 180);
+            this.dtp_validity.Name = "dtp_validity";
+            this.dtp_validity.Size = new System.Drawing.Size(200, 20);
+            this.dtp_validity.TabIndex = 5;
+            // 
+            // txt_rto
+            // 
+            this.txt_rto.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txt_rto.Location = new System.Drawing.Point(90, 151);
+            this.txt_rto.Name = "txt_rto";
+            this.txt_rto.Size = new System.Drawing.Size(200, 20);
+            this.txt_rto.TabIndex = 4;
+            this.txt_rto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_rto_KeyPress);
+            // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(44, 184);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(40, 13);
+            this.label11.TabIndex = 28;
+            this.label11.Text = "Validity";
             // 
             // lbl_photograph
             // 
@@ -818,6 +781,16 @@ namespace Sayen.UserControls
             this.lbl_aadhaar.TabIndex = 20;
             this.lbl_aadhaar.Text = "Aadhaar No";
             // 
+            // label10
+            // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(54, 154);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(30, 13);
+            this.label10.TabIndex = 27;
+            this.label10.Text = "RTO";
+            // 
             // lbl_addressProof
             // 
             this.lbl_addressProof.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -837,16 +810,6 @@ namespace Sayen.UserControls
             this.lbl_drivingLicence.Size = new System.Drawing.Size(81, 13);
             this.lbl_drivingLicence.TabIndex = 21;
             this.lbl_drivingLicence.Text = "Driving Licence";
-            // 
-            // lbl_dlno
-            // 
-            this.lbl_dlno.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lbl_dlno.AutoSize = true;
-            this.lbl_dlno.Location = new System.Drawing.Point(56, 102);
-            this.lbl_dlno.Name = "lbl_dlno";
-            this.lbl_dlno.Size = new System.Drawing.Size(28, 13);
-            this.lbl_dlno.TabIndex = 30;
-            this.lbl_dlno.Text = "DL#";
             // 
             // label_upload_photo
             // 
@@ -869,48 +832,166 @@ namespace Sayen.UserControls
             this.lbl_filename_photo.Size = new System.Drawing.Size(61, 13);
             this.lbl_filename_photo.TabIndex = 51;
             this.lbl_filename_photo.Text = "<file name>";
+            this.lbl_filename_photo.Visible = false;
+            // 
+            // lbl_dlno
+            // 
+            this.lbl_dlno.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lbl_dlno.AutoSize = true;
+            this.lbl_dlno.Location = new System.Drawing.Point(56, 100);
+            this.lbl_dlno.Name = "lbl_dlno";
+            this.lbl_dlno.Size = new System.Drawing.Size(28, 13);
+            this.lbl_dlno.TabIndex = 30;
+            this.lbl_dlno.Text = "DL#";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.chk_dltype_lmv);
+            this.panel4.Controls.Add(this.chk_dltype_hmv);
+            this.panel4.Controls.Add(this.chk_dltype_htmv);
+            this.panel4.Location = new System.Drawing.Point(90, 123);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(200, 22);
+            this.panel4.TabIndex = 3;
+            // 
+            // chk_dltype_lmv
+            // 
+            this.chk_dltype_lmv.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chk_dltype_lmv.AutoSize = true;
+            this.chk_dltype_lmv.Location = new System.Drawing.Point(148, 4);
+            this.chk_dltype_lmv.Name = "chk_dltype_lmv";
+            this.chk_dltype_lmv.Size = new System.Drawing.Size(48, 17);
+            this.chk_dltype_lmv.TabIndex = 2;
+            this.chk_dltype_lmv.Text = "LMV";
+            this.chk_dltype_lmv.UseVisualStyleBackColor = true;
+            // 
+            // chk_dltype_hmv
+            // 
+            this.chk_dltype_hmv.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chk_dltype_hmv.AutoSize = true;
+            this.chk_dltype_hmv.Location = new System.Drawing.Point(3, 4);
+            this.chk_dltype_hmv.Name = "chk_dltype_hmv";
+            this.chk_dltype_hmv.Size = new System.Drawing.Size(50, 17);
+            this.chk_dltype_hmv.TabIndex = 0;
+            this.chk_dltype_hmv.Text = "HMV";
+            this.chk_dltype_hmv.UseVisualStyleBackColor = true;
+            // 
+            // chk_dltype_htmv
+            // 
+            this.chk_dltype_htmv.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chk_dltype_htmv.AutoSize = true;
+            this.chk_dltype_htmv.Location = new System.Drawing.Point(69, 4);
+            this.chk_dltype_htmv.Name = "chk_dltype_htmv";
+            this.chk_dltype_htmv.Size = new System.Drawing.Size(57, 17);
+            this.chk_dltype_htmv.TabIndex = 1;
+            this.chk_dltype_htmv.Text = "HTMV";
+            this.chk_dltype_htmv.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
+            this.tableLayoutPanel1.Controls.Add(this.dtp_dob, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.txt_firstName, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbl_firstName, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txt_lastName, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.lbl_lastName, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.ddl_designation, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.ddl_designation, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.txt_petName, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.lbl_petName, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_empType, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_empType, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.lbl_gender, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_designation, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.ddl_empType, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_address, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.txt_address, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.txt_pinCode, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.txt_homePhone, 1, 8);
-            this.tableLayoutPanel1.Controls.Add(this.txt_mobileNo, 1, 9);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_pinCode, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_homePhone, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_mobileNo, 0, 9);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(24, 81);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_designation, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.ddl_empType, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_address, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.txt_address, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.txt_pinCode, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.txt_homePhone, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_pinCode, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_homePhone, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_dob, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.txt_age, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_mobileNo, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.txt_mobileNo, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_education, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.txt_education, 1, 11);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(17, 81);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowCount = 14;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(273, 297);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(371, 416);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // dtp_dob
+            // 
+            this.dtp_dob.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.dtp_dob.CustomFormat = "dd-MM-yyyy";
+            this.dtp_dob.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtp_dob.Location = new System.Drawing.Point(78, 117);
+            this.dtp_dob.Name = "dtp_dob";
+            this.dtp_dob.Size = new System.Drawing.Size(188, 20);
+            this.dtp_dob.TabIndex = 4;
+            this.dtp_dob.ValueChanged += new System.EventHandler(this.dtp_dob_ValueChanged);
+            // 
+            // lbl_dob
+            // 
+            this.lbl_dob.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbl_dob.AutoSize = true;
+            this.lbl_dob.Location = new System.Drawing.Point(3, 120);
+            this.lbl_dob.Name = "lbl_dob";
+            this.lbl_dob.Size = new System.Drawing.Size(66, 13);
+            this.lbl_dob.TabIndex = 44;
+            this.lbl_dob.Text = "Date of Birth";
+            // 
+            // txt_age
+            // 
+            this.txt_age.Enabled = false;
+            this.txt_age.Location = new System.Drawing.Point(272, 117);
+            this.txt_age.Name = "txt_age";
+            this.txt_age.Size = new System.Drawing.Size(21, 20);
+            this.txt_age.TabIndex = 54;
+            this.txt_age.TabStop = false;
+            this.txt_age.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lbl_education
+            // 
+            this.lbl_education.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbl_education.AutoSize = true;
+            this.lbl_education.Location = new System.Drawing.Point(3, 332);
+            this.lbl_education.Name = "lbl_education";
+            this.lbl_education.Size = new System.Drawing.Size(55, 13);
+            this.lbl_education.TabIndex = 55;
+            this.lbl_education.Text = "Education";
+            // 
+            // txt_education
+            // 
+            this.txt_education.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txt_education.Location = new System.Drawing.Point(78, 329);
+            this.txt_education.Multiline = true;
+            this.txt_education.Name = "txt_education";
+            this.txt_education.Size = new System.Drawing.Size(188, 20);
+            this.txt_education.TabIndex = 56;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // uc_AddEmpl
             // 
@@ -922,23 +1003,24 @@ namespace Sayen.UserControls
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.panel1);
             this.Name = "uc_AddEmpl";
-            this.Size = new System.Drawing.Size(854, 769);
+            this.Size = new System.Drawing.Size(898, 1134);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.panel5.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -956,7 +1038,7 @@ namespace Sayen.UserControls
         private System.Windows.Forms.Label lbl_petName;
         private System.Windows.Forms.TextBox txt_petName;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.RadioButton rdl_gendel_f;
+        private System.Windows.Forms.RadioButton rdl_gender_f;
         private System.Windows.Forms.RadioButton rdl_gender_m;
         private System.Windows.Forms.Label lbl_gender;
         private System.Windows.Forms.Label lbl_pinCode;
@@ -991,17 +1073,14 @@ namespace Sayen.UserControls
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button btn_reset;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel label_upload_photo;
         private System.Windows.Forms.Label lbl_filename_photo;
         private System.Windows.Forms.Label lbl_hiring_manager;
         private System.Windows.Forms.ComboBox ddl_hiring_manager;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.CheckBox chk_dltype_lmv;
         private System.Windows.Forms.CheckBox chk_dltype_htmv;
         private System.Windows.Forms.CheckBox chk_dltype_hmv;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txt_rto;
         private System.Windows.Forms.Label label10;
@@ -1011,5 +1090,16 @@ namespace Sayen.UserControls
         private System.Windows.Forms.Label lbl_addressProof;
         private System.Windows.Forms.Label lbl_drivingLicence;
         private System.Windows.Forms.Label lbl_dlno;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RadioButton rdl_bulkUpload;
+        private System.Windows.Forms.RadioButton rdl_singleUpload;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.DateTimePicker dtp_dob;
+        private System.Windows.Forms.Label lbl_dob;
+        private System.Windows.Forms.TextBox txt_age;
+        private System.Windows.Forms.Label lbl_education;
+        private System.Windows.Forms.TextBox txt_education;
     }
 }

@@ -83,6 +83,18 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserControls\uc_BulkUpload.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_BulkUpload.Designer.cs">
+      <DependentUpon>uc_BulkUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\uc_BulkUpload_z.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_BulkUpload_z.Designer.cs">
+      <DependentUpon>uc_BulkUpload_z.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\uc_welcome.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -127,6 +139,12 @@
     <Compile Include="UserControls\uc_search.Designer.cs">
       <DependentUpon>uc_search.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\uc_BulkUpload.resx">
+      <DependentUpon>uc_BulkUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\uc_BulkUpload_z.resx">
+      <DependentUpon>uc_BulkUpload_z.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\uc_welcome.resx">
       <DependentUpon>uc_welcome.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,7 +176,9 @@
     <EmbeddedResource Include="UserControls\uc_search.resx">
       <DependentUpon>uc_search.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
