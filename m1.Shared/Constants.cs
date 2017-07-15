@@ -36,6 +36,9 @@ namespace m1.Shared
             { "Guest", "role_guest" }
         };
 
+        public enum e_AppUserRoles { Guest=0,Admin=1, AppDeveloper=2,AppTester=3,BranchManager=4,BranchClerk=5};
+        
+
         public static Dictionary<string, string> d_HomePageTabs = new Dictionary<string, string>()
         {
             { "Welcome", "tabPage_welcome" },
@@ -54,6 +57,9 @@ namespace m1.Shared
             { "Office Staff", "emptype_officestaff_5533" }
          
         };
+
+        public enum e_EmployeeType { Driver, Conductor, OfficeStaff,Board }
+        
 
         public const string TabPageWelcome= "tabPage_welcome";
         public const string TabPageNotifications = "tabPage_notifications";
@@ -75,6 +81,13 @@ namespace m1.Shared
             { "blkup_Employee", "blkupload_employee_5541" }
 
         };
+        /// <summary>
+        /// This enum have codes which signifies initial of primary keys of varius database table
+        /// a0-Escalated Employee, e11- employee office staff, e12- employee driverConductor, e13- employee others
+        /// v15 - vehicles Private, v16-vehicles Buses, v17 - vehicles others
+        /// p-20 - permits, i30-insurance,r40
+        /// </summary>
+        public enum e_PrimaryKeySeries { a00, e11, e12,e13,v15, v16, v17, p20,i30,r40 };
 
         public enum e_BulkUploadType { NONE,EMPLOYEE, VEHICLE, PERMIT, INSURANCE, ROUTE };
         public enum e_DrivingLicence { HMV, HLTV, LMV };
@@ -131,6 +144,9 @@ namespace m1.Shared
 
         public const string NoLogsMsg = "No Logs to Show";
         public const string ShowLogTitle = "App Logs";
+
+        public const string InsertEmpFailure = "Some Error While Inserting Employee Details";
+        public const string InsertEmpSuccess = "{0} details added Successfully";
     }
     #endregion UserMessages
 

@@ -18,6 +18,7 @@ namespace m1.DAC
     public class m1BaseDac //:BaseDac
     {
         private string _sqlLog = String.Empty;
+        int _ret = 0;
 
         protected string RetrieveSqlQuery(string key)
         {
@@ -27,6 +28,23 @@ namespace m1.DAC
         protected string GetConnectionString(string key)
         {
             return ConfigSettings.GetConnectionString(key);
+        }
+
+        protected void SetExceptionLog(Exception Ex)
+        {
+            _sqlLog = "\r\n" + Ex.Message + Ex.InnerException + "\r\n" + Ex.StackTrace; 
+            //#futureCode write logs to file/db.
+        }
+
+        protected void SetSQLExceptionLog(SqlException Ex)
+        {
+            _sqlLog = "\r\n" + Ex.Message + Ex.InnerException + "\r\n" + Ex.StackTrace;
+            //#futurecode
+        }
+
+        protected void WriteLog(string log)
+        {
+            //#futurecode
         }
 
         protected bool TestDatabaseConnection()
@@ -51,7 +69,7 @@ namespace m1.DAC
             }
             catch (Exception Ex)
             {
-                _sqlLog = "\r\n" + Ex.InnerException + "\r\n" + Ex.StackTrace;
+                this.SetExceptionLog(Ex);
                 return false;
             }
             finally
@@ -86,7 +104,7 @@ namespace m1.DAC
             }
             catch (Exception Ex)
             {
-                _sqlLog = "\r\n" + Ex.InnerException + "\r\n" + Ex.StackTrace;
+                this.SetExceptionLog(Ex);
                 return ds;
             }
             finally
@@ -95,16 +113,25 @@ namespace m1.DAC
             }    
         }
 
-        protected DataTable ExecuteDataAdapter(string SQLselect,List<SqlParameter> sp = null)
+        protected DataTable ExecuteDataAdapter(string sqlQuery,List<SqlParameter> sp = null)
         {
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
+
+            //Setting _queryLog as actual query got executed including parameters value
+            string _queryLog = sqlQuery;
+            foreach (SqlParameter p in sp)
+            {
+                _queryLog = _queryLog.Replace(p.ParameterName.ToString(), p.Value.ToString());
+                //Add _querylog to logs/db       #futureCode
+            }
+
             try
             {
                 string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
                 using (SqlConnection myConnection = new SqlConnection(conStrng))
                 {
-                    SqlCommand oCmd = new SqlCommand(SQLselect, myConnection);
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
                     oCmd.CommandType = CommandType.Text;
 
                     if (sp != null)
@@ -121,7 +148,7 @@ namespace m1.DAC
             }
             catch (Exception Ex)
             {
-                _sqlLog = "\r\n" + Ex.InnerException + "\r\n" + Ex.StackTrace;
+                this.SetExceptionLog(Ex);                
                 return dt;
             }
             finally
@@ -131,15 +158,25 @@ namespace m1.DAC
 
         }
 
-        public int bExecuteNonQuery(string SQLselect, List<SqlParameter> sp)
-        {
-            int _ret;
+        public int bExecuteNonQuery(string sqlQuery, List<SqlParameter> sp)
+        {            
+            _ret = 0;
+            _sqlLog = string.Empty;
+
+            //Setting _queryLog as actual query got executed including parameters value
+            string _queryLog = sqlQuery;
+            foreach (SqlParameter p in sp)
+            {
+                _queryLog = _queryLog.Replace(p.ParameterName.ToString(), p.Value.ToString());
+                //Add _query:log to logs       #futureCode
+            }
+
             try
             {
                 string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
                 using (SqlConnection myConnection = new SqlConnection(conStrng))
                 {
-                    SqlCommand oCmd = new SqlCommand(SQLselect, myConnection);
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
                     oCmd.CommandType = CommandType.Text;
 
                     if (sp != null)
@@ -155,13 +192,42 @@ namespace m1.DAC
             }
             catch (Exception Ex)
             {
-                _sqlLog = "\r\n" + Ex.InnerException + "\r\n" + Ex.StackTrace;
-                return 1;
+                this.SetExceptionLog(Ex);
+                return 0;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;               
+            }
+        }
+
+        public int bExecuteNonQuery(string sqlQuery)
+        {
+            _ret = 0;
+            _sqlLog = string.Empty;
+
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
+                    oCmd.CommandType = CommandType.Text;                    
+
+                    myConnection.Open();
+
+                    _ret = oCmd.ExecuteNonQuery();
+                }
+                return _ret;
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);
+                return 0;
             }
             finally
             {
                 AppGlobal.sqlErrorLog = _sqlLog;
-               
             }
         }
 

@@ -39,7 +39,7 @@ namespace m1.BC
 
         public void bcInsertEmpDetails(EmployeeEntity emp)
         {
-            _genDAC.dacInsertEmpDetails(emp);
+            GenDAC.dacInsertEmpDetails(emp);
         }
     }
 }

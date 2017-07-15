@@ -12,6 +12,9 @@ using static m1.Shared.AppCommon;
 using Sahaj.UserControls;
 using m1.BPC;
 using m1.Shared.Entities;
+using System.Reflection;
+using System.Globalization;
+using System.Threading;
 
 namespace Sayen.UserControls
 {
@@ -22,7 +25,7 @@ namespace Sayen.UserControls
         frm_Home _objfrmHome;
         bool _isPostback = false;
         AppConstants.e_frmOperationType _operationType;
-        EmployeeEntity emp = new EmployeeEntity();
+        EmployeeEntity emp = new EmployeeEntity();        
 
         private genBPC _genBPC;
 
@@ -32,6 +35,7 @@ namespace Sayen.UserControls
             set { _genBPC = new genBPC(); }
 
         }
+
 
         private GenEntity _gEntity;
 
@@ -54,6 +58,8 @@ namespace Sayen.UserControls
             LoadAddEmp();
             _objfrmHome = objFrmHome;
             _operationType = optyp;
+            this._genBPC = null;
+            if (_genBPC == null) { _genBPC = new genBPC(); }
         }
 
         #region Controls
@@ -110,6 +116,22 @@ namespace Sayen.UserControls
         {
             int _age = Utilities.GetAge(DateTime.Now.AddDays(30), dtp_dob.Value);
             txt_age.Text = _age.ToString();
+        }
+
+        private void lbl_title_Click(object sender, EventArgs e)
+        {
+            if (AppGlobal.g_GEntity.UserEntity.Role_id.Equals(((int)AppConstants.e_AppUserRoles.Admin).ToString())
+                || AppGlobal.g_GEntity.UserEntity.Role_id.Equals(((int)AppConstants.e_AppUserRoles.AppDeveloper).ToString()))
+            //| AppConstants.e_AppUserRoles.AppDeveloper ))
+            {
+                chk_escalatedEmp.Visible = true;
+            }
+        }
+
+        private void chk_escalatedEmp_CheckedChanged(object sender, EventArgs e)
+        {
+            Thread.Sleep(1000);
+            chk_escalatedEmp.Visible = false;
         }
 
         #region KeyPress
@@ -173,6 +195,7 @@ namespace Sayen.UserControls
             else { chk_prefill.Visible = false; }
 
             
+            
             ddl_empType.DataSource = new BindingSource(AppConstants.d_EmployeeType, null);
             ddl_empType.ValueMember = "Value";
             ddl_empType.DisplayMember = "Key";
@@ -198,7 +221,7 @@ namespace Sayen.UserControls
             rdl_gender_m.Checked = true;
             dtp_dob.Text = "01/01/1983";
             ddl_empType.Text = "Driver";
-            txt_address.Text = "1234 Mohala 1 Nagrota Bagwan HP";
+            txt_address.Text = "1234 mohala 1 nagrota Bagwan hP";
             txt_pinCode.Text = "176047";
             txt_homePhone.Text = "01892252000";
             txt_mobileNo.Text = "9418012345";
@@ -239,34 +262,79 @@ namespace Sayen.UserControls
         }
 
 
-        private void SetEmployeeCollections(EmployeeEntity emp)
+        private void SetEmployeeCollection(EmployeeEntity emp)
         {
-            
-            emp.Firstname = txt_firstName.Text;
-            emp.Lastname = txt_lastName.Text;
-            emp.Petname = txt_petName.Text;
-            emp.Dob = dtp_dob.Text;
-            emp.Gender = rdl_gender_m.Checked ? AppConstants.e_Gender.M.ToString(): AppConstants.e_Gender.F.ToString();
-            emp.Emptype = ddl_empType.Text;
-            emp.Designation = ddl_designation.Text;
-            emp.Empaddress = txt_address.Text;
-            emp.Pincode = txt_pinCode.Text;
-            emp.Homephone = txt_homePhone.Text;
-            emp.Mobile = txt_mobileNo.Text;
-            emp.Education = txt_education.Text;
-            emp.Aadhaarno = txt_aadhaar.Text;
-            emp.Addressproof = txt_addressProof.Text;
-            emp.Dl_no = txt_dlno.Text;
-            emp.Dl_htmv = chk_dltype_htmv.Checked ? AppKeys.Yes : AppKeys.No;
-            emp.Dl_hmv = chk_dltype_hmv.Checked ? AppKeys.Yes : AppKeys.No;
-            emp.Dl_lmv = chk_dltype_lmv.Checked ? AppKeys.Yes : AppKeys.No;
-            emp.Dl_rto = txt_rto.Text;
-            emp.Hiring_manager_id = ddl_hiring_manager.Text;
-            emp.Experience = txt_experience.Text;
-            emp.Attributes = txt_attributes.Text;
-            emp.Otherdetails = txt_otherDetails.Text;
+            emp.Firstname = txt_firstName.Text == String.Empty ? String.Empty : txt_firstName.Text;
+            emp.Lastname = txt_lastName.Text == String.Empty ? String.Empty : txt_lastName.Text;
+            emp.Petname = txt_petName.Text == String.Empty ? String.Empty : txt_petName.Text;
+            emp.Dob = dtp_dob.Text == String.Empty ? String.Empty : dtp_dob.Text;
+            emp.Gender = rdl_gender_f.Checked ? AppConstants.e_Gender.F.ToString(): AppConstants.e_Gender.M.ToString();
+            emp.Emptype = ddl_empType.Text == String.Empty ? String.Empty : ddl_empType.Text;
+            emp.Designation = ddl_designation.Text == String.Empty ? String.Empty : ddl_designation.Text;
+            emp.Empaddress = txt_address.Text == String.Empty ? String.Empty : txt_address.Text;
+            emp.Pincode = txt_pinCode.Text == String.Empty ? String.Empty : txt_pinCode.Text;
+            emp.Homephone = txt_homePhone.Text == String.Empty ? String.Empty : txt_homePhone.Text;
+            emp.Mobile = txt_mobileNo.Text == String.Empty ? String.Empty : txt_mobileNo.Text;
+            emp.Education = txt_education.Text == String.Empty ? String.Empty : txt_education.Text;
+            emp.Aadhaarno = txt_aadhaar.Text == String.Empty ? String.Empty : txt_aadhaar.Text;
+            emp.Addressproof = txt_addressProof.Text == String.Empty ? String.Empty : txt_addressProof.Text;
+            emp.Dl_no = txt_dlno.Text == String.Empty ? String.Empty : txt_dlno.Text;
+            emp.Dl_htmv = chk_dltype_htmv.Checked ? AppKeys.Yes.ToString(): String.Empty;
+            emp.Dl_hmv = chk_dltype_hmv.Checked ? AppKeys.Yes.ToString() : String.Empty;
+            emp.Dl_lmv = chk_dltype_lmv.Checked ? AppKeys.Yes.ToString() : String.Empty;
+            emp.Dl_rto = txt_rto.Text == String.Empty ? String.Empty : txt_rto.Text;
+            emp.Hiring_manager_id = ddl_hiring_manager.Text == String.Empty ? String.Empty : ddl_hiring_manager.Text;
+            emp.Experience = txt_experience.Text == String.Empty ? String.Empty : txt_experience.Text;
+            emp.Attributes = txt_attributes.Text == String.Empty ? String.Empty : txt_attributes.Text;
+            emp.Otherdetails = txt_otherDetails.Text == String.Empty ? String.Empty : txt_otherDetails.Text;
             emp.Emp_status = AppKeys.Active;
 
+            //set empid series
+            if (chk_escalatedEmp.Checked|| ddl_empType.Text == AppConstants.e_EmployeeType.Board.ToString())
+            { emp.Emp_id = AppConstants.e_PrimaryKeySeries.a00.ToString(); }
+            else if (ddl_empType.Text == AppConstants.e_EmployeeType.OfficeStaff.ToString())
+            { emp.Emp_id = AppConstants.e_PrimaryKeySeries.e11.ToString(); }
+            else if(ddl_empType.Text == AppConstants.e_EmployeeType.Driver.ToString() || ddl_empType.Text == AppConstants.e_EmployeeType.Conductor.ToString())
+            { emp.Emp_id = AppConstants.e_PrimaryKeySeries.e12.ToString(); }
+            else { emp.Emp_id = AppConstants.e_PrimaryKeySeries.e13.ToString(); }
+
+
+            //format emp properties
+            this.formatEntity(emp);
+
+        }
+
+        private void formatEntity(object obj)
+        {
+            Type type = obj.GetType();
+            PropertyInfo[] properties = type.GetProperties();
+            string _s = string.Empty;
+           // string _s1;
+            //string _s2;
+
+            foreach (PropertyInfo propertyInfo in emp.GetType().GetProperties())
+            {
+                string propertyName = propertyInfo.Name;
+                _s = propertyInfo.GetValue(obj, null).ToString().Trim();
+
+                object[] attribute = propertyInfo.GetCustomAttributes(typeof(IsCamelCase), true);
+                // Just in case you have a property without this annotation
+                if (attribute.Length > 0 &&_s.Length>0)
+                {
+                    IsCamelCase myAttribute = (IsCamelCase)attribute[0];
+                    bool attributeValue = myAttribute.isCamelCase;
+                    
+                    if (attributeValue)
+                    {
+                        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                        propertyInfo.SetValue(obj, textInfo.ToTitleCase(_s), null);
+                    }
+                    else
+                    { //Not to format as CamelCase}
+                    }
+                }
+
+            }
         }
 
         private void ValidateAndSave_addEmpl()
@@ -274,38 +342,47 @@ namespace Sayen.UserControls
             //Include Validation
 
             bool _valStatus = this.Validate_AddEmpl();
+            //#futurecode
             //if (Utilities.UC_hasValidationErrors(this.Controls))
             //{ MessageBox.Show("FALSE"); }
             //else
             // if we get here the validation passed
             //this.close();
-            //{ MessageBox.Show("TRUE"); }
+            //{ MessageBox.Show("TRUE"); }           
 
-            //EmployeeCollection empCol = new EmployeeCollection();
-           
-            emp.Optype = AppConstants.e_frmOperationType.S;
-
-            //SetEmployeeCollections
-            this.SetEmployeeCollections(emp);
-
-            //GenEntity gEntity = new GenEntity();
-            //gEntity.empEntity = emp;
 
             //InsertEmpDetails
             if (_valStatus)
             {
-                if (emp == null)
-                    { }
-                else
-                _genBPC.bpcSingfleEmpInsert(emp);
+                EmployeeCollection empCol = new EmployeeCollection();
+                empCol.Optype = AppConstants.e_frmOperationType.S;
+
+                //SetEmployeeCollections
+                this.SetEmployeeCollection(emp);
+                empCol.Add(emp);
+
+                //call method chain to insert emp details
+                _genBPC.bpcInsertEmployeeDetails(empCol);
+
+
+                //Post Insertion Reset Controls
+                if (empCol.RetIndicator == AppKeys.Success) { Utilities.CallResetControl(this.panel1); }
+                                
+                if (empCol.Messages != string.Empty)
+                {
+                    //panel6_ucAlerts.Visible = true;
+                    //txt_ucAlerts.Text = empCol.Messages.Trim();
+                }
             }
             else
-            { //Shoe Error #futureCode
+            { 
+                //Show Error #futureCode
             }
         }
 
+
         #endregion UserMethods
 
-
+       
     }
 }

@@ -4,9 +4,8 @@ namespace m1.Shared.Entities
 {
     public class EmployeeCollection:BaseEntityCollection
     {
-
+       
         private AppConstants.e_frmOperationType optype;
-
         public AppConstants.e_frmOperationType Optype
         {
             get
@@ -19,7 +18,6 @@ namespace m1.Shared.Entities
                 optype = value;
             }
         }
-
         public AppConstants.e_BulkUploadType BlkUpdateType
         {
             get
@@ -30,6 +28,33 @@ namespace m1.Shared.Entities
             set
             {
                 blkUpdateType = value;
+            }
+        }
+        private string _messages = string.Empty;
+        private string _RetIndicator = string.Empty;
+        public string Messages
+        {
+            get
+            {
+                return _messages;
+            }
+
+            set
+            {
+                _messages = value;
+            }
+        }
+
+        public string RetIndicator
+        {
+            get
+            {
+                return _RetIndicator;
+            }
+
+            set
+            {
+                _RetIndicator = value;
             }
         }
 
@@ -54,11 +79,7 @@ namespace m1.Shared.Entities
         public EmployeeEntity this[int index]
         {
             get { return List[index] as EmployeeEntity; }
-            set {
-
-                if (List == null) { EmployeeCollection q = new EmployeeCollection(); q.Add(value); }
-                List[index] = value;
-            }
+            set { List[index] = value;}
         }
 
         #endregion Collection Methods

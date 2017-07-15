@@ -42,9 +42,6 @@ namespace m1.BPC
 
             #endregion
 
-
-
-
             public bool bpcValidateUserLogin(GenEntity GEntity)
             {
                 return GenBC.bcValidateUserLogin(GEntity);
@@ -65,13 +62,22 @@ namespace m1.BPC
                 return GenBC.bcTestDatabaseConnection(GEntity);
             }
 
-        public void bpcSingleEmpInsert(EmployeeEntity e)
+        public void bpcInsertEmployeeDetails(EmployeeCollection eCol)
         {
-            if (e.Optype == AppConstants.e_frmOperationType.S)
-            { 
+            StringBuilder _sb = new StringBuilder();
+            
+            eCol.RetIndicator = AppKeys.Success;
+            foreach (EmployeeEntity emp in eCol)
+            {
+                GenBC.bcInsertEmpDetails(emp);
+
+                if (emp.Message != string.Empty) { _sb.Append(emp.Message); _sb.Append("\r\n"); }
+                if(emp.RetIndicator == AppKeys.Failure) { eCol.RetIndicator = AppKeys.Failure; }
                
-             _genBC.bcInsertEmpDetails(e);
             }
+
+            eCol.Messages = _sb.ToString();
         }
     }
-    }
+}
+    

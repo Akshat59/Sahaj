@@ -13,6 +13,8 @@ namespace m1.DAC
 {
     public class genDAC : m1BaseDac
     {
+        int _retCnt = 0;
+
         public genDAC()
         {
 
@@ -64,11 +66,14 @@ namespace m1.DAC
 
         public void dacInsertEmpDetails(EmployeeEntity emp)
         {
-            string SQLselect = base.RetrieveSqlQuery(QueryConstants.InsertEmpDetails).ToString();
+            //Retrieve Query to insert employee details
+            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.InsertEmpDetails).ToString();
+
+            //Retrieve next empid
+
             List<SqlParameter> sp = new List<SqlParameter>()
             {
-                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= "u01001"},
-                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_id},
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= "u01002"},
                 new SqlParameter() {ParameterName = "@firstname", SqlDbType = SqlDbType.NVarChar, Value= emp.Firstname},
                 new SqlParameter() {ParameterName = "@lastname", SqlDbType = SqlDbType.NVarChar, Value= emp.Lastname},
                 new SqlParameter() {ParameterName = "@petname", SqlDbType = SqlDbType.NVarChar, Value= emp.Petname},
@@ -95,11 +100,29 @@ namespace m1.DAC
                 new SqlParameter() {ParameterName = "@emp_status", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_status},
             };
 
-            int _cnt = base.bExecuteNonQuery(SQLselect, sp);
-            if (_cnt <= 0) { emp.RetIndicator = AppKeys.Failure; }
-            else { emp.RetIndicator = AppKeys.Success; }
+            //just for test #future code - remove this test method
+            dacTruncateTable("d1_cdt_employees");
+            
+            int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
+            if (_cnt <= 0)
+            { emp.RetIndicator = AppKeys.Failure;emp.Message= UserMessages.InsertEmpFailure; }
+            else
+            {
+                string _s = emp.Firstname + " " + emp.Lastname;
+                { emp.RetIndicator = AppKeys.Success; emp.Message = string.Format(UserMessages.InsertEmpSuccess,_s.Trim()); }
+            }
            
         }
+
+        public void dacTruncateTable(string tableName)
+        {
+            string _sqlQuery = (QueryConstants.TruncateTable) + tableName;
+            _retCnt = base.bExecuteNonQuery(_sqlQuery);
+            if (_retCnt <= 0) { }
+            else { }
+
+        }
+
         #endregion PublicMethod
     }
 }

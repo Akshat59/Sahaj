@@ -1,13 +1,17 @@
-﻿namespace m1.Shared.Entities
+﻿using static m1.Shared.AppCommon;
+using static m1.Shared.AppCommon.Utilities;
+
+namespace m1.Shared.Entities
 {
+    
     public class EmployeeEntity
     {
 
         #region Properties
 
-        private string _emp_id = string.Empty;
-        private string _firstname = string.Empty;
-        private string _lastname = string.Empty;
+        private string _emp_id = string.Empty;        
+        private string _firstname = string.Empty;        
+        private string _lastname = string.Empty;        
         private string _petname = string.Empty;
         private string _dob = string.Empty;
         private string _gender = string.Empty;
@@ -43,6 +47,7 @@
             }
         }
 
+        [IsCamelCase(true)]
         public string Firstname
         {
             get
@@ -56,6 +61,7 @@
             }
         }
 
+        [IsCamelCase(true)]
         public string Lastname
         {
             get
@@ -121,6 +127,7 @@
             }
         }
 
+        [IsCamelCase(true)]
         public string Empaddress
         {
             get
@@ -358,20 +365,21 @@
             }
         }
 
-        private AppConstants.e_frmOperationType optype;
-
-        public AppConstants.e_frmOperationType Optype
+        public string Message
         {
             get
             {
-                return optype;
+                return _message;
             }
 
             set
             {
-                optype = value;
+                _message = value;
             }
         }
+
+        private string _message = string.Empty;
+
 
 
         #endregion Properties

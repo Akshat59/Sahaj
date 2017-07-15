@@ -1,4 +1,5 @@
-﻿using System;
+﻿using m1.Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -229,6 +230,36 @@ namespace m1.Shared
 
             #endregion GeneralFunctions
 
+            #region SetAlertPanel
+
+            public void SetAlertPanel(Panel panel)
+            {
+                panel.Controls.Add(new Panel());
+            }
+                
+
+            #endregion
+
         }
+
+
+        #region Custom Attributes
+        /// <summary>
+        /// Custom Attribute define sif text can be camel case or not.
+        /// </summary>
+
+        //[System.AttributeUsage(System.AttributeTargets.Property)]
+        public class IsCamelCase : Attribute
+        {
+            public readonly bool isCamelCase;
+
+            public IsCamelCase(bool iscamelcase)
+            {
+                this.isCamelCase = iscamelcase;
+            }
+        }
+
+        #endregion Custom Attributes
+
     }
 }

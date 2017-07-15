@@ -16,12 +16,7 @@ namespace Sayen
     {
         public frm_Home()
         {
-            InitializeComponent();
-           
-
-            //ddl_environment.DataSource = new BindingSource(AppConstants.AppEnvironments, null);
-            //ddl_environment.ValueMember = "Value";
-            //ddl_environment.DisplayMember = "Key";
+            InitializeComponent();          
 
         }
 
@@ -151,7 +146,6 @@ namespace Sayen
             ucWel.AutoSize = true;
             ucWel.Dock = DockStyle.Fill;
             tabCtrl_home.TabPages[AppConstants.TabPageWelcome].Controls.Add(ucWel);
-
         }
 
 

@@ -78,6 +78,7 @@ namespace Sayen.UserControls
             this.panel3 = new System.Windows.Forms.Panel();
             this.rdl_bulkUpload = new System.Windows.Forms.RadioButton();
             this.rdl_singleUpload = new System.Windows.Forms.RadioButton();
+            this.chk_escalatedEmp = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_hiring_manager = new System.Windows.Forms.Label();
             this.ddl_hiring_manager = new System.Windows.Forms.ComboBox();
@@ -106,6 +107,7 @@ namespace Sayen.UserControls
             this.lbl_education = new System.Windows.Forms.Label();
             this.txt_education = new System.Windows.Forms.TextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label3 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -130,7 +132,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_upload_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_upload_dl.AutoSize = true;
-            this.lbl_upload_dl.Location = new System.Drawing.Point(308, 100);
+            this.lbl_upload_dl.Location = new System.Drawing.Point(300, 100);
             this.lbl_upload_dl.Name = "lbl_upload_dl";
             this.lbl_upload_dl.Size = new System.Drawing.Size(41, 13);
             this.lbl_upload_dl.TabIndex = 6;
@@ -152,7 +154,7 @@ namespace Sayen.UserControls
             this.lbl_filename_address.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_filename_address.AutoSize = true;
             this.lbl_filename_address.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_filename_address.Location = new System.Drawing.Point(371, 37);
+            this.lbl_filename_address.Location = new System.Drawing.Point(364, 32);
             this.lbl_filename_address.Name = "lbl_filename_address";
             this.lbl_filename_address.Size = new System.Drawing.Size(61, 13);
             this.lbl_filename_address.TabIndex = 39;
@@ -164,7 +166,7 @@ namespace Sayen.UserControls
             this.lbl_filename_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_filename_dl.AutoSize = true;
             this.lbl_filename_dl.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_filename_dl.Location = new System.Drawing.Point(371, 100);
+            this.lbl_filename_dl.Location = new System.Drawing.Point(364, 100);
             this.lbl_filename_dl.Name = "lbl_filename_dl";
             this.lbl_filename_dl.Size = new System.Drawing.Size(61, 13);
             this.lbl_filename_dl.TabIndex = 40;
@@ -186,11 +188,12 @@ namespace Sayen.UserControls
             this.lbl_title.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_title.AutoSize = true;
             this.lbl_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_title.Location = new System.Drawing.Point(265, 33);
+            this.lbl_title.Location = new System.Drawing.Point(290, 25);
             this.lbl_title.Name = "lbl_title";
             this.lbl_title.Size = new System.Drawing.Size(151, 25);
             this.lbl_title.TabIndex = 0;
             this.lbl_title.Text = "Add Employee";
+            this.lbl_title.Click += new System.EventHandler(this.lbl_title_Click);
             // 
             // lbl_lastName
             // 
@@ -298,9 +301,9 @@ namespace Sayen.UserControls
             // 
             this.lbl_homePhone.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_homePhone.AutoSize = true;
-            this.lbl_homePhone.Location = new System.Drawing.Point(3, 278);
+            this.lbl_homePhone.Location = new System.Drawing.Point(3, 272);
             this.lbl_homePhone.Name = "lbl_homePhone";
-            this.lbl_homePhone.Size = new System.Drawing.Size(69, 13);
+            this.lbl_homePhone.Size = new System.Drawing.Size(38, 26);
             this.lbl_homePhone.TabIndex = 11;
             this.lbl_homePhone.Text = "Home Phone";
             // 
@@ -431,7 +434,7 @@ namespace Sayen.UserControls
             // txt_aadhaar
             // 
             this.txt_aadhaar.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txt_aadhaar.Location = new System.Drawing.Point(90, 5);
+            this.txt_aadhaar.Location = new System.Drawing.Point(90, 3);
             this.txt_aadhaar.Name = "txt_aadhaar";
             this.txt_aadhaar.Size = new System.Drawing.Size(200, 20);
             this.txt_aadhaar.TabIndex = 0;
@@ -440,7 +443,7 @@ namespace Sayen.UserControls
             // txt_addressProof
             // 
             this.txt_addressProof.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txt_addressProof.Location = new System.Drawing.Point(90, 33);
+            this.txt_addressProof.Location = new System.Drawing.Point(90, 29);
             this.txt_addressProof.Name = "txt_addressProof";
             this.txt_addressProof.Size = new System.Drawing.Size(200, 20);
             this.txt_addressProof.TabIndex = 1;
@@ -451,7 +454,7 @@ namespace Sayen.UserControls
             this.lbl_filename_uid.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_filename_uid.AutoSize = true;
             this.lbl_filename_uid.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_filename_uid.Location = new System.Drawing.Point(371, 8);
+            this.lbl_filename_uid.Location = new System.Drawing.Point(364, 6);
             this.lbl_filename_uid.Name = "lbl_filename_uid";
             this.lbl_filename_uid.Size = new System.Drawing.Size(61, 13);
             this.lbl_filename_uid.TabIndex = 38;
@@ -462,7 +465,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_upload_uid.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_upload_uid.AutoSize = true;
-            this.lbl_upload_uid.Location = new System.Drawing.Point(308, 8);
+            this.lbl_upload_uid.Location = new System.Drawing.Point(300, 6);
             this.lbl_upload_uid.Name = "lbl_upload_uid";
             this.lbl_upload_uid.Size = new System.Drawing.Size(41, 13);
             this.lbl_upload_uid.TabIndex = 1;
@@ -473,7 +476,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_upload_address.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_upload_address.AutoSize = true;
-            this.lbl_upload_address.Location = new System.Drawing.Point(308, 37);
+            this.lbl_upload_address.Location = new System.Drawing.Point(300, 32);
             this.lbl_upload_address.Name = "lbl_upload_address";
             this.lbl_upload_address.Size = new System.Drawing.Size(41, 13);
             this.lbl_upload_address.TabIndex = 3;
@@ -501,7 +504,7 @@ namespace Sayen.UserControls
             this.chk_prefill.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.chk_prefill.AutoSize = true;
             this.chk_prefill.BackColor = System.Drawing.Color.PowderBlue;
-            this.chk_prefill.Location = new System.Drawing.Point(699, 37);
+            this.chk_prefill.Location = new System.Drawing.Point(757, 29);
             this.chk_prefill.Name = "chk_prefill";
             this.chk_prefill.Size = new System.Drawing.Size(51, 17);
             this.chk_prefill.TabIndex = 42;
@@ -552,7 +555,7 @@ namespace Sayen.UserControls
             this.panel1.Controls.Add(this.tableLayoutPanel3);
             this.panel1.Controls.Add(this.tableLayoutPanel2);
             this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(885, 1326);
             this.panel1.TabIndex = 0;
@@ -561,20 +564,23 @@ namespace Sayen.UserControls
             // 
             this.tableLayoutPanel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tableLayoutPanel4.ColumnCount = 4;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 184F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 364F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 272F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-            this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 63F));
             this.tableLayoutPanel4.Controls.Add(this.chk_prefill, 3, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel3, 2, 1);
+            this.tableLayoutPanel4.Controls.Add(this.chk_escalatedEmp, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.lbl_title, 1, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(51, -1);
+            this.tableLayoutPanel4.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(24, 14);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.38889F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 73.61111F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(753, 72);
+            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.27778F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 59.72222F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(811, 75);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // label1
@@ -582,24 +588,24 @@ namespace Sayen.UserControls
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(3, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 19);
+            this.label1.Size = new System.Drawing.Size(0, 25);
             this.label1.TabIndex = 0;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.rdl_bulkUpload);
             this.panel3.Controls.Add(this.rdl_singleUpload);
-            this.panel3.Location = new System.Drawing.Point(480, 22);
+            this.panel3.Location = new System.Drawing.Point(551, 25);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(199, 47);
+            this.panel3.Size = new System.Drawing.Size(194, 26);
             this.panel3.TabIndex = 43;
             // 
             // rdl_bulkUpload
             // 
             this.rdl_bulkUpload.AutoSize = true;
-            this.rdl_bulkUpload.Location = new System.Drawing.Point(109, 14);
+            this.rdl_bulkUpload.Location = new System.Drawing.Point(94, 6);
             this.rdl_bulkUpload.Name = "rdl_bulkUpload";
             this.rdl_bulkUpload.Size = new System.Drawing.Size(83, 17);
             this.rdl_bulkUpload.TabIndex = 1;
@@ -612,7 +618,7 @@ namespace Sayen.UserControls
             this.rdl_singleUpload.AutoSize = true;
             this.rdl_singleUpload.Checked = true;
             this.rdl_singleUpload.Enabled = false;
-            this.rdl_singleUpload.Location = new System.Drawing.Point(7, 14);
+            this.rdl_singleUpload.Location = new System.Drawing.Point(3, 6);
             this.rdl_singleUpload.Name = "rdl_singleUpload";
             this.rdl_singleUpload.Size = new System.Drawing.Size(83, 17);
             this.rdl_singleUpload.TabIndex = 0;
@@ -620,6 +626,19 @@ namespace Sayen.UserControls
             this.rdl_singleUpload.Text = "Single Insert";
             this.rdl_singleUpload.UseVisualStyleBackColor = true;
             this.rdl_singleUpload.CheckedChanged += new System.EventHandler(this.rdl_singleUpload_CheckedChanged);
+            // 
+            // chk_escalatedEmp
+            // 
+            this.chk_escalatedEmp.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.chk_escalatedEmp.AutoSize = true;
+            this.chk_escalatedEmp.Location = new System.Drawing.Point(585, 3);
+            this.chk_escalatedEmp.Name = "chk_escalatedEmp";
+            this.chk_escalatedEmp.Size = new System.Drawing.Size(126, 16);
+            this.chk_escalatedEmp.TabIndex = 44;
+            this.chk_escalatedEmp.Text = "Insert Escalated Emp";
+            this.chk_escalatedEmp.UseVisualStyleBackColor = true;
+            this.chk_escalatedEmp.Visible = false;
+            this.chk_escalatedEmp.CheckedChanged += new System.EventHandler(this.chk_escalatedEmp_CheckedChanged);
             // 
             // tableLayoutPanel3
             // 
@@ -636,7 +655,7 @@ namespace Sayen.UserControls
             this.tableLayoutPanel3.Controls.Add(this.ddl_hiring_manager, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.txt_experience, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.panel5, 1, 4);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(395, 294);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(401, 326);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
@@ -694,8 +713,8 @@ namespace Sayen.UserControls
             this.tableLayoutPanel2.ColumnCount = 4;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 91F));
             this.tableLayoutPanel2.Controls.Add(this.dtp_validity, 1, 7);
             this.tableLayoutPanel2.Controls.Add(this.txt_rto, 1, 6);
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 7);
@@ -718,12 +737,12 @@ namespace Sayen.UserControls
             this.tableLayoutPanel2.Controls.Add(this.lbl_upload_dl, 2, 4);
             this.tableLayoutPanel2.Controls.Add(this.lbl_filename_dl, 3, 4);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 5);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(394, 81);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(401, 111);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 8;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
@@ -765,7 +784,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_photograph.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_photograph.AutoSize = true;
-            this.lbl_photograph.Location = new System.Drawing.Point(3, 60);
+            this.lbl_photograph.Location = new System.Drawing.Point(3, 57);
             this.lbl_photograph.Name = "lbl_photograph";
             this.lbl_photograph.Size = new System.Drawing.Size(62, 13);
             this.lbl_photograph.TabIndex = 49;
@@ -775,7 +794,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_aadhaar.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_aadhaar.AutoSize = true;
-            this.lbl_aadhaar.Location = new System.Drawing.Point(3, 8);
+            this.lbl_aadhaar.Location = new System.Drawing.Point(3, 6);
             this.lbl_aadhaar.Name = "lbl_aadhaar";
             this.lbl_aadhaar.Size = new System.Drawing.Size(64, 13);
             this.lbl_aadhaar.TabIndex = 20;
@@ -795,7 +814,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_addressProof.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_addressProof.AutoSize = true;
-            this.lbl_addressProof.Location = new System.Drawing.Point(3, 37);
+            this.lbl_addressProof.Location = new System.Drawing.Point(3, 32);
             this.lbl_addressProof.Name = "lbl_addressProof";
             this.lbl_addressProof.Size = new System.Drawing.Size(73, 13);
             this.lbl_addressProof.TabIndex = 22;
@@ -815,7 +834,7 @@ namespace Sayen.UserControls
             // 
             this.label_upload_photo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label_upload_photo.AutoSize = true;
-            this.label_upload_photo.Location = new System.Drawing.Point(308, 60);
+            this.label_upload_photo.Location = new System.Drawing.Point(300, 57);
             this.label_upload_photo.Name = "label_upload_photo";
             this.label_upload_photo.Size = new System.Drawing.Size(41, 13);
             this.label_upload_photo.TabIndex = 4;
@@ -827,7 +846,7 @@ namespace Sayen.UserControls
             this.lbl_filename_photo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_filename_photo.AutoSize = true;
             this.lbl_filename_photo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_filename_photo.Location = new System.Drawing.Point(371, 60);
+            this.lbl_filename_photo.Location = new System.Drawing.Point(364, 57);
             this.lbl_filename_photo.Name = "lbl_filename_photo";
             this.lbl_filename_photo.Size = new System.Drawing.Size(61, 13);
             this.lbl_filename_photo.TabIndex = 51;
@@ -891,9 +910,9 @@ namespace Sayen.UserControls
             // 
             this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 196F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel1.Controls.Add(this.dtp_dob, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.txt_firstName, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbl_firstName, 0, 0);
@@ -919,7 +938,7 @@ namespace Sayen.UserControls
             this.tableLayoutPanel1.Controls.Add(this.txt_mobileNo, 1, 10);
             this.tableLayoutPanel1.Controls.Add(this.lbl_education, 0, 11);
             this.tableLayoutPanel1.Controls.Add(this.txt_education, 1, 11);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(17, 81);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(84, 111);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 14;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -936,7 +955,7 @@ namespace Sayen.UserControls
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(371, 416);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(314, 416);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // dtp_dob
@@ -944,7 +963,7 @@ namespace Sayen.UserControls
             this.dtp_dob.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.dtp_dob.CustomFormat = "dd-MM-yyyy";
             this.dtp_dob.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtp_dob.Location = new System.Drawing.Point(78, 117);
+            this.dtp_dob.Location = new System.Drawing.Point(77, 117);
             this.dtp_dob.Name = "dtp_dob";
             this.dtp_dob.Size = new System.Drawing.Size(188, 20);
             this.dtp_dob.TabIndex = 4;
@@ -963,7 +982,7 @@ namespace Sayen.UserControls
             // txt_age
             // 
             this.txt_age.Enabled = false;
-            this.txt_age.Location = new System.Drawing.Point(272, 117);
+            this.txt_age.Location = new System.Drawing.Point(273, 117);
             this.txt_age.Name = "txt_age";
             this.txt_age.Size = new System.Drawing.Size(21, 20);
             this.txt_age.TabIndex = 54;
@@ -992,6 +1011,17 @@ namespace Sayen.UserControls
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(20, 16);
+            this.label3.TabIndex = 46;
+            this.label3.Text = "zz";
+            this.label3.Visible = false;
             // 
             // uc_AddEmpl
             // 
@@ -1101,5 +1131,7 @@ namespace Sayen.UserControls
         private System.Windows.Forms.TextBox txt_age;
         private System.Windows.Forms.Label lbl_education;
         private System.Windows.Forms.TextBox txt_education;
+        private System.Windows.Forms.CheckBox chk_escalatedEmp;
+        private System.Windows.Forms.Label label3;
     }
 }
