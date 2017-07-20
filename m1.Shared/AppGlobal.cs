@@ -18,7 +18,7 @@ namespace m1.Shared
         public const string super_admin_PassKey = "1234";
 
         public static GenEntity g_GEntity = null;
-        public static SessionEntity g_SessionEntity = null;
+        //public static SessionEntity g_SessionEntity = null;
 
     }
 }

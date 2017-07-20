@@ -300,6 +300,8 @@
             this.tabCtrl_home.Size = new System.Drawing.Size(890, 403);
             this.tabCtrl_home.TabIndex = 7;
             this.tabCtrl_home.SelectedIndexChanged += new System.EventHandler(this.tabCtrl_home_SelectedIndexChanged);
+            this.tabCtrl_home.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabCtrl_home_KeyUp);
+            this.tabCtrl_home.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tabCtrl_home_KeyUp);
             // 
             // tabPage_welcome
             // 

@@ -207,6 +207,7 @@ namespace Sayen
             this.ActiveControl = this.tabCtrl_home;
             tabCtrl_home.AutoSize = true;
             tabCtrl_home.TabPages[0].AutoSize = true;
+            
             if (AppGlobal.CurrentAppEnv == AppConstants.d_AppEnvironments.FirstOrDefault(x => x.Key == AppConstants.e_AppEnvironment.DEV.ToString()).Key 
                 || AppGlobal.CurrentAppEnv == AppConstants.d_AppEnvironments.FirstOrDefault(x => x.Key == AppConstants.e_AppEnvironment.TEST.ToString()).Key)
             {
@@ -216,8 +217,15 @@ namespace Sayen
             this.LoadWelcome();
         }
 
+
         #endregion UserMethods
 
-       
+        private void tabCtrl_home_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

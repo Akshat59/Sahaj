@@ -1,5 +1,4 @@
 ﻿using static m1.Shared.AppCommon;
-using static m1.Shared.AppCommon.Utilities;
 
 namespace m1.Shared.Entities
 {
@@ -20,6 +19,7 @@ namespace m1.Shared.Entities
         private string _pincode = string.Empty;
         private string _homephone = string.Empty;
         private string _mobile = string.Empty;
+        private string _emailid = string.Empty;
         private string _education = string.Empty;
         private string _aadhaarno = string.Empty;
         private string _addressproof = string.Empty;
@@ -351,6 +351,54 @@ namespace m1.Shared.Entities
 
         public string Designation { get; set; }
 
+       
+
+
+       
+
+        public string Emailid
+        {
+            get
+            {
+                return _emailid;
+            }
+
+            set
+            {
+                _emailid = value;
+            }
+        }
+
+        public string Allow_login
+        {
+            get
+            {
+                return allow_login;
+            }
+
+            set
+            {
+                allow_login = value;
+            }
+        }
+
+        
+        private string allow_login;
+
+        private string _retmessage = string.Empty;
+        public string RetMessage
+        {
+            get
+            {
+                return _retmessage;
+            }
+
+            set
+            {
+                _retmessage = value;
+            }
+        }
+
         private string _retIndicator = string.Empty;
         public string RetIndicator
         {
@@ -365,22 +413,102 @@ namespace m1.Shared.Entities
             }
         }
 
-        public string Message
+
+        #endregion Properties
+
+    }
+
+    public class EmployeeDocs
+    {
+
+        #region Properties
+
+        private string _emp_id = string.Empty;
+        private string _doc_type = string.Empty;
+        private string _doc_path = string.Empty;
+        private string _file_type = string.Empty;
+        public object Image = null;
+
+        public string Emp_id
         {
             get
             {
-                return _message;
+                return _emp_id;
             }
 
             set
             {
-                _message = value;
+                _emp_id = value;
             }
         }
 
-        private string _message = string.Empty;
+        public string Doc_type
+        {
+            get
+            {
+                return _doc_type;
+            }
+
+            set
+            {
+                _doc_type = value;
+            }
+        }
+
+        public string Doc_path
+        {
+            get
+            {
+                return _doc_path;
+            }
+
+            set
+            {
+                _doc_path = value;
+            }
+        }
+
+        public string File_type
+        {
+            get
+            {
+                return _file_type;
+            }
+
+            set
+            {
+                _file_type = value;
+            }
+        }
 
 
+        private string _retmessage = string.Empty;
+        public string RetMessage
+        {
+            get
+            {
+                return _retmessage;
+            }
+
+            set
+            {
+                _retmessage = value;
+            }
+        }
+
+        private string _retIndicator = string.Empty;
+        public string RetIndicator
+        {
+            get
+            {
+                return _retIndicator;
+            }
+
+            set
+            {
+                _retIndicator = value;
+            }
+        }
 
         #endregion Properties
 

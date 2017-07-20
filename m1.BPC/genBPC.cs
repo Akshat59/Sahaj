@@ -65,18 +65,44 @@ namespace m1.BPC
         public void bpcInsertEmployeeDetails(EmployeeCollection eCol)
         {
             StringBuilder _sb = new StringBuilder();
-            
+            string _seriesInitals = string.Empty;
+
+
             eCol.RetIndicator = AppKeys.Success;
             foreach (EmployeeEntity emp in eCol)
             {
+
+                //First Get Next ID
+                if(emp.Emp_id.Length!=3) //If series is undefine set default series initials
+                { emp.Emp_id = AppConstants.e_PrimaryKeySeries.e13.ToString(); }
+
+                //Retrieve next empid
+                _seriesInitals = emp.Emp_id.ToString().Substring(0, 3);
+                emp.Emp_id = GenBC.bcGetNextID(AppDBContants.EmpDetails, AppDBContants.EmpDetailsPkey, AppDBContants.EmpDetailsPkeyLen, _seriesInitals);               
+                
+
                 GenBC.bcInsertEmpDetails(emp);
 
-                if (emp.Message != string.Empty) { _sb.Append(emp.Message); _sb.Append("\r\n"); }
+                if (emp.RetMessage != string.Empty) { _sb.Append(emp.RetMessage); _sb.Append("\r\n"); }
                 if(emp.RetIndicator == AppKeys.Failure) { eCol.RetIndicator = AppKeys.Failure; }
                
             }
 
             eCol.Messages = _sb.ToString();
+        }
+
+        public void bpcInsertEmployeeDocs(EmployeeDocsCollection edocCol)
+        {
+            StringBuilder _sb = new StringBuilder();
+            foreach (EmployeeDocs edoc in edocCol)
+            {
+
+                GenBC.bcInsertEmpDocs(edoc);
+
+                if (edoc.RetMessage != string.Empty) { _sb.Append(edoc.RetMessage); _sb.Append("\r\n"); }
+                if (edoc.RetIndicator == AppKeys.Failure) { edoc.RetIndicator = AppKeys.Failure; }
+
+            }
         }
     }
 }

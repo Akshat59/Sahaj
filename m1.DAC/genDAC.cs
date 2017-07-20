@@ -8,6 +8,7 @@ using System.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.SqlClient;
 using m1.Shared;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace m1.DAC
 {
@@ -26,6 +27,10 @@ namespace m1.DAC
             return base.TestDatabaseConnection();
         }
 
+       
+
+       
+
         public bool dacValidateUserLogin(GenEntity GEntity)
         {
 
@@ -37,6 +42,8 @@ namespace m1.DAC
                 new SqlParameter() {ParameterName = "@user_id", SqlDbType = SqlDbType.NVarChar, Value= GEntity.UserEntity.Input_user_id},
                 //new SqlParameter() {ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value= GEntity.UserEntity.User_pwd},
             };
+
+
 
             using (dt = base.ExecuteDataAdapter(SQLselect, sp))
             {
@@ -58,10 +65,59 @@ namespace m1.DAC
                         GEntity.UserEntity.Profilepic = dr["profilepic"].ToString();
                         break;
                     }
+                   
                     AppGlobal.g_GEntity = GEntity;
+                    AppGlobal.g_GEntity.SessionEntity.User_id = GEntity.UserEntity.User_id;
+                    AppGlobal.g_GEntity.SessionEntity.Role_id = GEntity.UserEntity.Role_id;
                     return true;
                 }
             }
+        }
+
+       
+
+        
+
+
+
+
+
+
+        /// <summary>
+        /// This method is to retrive next id column (primary key) from table from the database table as per enum e_PrimaryKeySeries
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="seriesInitials as specified enum e_PrimaryKeySeries"></param>
+        /// <param name="sqlColumn target column"></param>
+        /// <param name="totallength for padding"
+        public string GetNextID(string tableName,string sqlColumn, string totalLength, string seriesInitials)
+        {
+            int _i = Convert.ToInt32(totalLength) - seriesInitials.Length; //to replace as {2}
+            //SELECT RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'E110001'),4,4)+1) AS VARCHAR(4))),4 ) FROM d1_cdt_employees;
+            //SELECT RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'{3}0001'),{2},{2})+1) AS VARCHAR({5}))),{2}) FROM {0};
+            string sqlSelectQuery = string.Format(@"SELECT '{3}' + RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'{3}0000'),{2},{2})+1) AS VARCHAR({2}))),{2}) FROM {0} WHERE SUBSTRING({1},1,{4}) = '{3}'"
+                                                                    , tableName, sqlColumn, _i.ToString(), seriesInitials, seriesInitials.Length.ToString());
+
+            //string sqlSelectQuery = string.Format("SELECT ISNULL(MAX({0}),'') FROM {1} WHERE SUBSTRING({0},0,2) = '{2}'", sqlColumn, tableName, seriesInitials);
+
+            string _s_ret = base.bExecuteScalar(sqlSelectQuery);
+
+            if (_s_ret.Equals(string.Empty))
+            {
+                //log error  #futureCode
+                throw new Exception(UserMessages.NextIDEmpty);
+            }
+
+            return _s_ret;
+        }
+
+        public void dacTruncateTable(string tableName)
+        {
+            string _sqlQuery = (QueryConstants.TruncateTable) + tableName;
+            _retCnt = base.bExecuteNonQuery(_sqlQuery);
+            if (_retCnt <= 0) { }
+            else { }
+
         }
 
         public void dacInsertEmpDetails(EmployeeEntity emp)
@@ -69,11 +125,11 @@ namespace m1.DAC
             //Retrieve Query to insert employee details
             string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.InsertEmpDetails).ToString();
 
-            //Retrieve next empid
+            List<SqlParameter> cp = base.GetCommonParameters();
 
             List<SqlParameter> sp = new List<SqlParameter>()
             {
-                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= "u01002"},
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_id},
                 new SqlParameter() {ParameterName = "@firstname", SqlDbType = SqlDbType.NVarChar, Value= emp.Firstname},
                 new SqlParameter() {ParameterName = "@lastname", SqlDbType = SqlDbType.NVarChar, Value= emp.Lastname},
                 new SqlParameter() {ParameterName = "@petname", SqlDbType = SqlDbType.NVarChar, Value= emp.Petname},
@@ -85,6 +141,7 @@ namespace m1.DAC
                 new SqlParameter() {ParameterName = "@pincode", SqlDbType = SqlDbType.NVarChar, Value= emp.Pincode},
                 new SqlParameter() {ParameterName = "@homephone", SqlDbType = SqlDbType.NVarChar, Value= emp.Homephone},
                 new SqlParameter() {ParameterName = "@mobile", SqlDbType = SqlDbType.NVarChar, Value= emp.Mobile},
+                new SqlParameter() {ParameterName = "@emailid", SqlDbType = SqlDbType.NVarChar, Value= emp.Emailid},
                 new SqlParameter() {ParameterName = "@education", SqlDbType = SqlDbType.NVarChar, Value= emp.Education},
                 new SqlParameter() {ParameterName = "@aadhaarno", SqlDbType = SqlDbType.NVarChar, Value= emp.Aadhaarno},
                 new SqlParameter() {ParameterName = "@addressproof", SqlDbType = SqlDbType.NVarChar, Value= emp.Addressproof},
@@ -98,29 +155,54 @@ namespace m1.DAC
                 new SqlParameter() {ParameterName = "@attributes", SqlDbType = SqlDbType.NVarChar, Value= emp.Attributes},
                 new SqlParameter() {ParameterName = "@otherdetails", SqlDbType = SqlDbType.NVarChar, Value= emp.Otherdetails},
                 new SqlParameter() {ParameterName = "@emp_status", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_status},
+                new SqlParameter() {ParameterName = "@allow_login", SqlDbType = SqlDbType.NVarChar, Value= emp.Allow_login},
+
             };
 
+            sp.AddRange(cp);
+
             //just for test #future code - remove this test method
-            dacTruncateTable("d1_cdt_employees");
-            
+            //dacTruncateTable("d1_cdt_employees");
+
             int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
             if (_cnt <= 0)
-            { emp.RetIndicator = AppKeys.Failure;emp.Message= UserMessages.InsertEmpFailure; }
+            { emp.RetIndicator = AppKeys.Failure; emp.RetMessage = UserMessages.InsertEmpFailure; }
             else
             {
                 string _s = emp.Firstname + " " + emp.Lastname;
-                { emp.RetIndicator = AppKeys.Success; emp.Message = string.Format(UserMessages.InsertEmpSuccess,_s.Trim()); }
+                { emp.RetIndicator = AppKeys.Success; emp.RetMessage = string.Format(UserMessages.InsertEmpSuccess, _s.Trim()); }
             }
-           
+
         }
 
-        public void dacTruncateTable(string tableName)
+        public void dacInsertDocs(EmployeeDocs edoc)
         {
-            string _sqlQuery = (QueryConstants.TruncateTable) + tableName;
-            _retCnt = base.bExecuteNonQuery(_sqlQuery);
-            if (_retCnt <= 0) { }
-            else { }
+            //Retrieve Query to insert employee details
+            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.InsertEmpDetails).ToString();
 
+            List<SqlParameter> cp = base.GetCommonParameters();            
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= edoc.Emp_id},
+                new SqlParameter() {ParameterName = "@doc_type", SqlDbType = SqlDbType.NVarChar, Value= edoc.Doc_type},
+                new SqlParameter() {ParameterName = "@doc_image", SqlDbType = SqlDbType.Image, Value= edoc.Image},
+
+            };
+
+            sp.AddRange(cp);
+
+            //just for test #future code - remove this test method
+            //dacTruncateTable("d1_cdt_employees");
+
+            int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
+            if (_cnt <= 0)
+            { edoc.RetIndicator = AppKeys.Failure; edoc.RetMessage = UserMessages.InsertEmpDocFailure; }
+            else
+            {
+                
+                { edoc.RetIndicator = AppKeys.Success; edoc.RetMessage = string.Format(UserMessages.InsertEmpDocSuccess, edoc.Emp_id); }
+            }
         }
 
         #endregion PublicMethod

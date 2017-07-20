@@ -30,21 +30,34 @@ namespace m1.DAC
             return ConfigSettings.GetConnectionString(key);
         }
 
-        protected void SetExceptionLog(Exception Ex)
+        private void SetExceptionLog(Exception Ex)
         {
             _sqlLog = "\r\n" + Ex.Message + Ex.InnerException + "\r\n" + Ex.StackTrace; 
             //#futureCode write logs to file/db.
         }
 
-        protected void SetSQLExceptionLog(SqlException Ex)
+        private void SetSQLExceptionLog(SqlException Ex)
         {
             _sqlLog = "\r\n" + Ex.Message + Ex.InnerException + "\r\n" + Ex.StackTrace;
             //#futurecode
         }
 
-        protected void WriteLog(string log)
+        private void WriteLog(string log)
         {
             //#futurecode
+        }
+
+        protected List<SqlParameter> GetCommonParameters()
+        {
+            List<SqlParameter> cp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@create_id", SqlDbType = SqlDbType.NVarChar, Value= AppGlobal.g_GEntity.SessionEntity.User_id},
+                new SqlParameter() {ParameterName = "@create_date", SqlDbType = SqlDbType.DateTime2, Value= AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp},
+                new SqlParameter() {ParameterName = "@update_id", SqlDbType = SqlDbType.NVarChar, Value= AppGlobal.g_GEntity.SessionEntity.User_id},
+                new SqlParameter() {ParameterName = "@update_date", SqlDbType = SqlDbType.DateTime2, Value= AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp},
+
+             };
+            return cp;
         }
 
         protected bool TestDatabaseConnection()
@@ -166,9 +179,9 @@ namespace m1.DAC
             //Setting _queryLog as actual query got executed including parameters value
             string _queryLog = sqlQuery;
             foreach (SqlParameter p in sp)
-            {
-                _queryLog = _queryLog.Replace(p.ParameterName.ToString(), p.Value.ToString());
-                //Add _query:log to logs       #futureCode
+            {               
+                _queryLog = _queryLog.Replace(p.ParameterName.ToString(), "'" + p.Value.ToString() + "'");
+                //Add _queryLog to logs       #futureCode
             }
 
             try
@@ -224,6 +237,36 @@ namespace m1.DAC
             {
                 this.SetExceptionLog(Ex);
                 return 0;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;
+            }
+        }
+
+        public string bExecuteScalar(string sqlSelectQuery)
+        {
+            string _s_ret = string.Empty;
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(sqlSelectQuery, myConnection);
+                    oCmd.CommandType = CommandType.Text;
+                    myConnection.Open();
+
+                    var _v = oCmd.ExecuteScalar();
+                    if (_v != null) { _s_ret =  _v.ToString(); }
+                    else { _s_ret =  string.Empty; }
+                }
+                return _s_ret;
+                
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);
+                return _s_ret;
             }
             finally
             {

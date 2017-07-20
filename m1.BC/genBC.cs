@@ -37,9 +37,19 @@ namespace m1.BC
             return GenDAC.dacTestDatabaseConnection();
         }
 
+        public string  bcGetNextID(string tableName, string sqlColumn, string totallength, string seriesInitials)
+        {
+            return GenDAC.GetNextID(tableName, sqlColumn, totallength, seriesInitials);
+        }
+
         public void bcInsertEmpDetails(EmployeeEntity emp)
         {
             GenDAC.dacInsertEmpDetails(emp);
+        }
+
+        public void bcInsertEmpDocs(EmployeeDocs edoc)
+        {
+            GenDAC.dacInsertDocs(edoc);
         }
     }
 }

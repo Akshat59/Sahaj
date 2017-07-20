@@ -71,23 +71,15 @@ namespace Sayen.UserControls
 
 
 
-        private void btn_reset_Click(object sender, EventArgs e)
-        {
-            Utilities.CallResetControl(this.panel1);
-        }
+        private void btn_reset_Click(object sender, EventArgs e) { this.ucResetControls(); }
 
        
 
         private void chk_prefill_CheckedChanged(object sender, EventArgs e)
         {
-            if (chk_prefill.Checked)
-            {
-                PrefillControls();
-            }
-            else
-            {
-                Utilities.CallResetControl(this.panel1);
-            }
+            if (chk_prefill.Checked) {PrefillControls();}
+            else { this.ucResetControls(); }
+           
         }
 
         private void btn_submit_Click(object sender, EventArgs e)
@@ -122,7 +114,6 @@ namespace Sayen.UserControls
         {
             if (AppGlobal.g_GEntity.UserEntity.Role_id.Equals(((int)AppConstants.e_AppUserRoles.Admin).ToString())
                 || AppGlobal.g_GEntity.UserEntity.Role_id.Equals(((int)AppConstants.e_AppUserRoles.AppDeveloper).ToString()))
-            //| AppConstants.e_AppUserRoles.AppDeveloper ))
             {
                 chk_escalatedEmp.Visible = true;
             }
@@ -130,8 +121,8 @@ namespace Sayen.UserControls
 
         private void chk_escalatedEmp_CheckedChanged(object sender, EventArgs e)
         {
-            Thread.Sleep(1000);
-            chk_escalatedEmp.Visible = false;
+            //Thread.Sleep(1000);
+            //chk_escalatedEmp.Visible = false;
         }
 
         #region KeyPress
@@ -225,6 +216,7 @@ namespace Sayen.UserControls
             txt_pinCode.Text = "176047";
             txt_homePhone.Text = "01892252000";
             txt_mobileNo.Text = "9418012345";
+            txt_email.Text = "ram_kumar@gmail.com";
             txt_education.Text = "Graduation";
             txt_aadhaar.Text = "123456789012";
             txt_addressProof.Text = "rashan card";
@@ -275,23 +267,25 @@ namespace Sayen.UserControls
             emp.Pincode = txt_pinCode.Text == String.Empty ? String.Empty : txt_pinCode.Text;
             emp.Homephone = txt_homePhone.Text == String.Empty ? String.Empty : txt_homePhone.Text;
             emp.Mobile = txt_mobileNo.Text == String.Empty ? String.Empty : txt_mobileNo.Text;
+            emp.Emailid = txt_email.Text == String.Empty ? String.Empty : txt_email.Text;
             emp.Education = txt_education.Text == String.Empty ? String.Empty : txt_education.Text;
             emp.Aadhaarno = txt_aadhaar.Text == String.Empty ? String.Empty : txt_aadhaar.Text;
             emp.Addressproof = txt_addressProof.Text == String.Empty ? String.Empty : txt_addressProof.Text;
             emp.Dl_no = txt_dlno.Text == String.Empty ? String.Empty : txt_dlno.Text;
-            emp.Dl_htmv = chk_dltype_htmv.Checked ? AppKeys.Yes.ToString(): String.Empty;
-            emp.Dl_hmv = chk_dltype_hmv.Checked ? AppKeys.Yes.ToString() : String.Empty;
-            emp.Dl_lmv = chk_dltype_lmv.Checked ? AppKeys.Yes.ToString() : String.Empty;
+            emp.Dl_htmv = chk_dltype_htmv.Checked ? AppKeys.Yes.ToString(): AppKeys.No.ToString();
+            emp.Dl_hmv = chk_dltype_hmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
+            emp.Dl_lmv = chk_dltype_lmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
             emp.Dl_rto = txt_rto.Text == String.Empty ? String.Empty : txt_rto.Text;
             emp.Hiring_manager_id = ddl_hiring_manager.Text == String.Empty ? String.Empty : ddl_hiring_manager.Text;
             emp.Experience = txt_experience.Text == String.Empty ? String.Empty : txt_experience.Text;
             emp.Attributes = txt_attributes.Text == String.Empty ? String.Empty : txt_attributes.Text;
             emp.Otherdetails = txt_otherDetails.Text == String.Empty ? String.Empty : txt_otherDetails.Text;
             emp.Emp_status = AppKeys.Active;
+            emp.Allow_login = AppKeys.Yes;
 
             //set empid series
             if (chk_escalatedEmp.Checked|| ddl_empType.Text == AppConstants.e_EmployeeType.Board.ToString())
-            { emp.Emp_id = AppConstants.e_PrimaryKeySeries.a00.ToString(); }
+            { emp.Emp_id = AppConstants.e_PrimaryKeySeries.a09.ToString(); }
             else if (ddl_empType.Text == AppConstants.e_EmployeeType.OfficeStaff.ToString())
             { emp.Emp_id = AppConstants.e_PrimaryKeySeries.e11.ToString(); }
             else if(ddl_empType.Text == AppConstants.e_EmployeeType.Driver.ToString() || ddl_empType.Text == AppConstants.e_EmployeeType.Conductor.ToString())
@@ -331,6 +325,7 @@ namespace Sayen.UserControls
                     }
                     else
                     { //Not to format as CamelCase}
+
                     }
                 }
 
@@ -340,49 +335,111 @@ namespace Sayen.UserControls
         private void ValidateAndSave_addEmpl()
         {
             //Include Validation
-
-            bool _valStatus = this.Validate_AddEmpl();
-            //#futurecode
-            //if (Utilities.UC_hasValidationErrors(this.Controls))
-            //{ MessageBox.Show("FALSE"); }
-            //else
-            // if we get here the validation passed
-            //this.close();
-            //{ MessageBox.Show("TRUE"); }           
-
-
-            //InsertEmpDetails
-            if (_valStatus)
+            try
             {
-                EmployeeCollection empCol = new EmployeeCollection();
-                empCol.Optype = AppConstants.e_frmOperationType.S;
 
-                //SetEmployeeCollections
-                this.SetEmployeeCollection(emp);
-                empCol.Add(emp);
+                bool _valStatus = this.Validate_AddEmpl();
+                //#futurecode
+                //if (Utilities.UC_hasValidationErrors(this.Controls))
+                //{ MessageBox.Show("FALSE"); }
+                //else
+                // if we get here the validation passed
+                //this.close();
+                //{ MessageBox.Show("TRUE"); }           
 
-                //call method chain to insert emp details
-                _genBPC.bpcInsertEmployeeDetails(empCol);
 
-
-                //Post Insertion Reset Controls
-                if (empCol.RetIndicator == AppKeys.Success) { Utilities.CallResetControl(this.panel1); }
-                                
-                if (empCol.Messages != string.Empty)
+                //InsertEmpDetails
+                if (_valStatus)
                 {
-                    //panel6_ucAlerts.Visible = true;
-                    //txt_ucAlerts.Text = empCol.Messages.Trim();
+                    EmployeeCollection empCol = new EmployeeCollection();
+                    empCol.Optype = AppConstants.e_frmOperationType.S;
+
+                    //SetEmployeeCollections
+                    this.SetEmployeeCollection(emp);
+                    empCol.Add(emp);
+                    empCol.Messages = string.Empty;
+
+                    //call method chain to insert emp details
+                    _genBPC.bpcInsertEmployeeDetails(empCol);
+
+
+                    this.postSubmission(empCol);
+
+                }
+                else
+                {
+                    //Show Error #futureCode
+                }
+
+            }
+            catch (Exception ex)
+            {
+                /////
+            }
+        }
+
+        private void postSubmission(EmployeeCollection empCol)
+        {
+            //Post Insertion Reset Controls
+            if (empCol.RetIndicator == AppKeys.Success) { Utilities.CallResetControl(this.panel1); }
+
+            if (empCol.Messages != string.Empty)
+            {
+                TextBox txt_ucAlerts = Utilities.GetAlertTextBox();
+                txt_ucAlerts.Text = Text = empCol.Messages.Trim();
+
+                var lines = txt_ucAlerts.Lines.Count();
+                lines -= String.IsNullOrWhiteSpace(txt_ucAlerts.Lines.Last()) ? 1 : 0;
+
+                if (lines > 1) { txt_ucAlerts.ScrollBars = ScrollBars.Both; }
+                //panel6_ucAlert.Controls.Add(txt_ucAlerts);
+                //panel6_ucAlert.AutoSize = true;
+                tableLayoutPanel5.Controls.Add(txt_ucAlerts, 0, 0);
+
+            }
+        }
+
+        private void ucResetControls()
+        {
+
+            foreach (Control ctrl in tableLayoutPanel4.Controls)
+            {
+                if (ctrl.Name == "txt_ucAlerts")
+                {
+                    tableLayoutPanel4.Controls.Remove(ctrl);
                 }
             }
-            else
-            { 
-                //Show Error #futureCode
-            }
+            Utilities.CallResetControl(this.panel1);
         }
 
 
         #endregion UserMethods
 
-       
+        private void lbl_upload_uid_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+
+            // file types, that will be allowed to upload
+            dialog.Filter = "Images files (*.jpg)|*.jpg|All files (*.*)|*.*";// |*.jpg;";
+            dialog.Multiselect = false;
+            DialogResult dr = dialog.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                Image i = Image.FromFile(dialog.FileName);
+
+                EmployeeDocsCollection edocCol = new EmployeeDocsCollection();
+                EmployeeDocs edoc = new EmployeeDocs();
+
+                edoc.Emp_id = "u538366";
+                edoc.Doc_type = "uid";
+                edoc.Doc_path = dialog.FileName;
+                edoc.File_type = "img";
+                edoc.Image = i;
+
+                edocCol.Add(edoc);
+                GenBPC.bpcInsertEmployeeDocs(edocCol);
+            }
+
+        }
     }
 }

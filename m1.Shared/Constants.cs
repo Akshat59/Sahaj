@@ -87,7 +87,7 @@ namespace m1.Shared
         /// v15 - vehicles Private, v16-vehicles Buses, v17 - vehicles others
         /// p-20 - permits, i30-insurance,r40
         /// </summary>
-        public enum e_PrimaryKeySeries { a00, e11, e12,e13,v15, v16, v17, p20,i30,r40 };
+        public enum e_PrimaryKeySeries { a09, e11, e12,e13,v15, v16, v17, p20,i30,r40 };
 
         public enum e_BulkUploadType { NONE,EMPLOYEE, VEHICLE, PERMIT, INSURANCE, ROUTE };
         public enum e_DrivingLicence { HMV, HLTV, LMV };
@@ -116,6 +116,7 @@ namespace m1.Shared
         public const string Failure = "F";
         public const string Active = "A";
         public const string Deactive = "D";
+
     }
 
 
@@ -145,8 +146,14 @@ namespace m1.Shared
         public const string NoLogsMsg = "No Logs to Show";
         public const string ShowLogTitle = "App Logs";
 
-        public const string InsertEmpFailure = "Some Error While Inserting Employee Details";
-        public const string InsertEmpSuccess = "{0} details added Successfully";
+        public const string InsertEmpFailure = "Unexpected Error While Inserting Employee Details";
+        public const string InsertEmpSuccess = "Details for {0} added Successfully";
+        public const string InsertEmpDocFailure = "Unexpected Error While Inserting Employee Docs";
+        public const string InsertEmpDocSuccess = "Documents for {0} added Successfully";
+
+        
+
+        public const string NextIDEmpty = "Retrieved Next ID is empty";
     }
     #endregion UserMessages
 

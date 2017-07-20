@@ -78,6 +78,8 @@ namespace m1.Shared.Entities
             get { return profilepic; }
             set { profilepic = value; }
         }
+
+       
                     
         #endregion
     }

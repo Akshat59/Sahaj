@@ -12,7 +12,8 @@ namespace m1.DAC
         public const string ValidateUserLogin = "Query_ValidateUserLogin";
         public const string GetAppInfo = "Query_GetAppInfo";
         public const string TruncateTable = "TRUNCATE TABLE ";
-        public const string InsertEmpDetails = "Query_InsertEmpDetails";        
+        public const string InsertEmpDetails = "Query_InsertEmpDetails";
+        public const string InsertEmpDocs = "Query_InsertEmpDocs";
     }
 
     public class DatabaseConstants
@@ -20,6 +21,9 @@ namespace m1.DAC
         public const string ConnStringKey = "ConnectionStringSQL_Dev";
     }
 
+    
+
+    #region SCRAP
     public class parameterCollection //: ArrayList
     {
         private Parameter _p;
@@ -31,8 +35,6 @@ namespace m1.DAC
 
 
     }
-
-
     public class Parameter
     {
 
@@ -65,4 +67,5 @@ namespace m1.DAC
             set { direction = value; }
         }
     }
+    #endregion #region SCRAP
 }
