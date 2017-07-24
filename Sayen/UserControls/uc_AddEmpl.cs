@@ -15,6 +15,10 @@ using m1.Shared.Entities;
 using System.Reflection;
 using System.Globalization;
 using System.Threading;
+using System.IO;
+using System.Diagnostics;
+using static m1.Shared.AppConstants;
+using System.Drawing.Imaging;
 
 namespace Sayen.UserControls
 {
@@ -25,7 +29,9 @@ namespace Sayen.UserControls
         frm_Home _objfrmHome;
         bool _isPostback = false;
         AppConstants.e_frmOperationType _operationType;
-        EmployeeEntity emp = new EmployeeEntity();        
+        EmployeeEntity emp = new EmployeeEntity();
+        EmployeeDocsCollection edocCol = null;
+        //EmployeeDocs edoc = new EmployeeDocs();
 
         private genBPC _genBPC;
 
@@ -43,7 +49,6 @@ namespace Sayen.UserControls
         {
             get { if (_gEntity == null) { _gEntity = new GenEntity(); } return _gEntity; }
         }
-        #endregion
 
         public uc_AddEmpl()
         {
@@ -51,16 +56,19 @@ namespace Sayen.UserControls
             LoadAddEmp();
         }
 
-        public uc_AddEmpl(frm_Home objFrmHome, AppConstants.e_frmOperationType optyp )
+        public uc_AddEmpl(frm_Home objFrmHome, AppConstants.e_frmOperationType optyp)
         {
             InitializeComponent();
 
             LoadAddEmp();
             _objfrmHome = objFrmHome;
             _operationType = optyp;
+            edocCol = new EmployeeDocsCollection();
+
             this._genBPC = null;
             if (_genBPC == null) { _genBPC = new genBPC(); }
         }
+        #endregion
 
         #region Controls
 
@@ -84,7 +92,8 @@ namespace Sayen.UserControls
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
-            this.ValidateAndSave_addEmpl();
+            if (this.Validate_AddEmpl())
+            { this.Save_addEmpl(); }
         }
 
         
@@ -250,17 +259,73 @@ namespace Sayen.UserControls
 
         private bool Validate_AddEmpl()
         {
+            //#futurecode
+            //if (Utilities.UC_hasValidationErrors(this.Controls))
+            //{ MessageBox.Show("FALSE"); }
+            //else
+            // if we get here the validation passed
+            //this.close();
+            //{ MessageBox.Show("TRUE"); }           
+
+
             return true;  //#futureCode
+        }        
+
+        /// <summary>
+        /// Method to Insert Employee details into Database
+        /// </summary>
+        private void Save_addEmpl()
+        {
+            EmployeeCollection empCol = new EmployeeCollection();
+                        
+            empCol.Optype = AppConstants.e_frmOperationType.S;
+            try
+            {       
+                //SetEmployeeCollections
+                this.SetEmployeeCollection(emp);
+                
+                empCol.Add(emp);
+                empCol.Messages = string.Empty;
+
+                //call method chain to insert emp details
+                _genBPC.bpcInsertEmployeeDetails(empCol);
+                this.postSubmission(empCol);
+
+                //call method chain to insert emp Documents details
+                this.SetEmployeeDocCollection(emp.Emp_id);
+                _genBPC.bpcInsertEmployeeDocs(edocCol);
+
+            }
+            catch (Exception Ex)
+            {
+                ExceptionManagement.logAppException(Ex);
+            }
+            finally
+            {
+                edocCol = new EmployeeDocsCollection();
+            }
         }
 
 
         private void SetEmployeeCollection(EmployeeEntity emp)
         {
+            string _seriesInitals = string.Empty;
+            //First Get Next ID
+            //set empid series
+            if (chk_escalatedEmp.Checked || ddl_empType.Text == AppConstants.e_EmployeeType.Board.ToString())
+            { _seriesInitals = AppConstants.e_PrimaryKeySeries.a09.ToString(); }
+            else if (ddl_empType.Text == AppConstants.e_EmployeeType.OfficeStaff.ToString())
+            { _seriesInitals = AppConstants.e_PrimaryKeySeries.e11.ToString(); }
+            else if (ddl_empType.Text == AppConstants.e_EmployeeType.Driver.ToString() || ddl_empType.Text == AppConstants.e_EmployeeType.Conductor.ToString())
+            { _seriesInitals = AppConstants.e_PrimaryKeySeries.e12.ToString(); }
+            else { _seriesInitals = AppConstants.e_PrimaryKeySeries.e13.ToString(); }
+
+            emp.Emp_id = GenBPC.bpcGetNextID(AppDBContants.EmpDetails, AppDBContants.EmpDetailsPkey, AppDBContants.EmpDetailsPkeyLen, _seriesInitals);
             emp.Firstname = txt_firstName.Text == String.Empty ? String.Empty : txt_firstName.Text;
             emp.Lastname = txt_lastName.Text == String.Empty ? String.Empty : txt_lastName.Text;
             emp.Petname = txt_petName.Text == String.Empty ? String.Empty : txt_petName.Text;
             emp.Dob = dtp_dob.Text == String.Empty ? String.Empty : dtp_dob.Text;
-            emp.Gender = rdl_gender_f.Checked ? AppConstants.e_Gender.F.ToString(): AppConstants.e_Gender.M.ToString();
+            emp.Gender = rdl_gender_f.Checked ? AppConstants.e_Gender.F.ToString() : AppConstants.e_Gender.M.ToString();
             emp.Emptype = ddl_empType.Text == String.Empty ? String.Empty : ddl_empType.Text;
             emp.Designation = ddl_designation.Text == String.Empty ? String.Empty : ddl_designation.Text;
             emp.Empaddress = txt_address.Text == String.Empty ? String.Empty : txt_address.Text;
@@ -272,7 +337,7 @@ namespace Sayen.UserControls
             emp.Aadhaarno = txt_aadhaar.Text == String.Empty ? String.Empty : txt_aadhaar.Text;
             emp.Addressproof = txt_addressProof.Text == String.Empty ? String.Empty : txt_addressProof.Text;
             emp.Dl_no = txt_dlno.Text == String.Empty ? String.Empty : txt_dlno.Text;
-            emp.Dl_htmv = chk_dltype_htmv.Checked ? AppKeys.Yes.ToString(): AppKeys.No.ToString();
+            emp.Dl_htmv = chk_dltype_htmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
             emp.Dl_hmv = chk_dltype_hmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
             emp.Dl_lmv = chk_dltype_lmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
             emp.Dl_rto = txt_rto.Text == String.Empty ? String.Empty : txt_rto.Text;
@@ -283,19 +348,59 @@ namespace Sayen.UserControls
             emp.Emp_status = AppKeys.Active;
             emp.Allow_login = AppKeys.Yes;
 
-            //set empid series
-            if (chk_escalatedEmp.Checked|| ddl_empType.Text == AppConstants.e_EmployeeType.Board.ToString())
-            { emp.Emp_id = AppConstants.e_PrimaryKeySeries.a09.ToString(); }
-            else if (ddl_empType.Text == AppConstants.e_EmployeeType.OfficeStaff.ToString())
-            { emp.Emp_id = AppConstants.e_PrimaryKeySeries.e11.ToString(); }
-            else if(ddl_empType.Text == AppConstants.e_EmployeeType.Driver.ToString() || ddl_empType.Text == AppConstants.e_EmployeeType.Conductor.ToString())
-            { emp.Emp_id = AppConstants.e_PrimaryKeySeries.e12.ToString(); }
-            else { emp.Emp_id = AppConstants.e_PrimaryKeySeries.e13.ToString(); }
-
-
             //format emp properties
             this.formatEntity(emp);
 
+        }
+
+        private void SetEmployeeDocCollection(string _empID)
+        {
+            FileInfo _f;
+            string _sourcePath = string.Empty;
+            string _fileName;
+            string _sp = Directory.GetParent(Path.GetDirectoryName(System.Windows.Forms.Application.StartupPath)).FullName;
+            DirectoryInfo dir = new DirectoryInfo(AppConstants.setHomePath);
+            string _targetPath = dir.FullName + AppConstants.setImagesPath+AppConstants.empImgDocPath;
+            string _sourceFile;
+            string _destFile;
+
+            if (!System.IO.Directory.Exists(_targetPath))
+            {
+                System.IO.Directory.CreateDirectory(_targetPath);
+            }
+
+            foreach (EmployeeDocs edoc in edocCol)
+            {
+                _f = new FileInfo(edoc.DocPath);
+                edoc.EmpId = _empID;
+                edoc.DocName = AppConstants.fn_empDoc+ _empID+"_"+edoc.DocType.ToString()+"_001";
+                edoc.DocExtn = _f.Extension;
+                edoc.ActiveInd = AppKeys.Deactive;
+
+
+                // we are saving file in app images folder and also into database
+                //Copy to SQL
+                Image img = Image.FromFile(edoc.DocPath);
+                MemoryStream tmpStream = new MemoryStream();
+                img.Save(tmpStream, ImageFormat.Png); // change to other format
+                tmpStream.Seek(0, SeekOrigin.Begin);
+                byte[] imgBytes = new byte[tmpStream.Length]; //MAX_IMG_SIZE
+                tmpStream.Read(imgBytes, 0, imgBytes.Length);
+                edoc.Image = imgBytes;
+
+
+                //Copy to folder
+                _sourcePath = _f.DirectoryName;
+                _fileName = _f.Name;
+                _sourceFile = Path.Combine(_sourcePath, _fileName);
+                _destFile = Path.Combine(_targetPath, edoc.DocName+ edoc.DocExtn);
+
+                // To copy a file to another location and Overwrite the destination file if it already exists.               
+                File.Copy(_sourceFile, _destFile, true);
+
+            }
+
+            
         }
 
         private void formatEntity(object obj)
@@ -303,7 +408,7 @@ namespace Sayen.UserControls
             Type type = obj.GetType();
             PropertyInfo[] properties = type.GetProperties();
             string _s = string.Empty;
-           // string _s1;
+            // string _s1;
             //string _s2;
 
             foreach (PropertyInfo propertyInfo in emp.GetType().GetProperties())
@@ -313,11 +418,11 @@ namespace Sayen.UserControls
 
                 object[] attribute = propertyInfo.GetCustomAttributes(typeof(IsCamelCase), true);
                 // Just in case you have a property without this annotation
-                if (attribute.Length > 0 &&_s.Length>0)
+                if (attribute.Length > 0 && _s.Length > 0)
                 {
                     IsCamelCase myAttribute = (IsCamelCase)attribute[0];
                     bool attributeValue = myAttribute.isCamelCase;
-                    
+
                     if (attributeValue)
                     {
                         TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
@@ -329,52 +434,6 @@ namespace Sayen.UserControls
                     }
                 }
 
-            }
-        }
-
-        private void ValidateAndSave_addEmpl()
-        {
-            //Include Validation
-            try
-            {
-
-                bool _valStatus = this.Validate_AddEmpl();
-                //#futurecode
-                //if (Utilities.UC_hasValidationErrors(this.Controls))
-                //{ MessageBox.Show("FALSE"); }
-                //else
-                // if we get here the validation passed
-                //this.close();
-                //{ MessageBox.Show("TRUE"); }           
-
-
-                //InsertEmpDetails
-                if (_valStatus)
-                {
-                    EmployeeCollection empCol = new EmployeeCollection();
-                    empCol.Optype = AppConstants.e_frmOperationType.S;
-
-                    //SetEmployeeCollections
-                    this.SetEmployeeCollection(emp);
-                    empCol.Add(emp);
-                    empCol.Messages = string.Empty;
-
-                    //call method chain to insert emp details
-                    _genBPC.bpcInsertEmployeeDetails(empCol);
-
-
-                    this.postSubmission(empCol);
-
-                }
-                else
-                {
-                    //Show Error #futureCode
-                }
-
-            }
-            catch (Exception ex)
-            {
-                /////
             }
         }
 
@@ -417,28 +476,10 @@ namespace Sayen.UserControls
 
         private void lbl_upload_uid_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-
-            // file types, that will be allowed to upload
-            dialog.Filter = "Images files (*.jpg)|*.jpg|All files (*.*)|*.*";// |*.jpg;";
-            dialog.Multiselect = false;
-            DialogResult dr = dialog.ShowDialog();
-            if (dr == DialogResult.OK)
-            {
-                Image i = Image.FromFile(dialog.FileName);
-
-                EmployeeDocsCollection edocCol = new EmployeeDocsCollection();
-                EmployeeDocs edoc = new EmployeeDocs();
-
-                edoc.Emp_id = "u538366";
-                edoc.Doc_type = "uid";
-                edoc.Doc_path = dialog.FileName;
-                edoc.File_type = "img";
-                edoc.Image = i;
-
-                edocCol.Add(edoc);
-                GenBPC.bpcInsertEmployeeDocs(edocCol);
-            }
+            EmployeeDocs edoc = new EmployeeDocs();
+            edoc.DocType = e_DocType.AAD;
+            edoc.DocPath = Utilities.SelectImagePath();
+            edocCol.Add(edoc);            
 
         }
     }

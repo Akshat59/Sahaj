@@ -84,13 +84,9 @@ namespace Sayen
             }
             catch (Exception Ex)
             {
-                _appErrorLog = ExceptionManagement.logAppException(Ex);
+                ExceptionManagement.logAppException(Ex);
                 setLables(AppConstants.CallStatusError, UserMessages.AppException);
-            }
-            finally
-            {
-                AppGlobal.appErrorLog = _appErrorLog;
-            }
+            }            
         }
 
 
@@ -163,12 +159,8 @@ namespace Sayen
             }
             catch (Exception Ex)
             {
-                _appErrorLog = ExceptionManagement.logAppException(Ex);
+                ExceptionManagement.logAppException(Ex);
                 setLables(AppConstants.CallStatusError, UserMessages.AppException);
-            }
-            finally
-            {
-                AppGlobal.appErrorLog = _appErrorLog;
             }
         }
 

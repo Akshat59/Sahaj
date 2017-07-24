@@ -1,4 +1,5 @@
 ﻿using static m1.Shared.AppCommon;
+using static m1.Shared.AppConstants;
 
 namespace m1.Shared.Entities
 {
@@ -423,64 +424,6 @@ namespace m1.Shared.Entities
 
         #region Properties
 
-        private string _emp_id = string.Empty;
-        private string _doc_type = string.Empty;
-        private string _doc_path = string.Empty;
-        private string _file_type = string.Empty;
-        public object Image = null;
-
-        public string Emp_id
-        {
-            get
-            {
-                return _emp_id;
-            }
-
-            set
-            {
-                _emp_id = value;
-            }
-        }
-
-        public string Doc_type
-        {
-            get
-            {
-                return _doc_type;
-            }
-
-            set
-            {
-                _doc_type = value;
-            }
-        }
-
-        public string Doc_path
-        {
-            get
-            {
-                return _doc_path;
-            }
-
-            set
-            {
-                _doc_path = value;
-            }
-        }
-
-        public string File_type
-        {
-            get
-            {
-                return _file_type;
-            }
-
-            set
-            {
-                _file_type = value;
-            }
-        }
-
 
         private string _retmessage = string.Empty;
         public string RetMessage
@@ -507,6 +450,113 @@ namespace m1.Shared.Entities
             set
             {
                 _retIndicator = value;
+            }
+        }
+
+
+        private string _empId = string.Empty;
+
+        private string _docName = string.Empty;
+        private e_DocType _docType;
+        private string _docPath = string.Empty;
+        private string _docExtn = string.Empty;
+        private string _activeInd = string.Empty;
+        private string _fileType = string.Empty;
+        public byte[] Image = null;
+        //public object Image = null;
+
+
+
+        public string EmpId
+        {
+            get
+            {
+                return _empId;
+            }
+
+            set
+            {
+                _empId = value;
+            }
+        }
+
+       
+
+        public string DocPath
+        {
+            get
+            {
+                return _docPath;
+            }
+
+            set
+            {
+                _docPath = value;
+            }
+        }
+
+        public string FileType
+        {
+            get
+            {
+                return _fileType;
+            }
+
+            set
+            {
+                _fileType = value;
+            }
+        }
+
+        public string DocExtn
+        {
+            get
+            {
+                return _docExtn;
+            }
+
+            set
+            {
+                _docExtn = value;
+            }
+        }
+
+        public e_DocType DocType
+        {
+            get
+            {
+                return _docType;
+            }
+
+            set
+            {
+                _docType = value;
+            }
+        }
+
+        public string ActiveInd
+        {
+            get
+            {
+                return _activeInd;
+            }
+
+            set
+            {
+                _activeInd = value;
+            }
+        }
+
+        public string DocName
+        {
+            get
+            {
+                return _docName;
+            }
+
+            set
+            {
+                _docName = value;
             }
         }
 

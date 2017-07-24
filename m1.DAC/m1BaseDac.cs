@@ -32,8 +32,7 @@ namespace m1.DAC
 
         private void SetExceptionLog(Exception Ex)
         {
-            _sqlLog = "\r\n" + Ex.Message + Ex.InnerException + "\r\n" + Ex.StackTrace; 
-            //#futureCode write logs to file/db.
+            ExceptionManagement.logAppException(Ex);            
         }
 
         private void SetSQLExceptionLog(SqlException Ex)
@@ -181,6 +180,7 @@ namespace m1.DAC
             foreach (SqlParameter p in sp)
             {               
                 _queryLog = _queryLog.Replace(p.ParameterName.ToString(), "'" + p.Value.ToString() + "'");
+                AppGlobal.sqlErrorLog = _queryLog;
                 //Add _queryLog to logs       #futureCode
             }
 

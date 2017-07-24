@@ -9,13 +9,14 @@ namespace m1.Shared
     {
         static string _appErrorLog = string.Empty;
 
-        public static string logAppException(Exception Ex)
+        public static void  logAppException(Exception Ex)
         {
             _appErrorLog = "\r\n" + Ex.Message+"\r\n"+Ex.InnerException + "\r\n" + Ex.StackTrace;
+            AppGlobal.appErrorLog = AppGlobal.appErrorLog + "\r\n"+ _appErrorLog;
 
-            //Code to write logs to file...................
-
-            return Ex.Message;
+            //Code to write logs to file................... #futureCode
         }
+
+
     }
 }

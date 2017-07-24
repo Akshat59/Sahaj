@@ -104,7 +104,21 @@ namespace m1.Shared
         /// </summary>
         public enum e_Gender { M,F,X,Z };
 
-        
+        /// <summary>
+        /// This enum have codes which signifies type of Document
+        /// AAD-Adhaar, APX - Address Proof, DLF - Driving Licence Front, DLF - Driving Licence Back, EPH- Employee Photograph
+        /// </summary>
+        public enum e_DocType { AAD, APX, DLF, EPH};
+
+        #region GetSetPaths
+        public const string setHomePath = "..\\..\\..";
+        public const string setImagesPath = "\\WEB\\images";
+        public const string empImgDocPath = "\\empDocs";
+        #endregion GetSetPaths
+
+        #region FileNameInitialsSeries  //fn - filename
+        public const string fn_empDoc = "img_edoc_";
+        #endregion
 
     }
 

@@ -14,6 +14,7 @@ namespace m1.DAC
         public const string TruncateTable = "TRUNCATE TABLE ";
         public const string InsertEmpDetails = "Query_InsertEmpDetails";
         public const string InsertEmpDocs = "Query_InsertEmpDocs";
+        public const string GetNextID = "Query_GetNextID";        
     }
 
     public class DatabaseConstants

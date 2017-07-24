@@ -74,15 +74,6 @@ namespace m1.DAC
             }
         }
 
-       
-
-        
-
-
-
-
-
-
         /// <summary>
         /// This method is to retrive next id column (primary key) from table from the database table as per enum e_PrimaryKeySeries
         /// </summary>
@@ -92,13 +83,20 @@ namespace m1.DAC
         /// <param name="totallength for padding"
         public string GetNextID(string tableName,string sqlColumn, string totalLength, string seriesInitials)
         {
+            string _nextID = string.Empty;
+            string sqlSelectQuery = base.RetrieveSqlQuery(QueryConstants.GetNextID).ToString();
             int _i = Convert.ToInt32(totalLength) - seriesInitials.Length; //to replace as {2}
+
+            //futureCode - clean commented code
             //SELECT RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'E110001'),4,4)+1) AS VARCHAR(4))),4 ) FROM d1_cdt_employees;
             //SELECT RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'{3}0001'),{2},{2})+1) AS VARCHAR({5}))),{2}) FROM {0};
-            string sqlSelectQuery = string.Format(@"SELECT '{3}' + RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'{3}0000'),{2},{2})+1) AS VARCHAR({2}))),{2}) FROM {0} WHERE SUBSTRING({1},1,{4}) = '{3}'"
-                                                                    , tableName, sqlColumn, _i.ToString(), seriesInitials, seriesInitials.Length.ToString());
-
+            // string sqlSelectQuery = string.Format(@"SELECT '{3}' + RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'{3}0000'),{2},{2})+1) AS VARCHAR({2}))),{2}) FROM {0} WHERE SUBSTRING({1},1,{4}) = '{3}'"
+            // tableName, sqlColumn, _i.ToString(), seriesInitials, seriesInitials.Length.ToString());            //seriesInitials = "e12";
             //string sqlSelectQuery = string.Format("SELECT ISNULL(MAX({0}),'') FROM {1} WHERE SUBSTRING({0},0,2) = '{2}'", sqlColumn, tableName, seriesInitials);
+            //string h = @"select (substring(ISNULL(MAX({1}),0),{3}+1,{4}-{3}) +1) FROM {0} WHERE SUBSTRING(emp_id,1, {3}) = &apos;{2}&apos;";
+
+            sqlSelectQuery = string.Format(sqlSelectQuery, tableName, sqlColumn, seriesInitials, seriesInitials.Length.ToString(), totalLength);
+
 
             string _s_ret = base.bExecuteScalar(sqlSelectQuery);
 
@@ -107,8 +105,13 @@ namespace m1.DAC
                 //log error  #futureCode
                 throw new Exception(UserMessages.NextIDEmpty);
             }
+            else
+            {  
+                _nextID = _s_ret.PadLeft(Convert.ToInt32(totalLength)- seriesInitials.Length, '0');
+                _nextID = seriesInitials + _nextID;
+            }
 
-            return _s_ret;
+            return _nextID;
         }
 
         public void dacTruncateTable(string tableName)
@@ -178,22 +181,26 @@ namespace m1.DAC
         public void dacInsertDocs(EmployeeDocs edoc)
         {
             //Retrieve Query to insert employee details
-            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.InsertEmpDetails).ToString();
+            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.InsertEmpDocs).ToString();
 
             List<SqlParameter> cp = base.GetCommonParameters();            
 
             List<SqlParameter> sp = new List<SqlParameter>()
             {
-                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= edoc.Emp_id},
-                new SqlParameter() {ParameterName = "@doc_type", SqlDbType = SqlDbType.NVarChar, Value= edoc.Doc_type},
-                new SqlParameter() {ParameterName = "@doc_image", SqlDbType = SqlDbType.Image, Value= edoc.Image},
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= edoc.EmpId},
+                new SqlParameter() {ParameterName = "@doc_type", SqlDbType = SqlDbType.NVarChar, Value= edoc.DocType},
+                new SqlParameter() {ParameterName = "@doctype_id", SqlDbType = SqlDbType.NVarChar, Value= string.Empty},
+                new SqlParameter() {ParameterName = "@doc_name", SqlDbType = SqlDbType.NVarChar, Value= edoc.DocName},
+                new SqlParameter() {ParameterName = "@doc_extn", SqlDbType = SqlDbType.NVarChar, Value= edoc.DocExtn},
+                new SqlParameter() {ParameterName = "@doc_img", SqlDbType = SqlDbType.Image, Value= edoc.Image},
+                new SqlParameter() {ParameterName = "@active_ind", SqlDbType = SqlDbType.NVarChar, Value= edoc.ActiveInd},
 
             };
 
             sp.AddRange(cp);
 
             //just for test #future code - remove this test method
-            //dacTruncateTable("d1_cdt_employees");
+            //dacTruncateTable("d1_cdt_empdocs");
 
             int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
             if (_cnt <= 0)
@@ -201,7 +208,7 @@ namespace m1.DAC
             else
             {
                 
-                { edoc.RetIndicator = AppKeys.Success; edoc.RetMessage = string.Format(UserMessages.InsertEmpDocSuccess, edoc.Emp_id); }
+                { edoc.RetIndicator = AppKeys.Success; edoc.RetMessage = string.Format(UserMessages.InsertEmpDocSuccess, edoc.EmpId); }
             }
         }
 

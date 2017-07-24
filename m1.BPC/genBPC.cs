@@ -62,25 +62,21 @@ namespace m1.BPC
                 return GenBC.bcTestDatabaseConnection(GEntity);
             }
 
+
+
+        public string bpcGetNextID (string tableName, string columnName,string columnLen,string seriesInitals)
+        {
+            return GenBC.bcGetNextID(tableName, columnName, columnLen, seriesInitals);
+        }
+
         public void bpcInsertEmployeeDetails(EmployeeCollection eCol)
         {
             StringBuilder _sb = new StringBuilder();
             string _seriesInitals = string.Empty;
-
-
             eCol.RetIndicator = AppKeys.Success;
+
             foreach (EmployeeEntity emp in eCol)
             {
-
-                //First Get Next ID
-                if(emp.Emp_id.Length!=3) //If series is undefine set default series initials
-                { emp.Emp_id = AppConstants.e_PrimaryKeySeries.e13.ToString(); }
-
-                //Retrieve next empid
-                _seriesInitals = emp.Emp_id.ToString().Substring(0, 3);
-                emp.Emp_id = GenBC.bcGetNextID(AppDBContants.EmpDetails, AppDBContants.EmpDetailsPkey, AppDBContants.EmpDetailsPkeyLen, _seriesInitals);               
-                
-
                 GenBC.bcInsertEmpDetails(emp);
 
                 if (emp.RetMessage != string.Empty) { _sb.Append(emp.RetMessage); _sb.Append("\r\n"); }

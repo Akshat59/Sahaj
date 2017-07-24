@@ -28,7 +28,7 @@ namespace m1.Shared
     {
         public class u_keys
         {
-          public const string fileDialogImg =  "Image files | *.jpg; *.jpeg; *.png; " ;
+          public const string fileDialogImg = "Images files (*.jpg)|*.jpg|All files (*.*)|*.*";
         }
 
 
@@ -273,24 +273,25 @@ namespace m1.Shared
 
         #endregion
 
-        #region GetFileDialog
-        public static OpenFileDialog GetFileDialog()
+        #region SelectFiles
+        public static string SelectImagePath()
         {
             OpenFileDialog dialog = new OpenFileDialog();
 
-            // file types, that will be allowed to upload
+            // Filter - file types, that will be allowed to upload
             dialog.Filter = u_keys.fileDialogImg;
             dialog.Multiselect = false; // allow/deny user to upload more than one file at a time
+            
             if (dialog.ShowDialog() == DialogResult.OK) // if user clicked OK
             {
-                //String path = dialog.FileName; // get name of file
-                //using (StreamReader reader = new StreamReader(new FileStream(path, FileMode.Open), new UTF8Encoding())) // do anything you want, e.g. read it
-                {
-                    // ...
-                }
+                return dialog.FileName;
+            }
+            else
+            {
+                return string.Empty;
             }
 
-            return dialog;
+            
         }
         #endregion GetFileDialog
 
