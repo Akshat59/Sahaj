@@ -56,6 +56,7 @@
     <Compile Include="Configs\ConfigSettings.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DatabaseManagement\DatabaseManagement.cs" />
+    <Compile Include="Entities\AppDocument.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\BaseEntityCollection.cs" />
     <Compile Include="Entities\CommonParamCollection.cs" />

@@ -29,6 +29,7 @@ namespace m1.Shared.Entities
         private string _dl_hmv = string.Empty;
         private string _dl_lmv = string.Empty;
         private string _dl_rto = string.Empty;
+        private string _dl_expDt = string.Empty;        
         private string _hiring_manager_id = string.Empty;
         private string _experience = string.Empty;
         private string _attributes = string.Empty;
@@ -285,6 +286,19 @@ namespace m1.Shared.Entities
             }
         }
 
+        public string Dl_expDt
+        {
+            get
+            {
+                return _dl_expDt;
+            }
+
+            set
+            {
+                _dl_expDt = value;
+            }
+        }
+
         public string Hiring_manager_id
         {
             get
@@ -352,11 +366,6 @@ namespace m1.Shared.Entities
 
         public string Designation { get; set; }
 
-       
-
-
-       
-
         public string Emailid
         {
             get
@@ -419,148 +428,5 @@ namespace m1.Shared.Entities
 
     }
 
-    public class EmployeeDocs
-    {
-
-        #region Properties
-
-
-        private string _retmessage = string.Empty;
-        public string RetMessage
-        {
-            get
-            {
-                return _retmessage;
-            }
-
-            set
-            {
-                _retmessage = value;
-            }
-        }
-
-        private string _retIndicator = string.Empty;
-        public string RetIndicator
-        {
-            get
-            {
-                return _retIndicator;
-            }
-
-            set
-            {
-                _retIndicator = value;
-            }
-        }
-
-
-        private string _empId = string.Empty;
-
-        private string _docName = string.Empty;
-        private e_DocType _docType;
-        private string _docPath = string.Empty;
-        private string _docExtn = string.Empty;
-        private string _activeInd = string.Empty;
-        private string _fileType = string.Empty;
-        public byte[] Image = null;
-        //public object Image = null;
-
-
-
-        public string EmpId
-        {
-            get
-            {
-                return _empId;
-            }
-
-            set
-            {
-                _empId = value;
-            }
-        }
-
-       
-
-        public string DocPath
-        {
-            get
-            {
-                return _docPath;
-            }
-
-            set
-            {
-                _docPath = value;
-            }
-        }
-
-        public string FileType
-        {
-            get
-            {
-                return _fileType;
-            }
-
-            set
-            {
-                _fileType = value;
-            }
-        }
-
-        public string DocExtn
-        {
-            get
-            {
-                return _docExtn;
-            }
-
-            set
-            {
-                _docExtn = value;
-            }
-        }
-
-        public e_DocType DocType
-        {
-            get
-            {
-                return _docType;
-            }
-
-            set
-            {
-                _docType = value;
-            }
-        }
-
-        public string ActiveInd
-        {
-            get
-            {
-                return _activeInd;
-            }
-
-            set
-            {
-                _activeInd = value;
-            }
-        }
-
-        public string DocName
-        {
-            get
-            {
-                return _docName;
-            }
-
-            set
-            {
-                _docName = value;
-            }
-        }
-
-        #endregion Properties
-
-    }
+   
 }

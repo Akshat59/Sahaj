@@ -21,11 +21,11 @@ public class SampleClass
 
     }
 
-    #endregion 
+    #endregion
 
     #region Properties
 
-    #endregion 
+    #endregion
 
     #region Controls
 
@@ -34,4 +34,10 @@ public class SampleClass
     #region PrivateMethods
 
     #endregion
+
+    #region Scrap
+    //DocumentCollection edoccol = new DocumentCollection();
+    //        if (typeof(DocumentCollection) == coll.GetType())
+    //        { edoccol = (DocumentCollection)coll; }
+    #endregion Scrap
 }

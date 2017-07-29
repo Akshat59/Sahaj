@@ -5,10 +5,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace m1.Shared.Entities
 {
-    public abstract class BaseEntityCollection:CollectionBase,ICloneable
+    public abstract class BaseEntityCollection : CollectionBase, ICloneable
     {
 
+        /*
         #region Contains
+        
         public virtual bool Contains(BaseEntity item)
         {
             foreach (BaseEntity be in List)
@@ -28,7 +30,7 @@ namespace m1.Shared.Entities
             {
                 foreach (BaseEntity be in List)
                 {
-                    if(be.IsValid == false)
+                    if (be.IsValid == false)
                     {
                         return false;
                     }
@@ -37,16 +39,7 @@ namespace m1.Shared.Entities
             }
         }
 
-        public virtual object Clone()
-        {
-            MemoryStream _buffer = new MemoryStream();
-            BinaryFormatter _formatter = new BinaryFormatter();
-
-            _formatter.Serialize(_buffer, this);
-            _buffer.Position = 0;
-            return _formatter.Deserialize(_buffer);
-
-        }
+        
 
         public virtual BaseEntity Search(string propertyName,object propertyValue,bool ignoreCase, bool alreadySorted)
         {
@@ -102,6 +95,20 @@ namespace m1.Shared.Entities
         {
 
             return 1;
+        }
+
+    }
+
+    */
+        public virtual object Clone()
+        {
+            MemoryStream _buffer = new MemoryStream();
+            BinaryFormatter _formatter = new BinaryFormatter();
+
+            _formatter.Serialize(_buffer, this);
+            _buffer.Position = 0;
+            return _formatter.Deserialize(_buffer);
+
         }
 
     }

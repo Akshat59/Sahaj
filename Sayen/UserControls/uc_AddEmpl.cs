@@ -30,7 +30,7 @@ namespace Sayen.UserControls
         bool _isPostback = false;
         AppConstants.e_frmOperationType _operationType;
         EmployeeEntity emp = new EmployeeEntity();
-        EmployeeDocsCollection edocCol = null;
+        DocumentCollection docCol = null;
         //EmployeeDocs edoc = new EmployeeDocs();
 
         private genBPC _genBPC;
@@ -56,14 +56,17 @@ namespace Sayen.UserControls
             LoadAddEmp();
         }
 
-        public uc_AddEmpl(frm_Home objFrmHome, AppConstants.e_frmOperationType optyp)
+        public uc_AddEmpl(frm_Home objFrmHome, AppConstants.e_frmOperationType optyp,string empId = "")
         {
-            InitializeComponent();
-
-            LoadAddEmp();
+            InitializeComponent();            
             _objfrmHome = objFrmHome;
             _operationType = optyp;
-            edocCol = new EmployeeDocsCollection();
+            docCol = new DocumentCollection();
+
+            if (optyp == AppConstants.e_frmOperationType.S)
+            { LoadAddEmp(); }
+            else if (optyp == AppConstants.e_frmOperationType.V)
+            { LoadViewEmp(empId); }
 
             this._genBPC = null;
             if (_genBPC == null) { _genBPC = new genBPC(); }
@@ -81,13 +84,13 @@ namespace Sayen.UserControls
 
         private void btn_reset_Click(object sender, EventArgs e) { this.ucResetControls(); }
 
-       
+
 
         private void chk_prefill_CheckedChanged(object sender, EventArgs e)
         {
-            if (chk_prefill.Checked) {PrefillControls();}
+            if (chk_prefill.Checked) { PrefillControls(); }
             else { this.ucResetControls(); }
-           
+
         }
 
         private void btn_submit_Click(object sender, EventArgs e)
@@ -96,12 +99,9 @@ namespace Sayen.UserControls
             { this.Save_addEmpl(); }
         }
 
-        
 
-        private void txt_firstName_Validating(object sender, CancelEventArgs e)
-        {
-            Utilities.DontAllow_Empty(txt_firstName, errorProvider1, e);
-        }
+
+        
 
         private void rdl_singleUpload_CheckedChanged(object sender, EventArgs e)
         {
@@ -134,10 +134,124 @@ namespace Sayen.UserControls
             //chk_escalatedEmp.Visible = false;
         }
 
+        #region Validation
+        private void txt_firstName_Validating(object sender, CancelEventArgs e)
+        {
+            Utilities.DontAllow_Empty(txt_firstName, errorProvider1, e);
+        }
+
+        private void txt_lastName_Validating(object sender, CancelEventArgs e)
+        {
+            Utilities.DontAllow_Empty(txt_lastName, errorProvider1, e);
+        }
+        private void dtp_dob_Validating(object sender, CancelEventArgs e)
+        {
+            Utilities.DontAllow_InvalidDOB(dtp_dob, txt_age, errorProvider1, e);
+        }
+
+        private void dtp_validity_Validating(object sender, CancelEventArgs e)
+        {
+            if (txt_dlno.Text.Length > 0)
+            { Utilities.DontAllow_InvalidExpiryDate(dtp_validity, errorProvider1, e); }
+        }
+
+        private void txt_mobileNo_Validating(object sender, CancelEventArgs e)
+        {
+            Utilities.DontAllow_Empty(txt_mobileNo, errorProvider1, e);
+            if(txt_mobileNo.TextLength !=10)
+            {
+                errorProvider1.SetError(txt_mobileNo, UserMessages.InvalidMobileNumber);
+                e.Cancel = true;
+            }
+        }
+
+
+        private void txt_dlno_Validating(object sender, CancelEventArgs e)
+        {
+            if(ddl_empType.Text== e_EmployeeType.Driver.ToString()&&txt_dlno.TextLength <5)
+            {
+                txt_rto.Text = string.Empty;
+                dtp_validity.Text = string.Empty;
+                errorProvider1.SetError(txt_dlno, UserMessages.ValidDLRequired);
+                e.Cancel = true;
+            }
+        }
+
+        #endregion Validation
+
+        #region EmpDocs
+
+        private void lbl_hide_viewDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.H, docCol);
+        }
+
+        private void lbl_upload_uid_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.U, docCol);
+        }
+
+        private void lbl_view_uid_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.V, docCol);
+        }
+
+        private void pb_del_uid_Click(object sender, EventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+        }
+
+        private void lbl_upload_ap_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.U, docCol);
+        }
+
+        private void lbl_view_ap_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.V, docCol);
+        }
+
+        private void pb_del_ap_Click(object sender, EventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+        }
+
+        private void lbl_upload_ppic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.U, docCol);
+        }
+
+        private void lbl_view_ppic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.V, docCol);
+        }
+
+        private void pb_del_ppic_Click(object sender, EventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+        }
+
+        private void lbl_upload_dl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.U, docCol);
+        }
+
+        private void lbl_view_dl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.V, docCol);
+        }
+
+        private void pb_del_dl_Click(object sender, EventArgs e)
+        {
+            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+
+        }
+        #endregion EmpDocs
+
         #region KeyPress
         private void txt_pinCode_KeyPress(object sender, KeyPressEventArgs e)
-        {            
-            if (!(txt_pinCode.Text.Length < 6|| (e.KeyChar == (char)Keys.Back))) { e.Handled = true; }
+        {
+            if (!(txt_pinCode.Text.Length < 6 || (e.KeyChar == (char)Keys.Back))) { e.Handled = true; }
             else { Utilities.DontAllowAlphabet(sender, e); }
         }
 
@@ -191,11 +305,11 @@ namespace Sayen.UserControls
         {
             if (AppGlobal.CurrentAppEnv == AppConstants.d_AppEnvironments.FirstOrDefault(x => x.Key == AppConstants.e_AppEnvironment.DEV.ToString()).Key
                 || AppGlobal.CurrentAppEnv == AppConstants.d_AppEnvironments.FirstOrDefault(x => x.Key == AppConstants.e_AppEnvironment.TEST.ToString()).Key)
-                { chk_prefill.Visible = true; }
+            { chk_prefill.Visible = true; }
             else { chk_prefill.Visible = false; }
 
-            
-            
+
+
             ddl_empType.DataSource = new BindingSource(AppConstants.d_EmployeeType, null);
             ddl_empType.ValueMember = "Value";
             ddl_empType.DisplayMember = "Key";
@@ -211,7 +325,31 @@ namespace Sayen.UserControls
             panel1.Dock = DockStyle.Fill;
             panel1.AutoSize = true;
 
-        }       
+        }
+
+        private void LoadViewEmp(string empID)
+        {
+            if (empID.Length > 0)
+            {
+                //Retrieve emp details 
+                EmployeeCollection m_eCol = new EmployeeCollection();
+                EmployeeEntity emp = new EmployeeEntity();
+                m_eCol.Optype = e_frmOperationType.V;
+                emp.Emp_id = empID;
+                m_eCol.Add(emp);
+
+                m_eCol = _genBPC.bpcGetEmpDetails(m_eCol);
+
+
+                //Retrieve emp docs
+                DocumentCollection m_dCol = new DocumentCollection();
+            }
+            else
+            {
+                //Raise error  #futureCode
+            }
+
+        }
 
         private void PrefillControls()
         {
@@ -242,7 +380,7 @@ namespace Sayen.UserControls
 
         private void setMaintenanceMode()
         {
-            if (rdl_singleUpload.Checked )
+            if (rdl_singleUpload.Checked)
             {
                 //Do Nothing   #futureCode   handle this to log               
             }
@@ -250,8 +388,8 @@ namespace Sayen.UserControls
             {
                 _isPostback = false;
                 rdl_bulkUpload.Enabled = false;
-                uc_BulkUpload obj = new uc_BulkUpload(_objfrmHome,AppConstants.e_BulkUploadType.EMPLOYEE, AppConstants.TabPageManage);
-                _objfrmHome.LoadStripUC_frmUC(obj, AppConstants.TabPageManage,this, AppConstants.TabPageManage);
+                uc_BulkUpload obj = new uc_BulkUpload(_objfrmHome, AppConstants.e_BulkUploadType.EMPLOYEE, AppConstants.TabPageManage);
+                _objfrmHome.LoadStripUC_frmUC(obj, AppConstants.TabPageManage, this, AppConstants.TabPageManage);
                 this.Dispose();
                 rdl_bulkUpload.Enabled = true;
             }
@@ -260,16 +398,18 @@ namespace Sayen.UserControls
         private bool Validate_AddEmpl()
         {
             //#futurecode
-            //if (Utilities.UC_hasValidationErrors(this.Controls))
-            //{ MessageBox.Show("FALSE"); }
-            //else
-            // if we get here the validation passed
-            //this.close();
-            //{ MessageBox.Show("TRUE"); }           
-
-
-            return true;  //#futureCode
-        }        
+            if (Utilities.UC_hasValidationErrors(this.Controls))
+            {
+                MessageBox.Show(UserMessages.SubmitFormError);
+                return false;
+            }
+            else
+             //if we get here the validation passed
+            {
+                MessageBox.Show(UserMessages.SubmitFormSuccess);
+                return true;
+            }            
+        }
 
         /// <summary>
         /// Method to Insert Employee details into Database
@@ -277,15 +417,17 @@ namespace Sayen.UserControls
         private void Save_addEmpl()
         {
             EmployeeCollection empCol = new EmployeeCollection();
-                        
-            empCol.Optype = AppConstants.e_frmOperationType.S;
+
+            empCol.Optype = _operationType;
+            empCol.Optype = _operationType;
             try
-            {       
+            {
                 //SetEmployeeCollections
                 this.SetEmployeeCollection(emp);
-                
+
                 empCol.Add(emp);
                 empCol.Messages = string.Empty;
+                
 
                 //call method chain to insert emp details
                 _genBPC.bpcInsertEmployeeDetails(empCol);
@@ -293,7 +435,7 @@ namespace Sayen.UserControls
 
                 //call method chain to insert emp Documents details
                 this.SetEmployeeDocCollection(emp.Emp_id);
-                _genBPC.bpcInsertEmployeeDocs(edocCol);
+                _genBPC.bpcInsertEmployeeDocs(docCol);
 
             }
             catch (Exception Ex)
@@ -301,8 +443,8 @@ namespace Sayen.UserControls
                 ExceptionManagement.logAppException(Ex);
             }
             finally
-            {
-                edocCol = new EmployeeDocsCollection();
+            {                
+                docCol = new DocumentCollection();
             }
         }
 
@@ -340,7 +482,8 @@ namespace Sayen.UserControls
             emp.Dl_htmv = chk_dltype_htmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
             emp.Dl_hmv = chk_dltype_hmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
             emp.Dl_lmv = chk_dltype_lmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
-            emp.Dl_rto = txt_rto.Text == String.Empty ? String.Empty : txt_rto.Text;
+            emp.Dl_rto = txt_rto.Text == String.Empty || txt_dlno.Text == String.Empty ? String.Empty : txt_rto.Text;
+            emp.Dl_expDt = dtp_validity.Text == String.Empty || txt_dlno.Text == String.Empty ? String.Empty : dtp_validity.Text;
             emp.Hiring_manager_id = ddl_hiring_manager.Text == String.Empty ? String.Empty : ddl_hiring_manager.Text;
             emp.Experience = txt_experience.Text == String.Empty ? String.Empty : txt_experience.Text;
             emp.Attributes = txt_attributes.Text == String.Empty ? String.Empty : txt_attributes.Text;
@@ -360,7 +503,7 @@ namespace Sayen.UserControls
             string _fileName;
             string _sp = Directory.GetParent(Path.GetDirectoryName(System.Windows.Forms.Application.StartupPath)).FullName;
             DirectoryInfo dir = new DirectoryInfo(AppConstants.setHomePath);
-            string _targetPath = dir.FullName + AppConstants.setImagesPath+AppConstants.empImgDocPath;
+            string _targetPath = dir.FullName + AppConstants.setImagesPath + AppConstants.empImgDocPath;
             string _sourceFile;
             string _destFile;
 
@@ -369,38 +512,44 @@ namespace Sayen.UserControls
                 System.IO.Directory.CreateDirectory(_targetPath);
             }
 
-            foreach (EmployeeDocs edoc in edocCol)
+            foreach (formDocs edoc in docCol)
             {
-                _f = new FileInfo(edoc.DocPath);
-                edoc.EmpId = _empID;
-                edoc.DocName = AppConstants.fn_empDoc+ _empID+"_"+edoc.DocType.ToString()+"_001";
-                edoc.DocExtn = _f.Extension;
-                edoc.ActiveInd = AppKeys.Deactive;
+                if (File.Exists(edoc.DocPath))
+                {
+                    _f = new FileInfo(edoc.DocPath);
+                    edoc.EmpId = _empID;
+                    edoc.DocName = AppConstants.fn_empDoc + _empID + "_" + edoc.DocType.ToString() + "_001";
+                    edoc.DocExtn = _f.Extension;
+                    edoc.ActiveInd = AppKeys.Active;
+
+                    // we are saving file in app images folder and also into database
+                    //Copy to SQL
+
+                    Image img = Image.FromFile(edoc.DocPath);
+                    MemoryStream tmpStream = new MemoryStream();
+                    img.Save(tmpStream, ImageFormat.Png); // change to other format
+                    tmpStream.Seek(0, SeekOrigin.Begin);
+                    byte[] imgBytes = new byte[tmpStream.Length]; //MAX_IMG_SIZE
+                    tmpStream.Read(imgBytes, 0, imgBytes.Length);
+                    edoc.Image = imgBytes;
 
 
-                // we are saving file in app images folder and also into database
-                //Copy to SQL
-                Image img = Image.FromFile(edoc.DocPath);
-                MemoryStream tmpStream = new MemoryStream();
-                img.Save(tmpStream, ImageFormat.Png); // change to other format
-                tmpStream.Seek(0, SeekOrigin.Begin);
-                byte[] imgBytes = new byte[tmpStream.Length]; //MAX_IMG_SIZE
-                tmpStream.Read(imgBytes, 0, imgBytes.Length);
-                edoc.Image = imgBytes;
+                    //Copy to folder
+                    _sourcePath = _f.DirectoryName;
+                    _fileName = _f.Name;
+                    _sourceFile = Path.Combine(_sourcePath, _fileName);
+                    _destFile = Path.Combine(_targetPath, edoc.DocName + edoc.DocExtn);
 
+                    // To copy a file to another location and Overwrite the destination file if it already exists.               
+                    File.Copy(_sourceFile, _destFile, true);
+                }
+                else
+                { /*log into app/error logs #futureCode*/}
 
-                //Copy to folder
-                _sourcePath = _f.DirectoryName;
-                _fileName = _f.Name;
-                _sourceFile = Path.Combine(_sourcePath, _fileName);
-                _destFile = Path.Combine(_targetPath, edoc.DocName+ edoc.DocExtn);
-
-                // To copy a file to another location and Overwrite the destination file if it already exists.               
-                File.Copy(_sourceFile, _destFile, true);
 
             }
 
-            
+
         }
 
         private void formatEntity(object obj)
@@ -454,8 +603,13 @@ namespace Sayen.UserControls
                 //panel6_ucAlert.Controls.Add(txt_ucAlerts);
                 //panel6_ucAlert.AutoSize = true;
                 tableLayoutPanel5.Controls.Add(txt_ucAlerts, 0, 0);
-
             }
+
+            empCol = new EmployeeCollection();
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
         }
 
         private void ucResetControls()
@@ -472,15 +626,14 @@ namespace Sayen.UserControls
         }
 
 
+
+
+
+
+
+
+
         #endregion UserMethods
 
-        private void lbl_upload_uid_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            EmployeeDocs edoc = new EmployeeDocs();
-            edoc.DocType = e_DocType.AAD;
-            edoc.DocPath = Utilities.SelectImagePath();
-            edocCol.Add(edoc);            
-
-        }
     }
 }

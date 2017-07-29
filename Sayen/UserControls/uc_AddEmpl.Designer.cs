@@ -31,11 +31,9 @@ namespace Sayen.UserControls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(uc_AddEmpl));
             this.txt_dlno = new System.Windows.Forms.TextBox();
-            this.lbl_upload_dl = new System.Windows.Forms.LinkLabel();
             this.lbl_dlTypes = new System.Windows.Forms.Label();
-            this.lbl_filename_address = new System.Windows.Forms.Label();
-            this.lbl_filename_dl = new System.Windows.Forms.Label();
             this.lbl_firstName = new System.Windows.Forms.Label();
             this.lbl_title = new System.Windows.Forms.Label();
             this.lbl_lastName = new System.Windows.Forms.Label();
@@ -63,15 +61,17 @@ namespace Sayen.UserControls
             this.txt_attributes = new System.Windows.Forms.TextBox();
             this.txt_aadhaar = new System.Windows.Forms.TextBox();
             this.txt_addressProof = new System.Windows.Forms.TextBox();
-            this.lbl_filename_uid = new System.Windows.Forms.Label();
+            this.lbl_fileName_uid = new System.Windows.Forms.Label();
             this.lbl_upload_uid = new System.Windows.Forms.LinkLabel();
-            this.lbl_upload_address = new System.Windows.Forms.LinkLabel();
             this.btn_submit = new System.Windows.Forms.Button();
             this.chk_prefill = new System.Windows.Forms.CheckBox();
             this.lbl_designation = new System.Windows.Forms.Label();
             this.ddl_designation = new System.Windows.Forms.ComboBox();
             this.txt_otherDetails = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel7_viewDoc = new System.Windows.Forms.Panel();
+            this.lbl_hide_viewDoc = new System.Windows.Forms.LinkLabel();
+            this.pb_viewDoc = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.chk_escalatedEmp = new System.Windows.Forms.CheckBox();
@@ -86,6 +86,11 @@ namespace Sayen.UserControls
             this.panel5 = new System.Windows.Forms.Panel();
             this.btn_reset = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel_ap_image = new System.Windows.Forms.Panel();
+            this.pb_del_ap = new System.Windows.Forms.PictureBox();
+            this.lbl_view_ap = new System.Windows.Forms.LinkLabel();
+            this.lbl_upload_ap = new System.Windows.Forms.LinkLabel();
+            this.lbl_fileName_ap = new System.Windows.Forms.Label();
             this.dtp_validity = new System.Windows.Forms.DateTimePicker();
             this.txt_rto = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -94,13 +99,24 @@ namespace Sayen.UserControls
             this.label10 = new System.Windows.Forms.Label();
             this.lbl_addressProof = new System.Windows.Forms.Label();
             this.lbl_drivingLicence = new System.Windows.Forms.Label();
-            this.label_upload_photo = new System.Windows.Forms.LinkLabel();
-            this.lbl_filename_photo = new System.Windows.Forms.Label();
             this.lbl_dlno = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.chk_dltype_lmv = new System.Windows.Forms.CheckBox();
             this.chk_dltype_hmv = new System.Windows.Forms.CheckBox();
             this.chk_dltype_htmv = new System.Windows.Forms.CheckBox();
+            this.panel_uid_image = new System.Windows.Forms.Panel();
+            this.pb_del_uid = new System.Windows.Forms.PictureBox();
+            this.lbl_view_uid = new System.Windows.Forms.LinkLabel();
+            this.panel_ppic_image = new System.Windows.Forms.Panel();
+            this.pb_del_ppic = new System.Windows.Forms.PictureBox();
+            this.lbl_view_ppic = new System.Windows.Forms.LinkLabel();
+            this.lbl_upload_ppic = new System.Windows.Forms.LinkLabel();
+            this.lbl_fileName_ppic = new System.Windows.Forms.Label();
+            this.panel_dl_image = new System.Windows.Forms.Panel();
+            this.pb_del_dl = new System.Windows.Forms.PictureBox();
+            this.lbl_view_dl = new System.Windows.Forms.LinkLabel();
+            this.lbl_upload_dl = new System.Windows.Forms.LinkLabel();
+            this.lbl_fileName_dl = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dtp_dob = new System.Windows.Forms.DateTimePicker();
             this.lbl_dob = new System.Windows.Forms.Label();
@@ -112,16 +128,30 @@ namespace Sayen.UserControls
             this.txt_email = new System.Windows.Forms.TextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.fwd_addEmp = new System.Windows.Forms.FolderBrowserDialog();
+            this.lbl_empId = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.chk_editEmp = new System.Windows.Forms.CheckBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel7_viewDoc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_viewDoc)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel5.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel_ap_image.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_del_ap)).BeginInit();
             this.panel4.SuspendLayout();
+            this.panel_uid_image.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_del_uid)).BeginInit();
+            this.panel_ppic_image.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_del_ppic)).BeginInit();
+            this.panel_dl_image.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_del_dl)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // txt_dlno
@@ -131,17 +161,7 @@ namespace Sayen.UserControls
             this.txt_dlno.Name = "txt_dlno";
             this.txt_dlno.Size = new System.Drawing.Size(200, 20);
             this.txt_dlno.TabIndex = 2;
-            // 
-            // lbl_upload_dl
-            // 
-            this.lbl_upload_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbl_upload_dl.AutoSize = true;
-            this.lbl_upload_dl.Location = new System.Drawing.Point(300, 100);
-            this.lbl_upload_dl.Name = "lbl_upload_dl";
-            this.lbl_upload_dl.Size = new System.Drawing.Size(41, 13);
-            this.lbl_upload_dl.TabIndex = 6;
-            this.lbl_upload_dl.TabStop = true;
-            this.lbl_upload_dl.Text = "Upload";
+            this.txt_dlno.Validating += new System.ComponentModel.CancelEventHandler(this.txt_dlno_Validating);
             // 
             // lbl_dlTypes
             // 
@@ -152,30 +172,6 @@ namespace Sayen.UserControls
             this.lbl_dlTypes.Size = new System.Drawing.Size(36, 13);
             this.lbl_dlTypes.TabIndex = 29;
             this.lbl_dlTypes.Text = "Types";
-            // 
-            // lbl_filename_address
-            // 
-            this.lbl_filename_address.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbl_filename_address.AutoSize = true;
-            this.lbl_filename_address.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_filename_address.Location = new System.Drawing.Point(364, 32);
-            this.lbl_filename_address.Name = "lbl_filename_address";
-            this.lbl_filename_address.Size = new System.Drawing.Size(61, 13);
-            this.lbl_filename_address.TabIndex = 39;
-            this.lbl_filename_address.Text = "<file name>";
-            this.lbl_filename_address.Visible = false;
-            // 
-            // lbl_filename_dl
-            // 
-            this.lbl_filename_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbl_filename_dl.AutoSize = true;
-            this.lbl_filename_dl.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_filename_dl.Location = new System.Drawing.Point(364, 100);
-            this.lbl_filename_dl.Name = "lbl_filename_dl";
-            this.lbl_filename_dl.Size = new System.Drawing.Size(61, 13);
-            this.lbl_filename_dl.TabIndex = 40;
-            this.lbl_filename_dl.Text = "<file name>";
-            this.lbl_filename_dl.Visible = false;
             // 
             // lbl_firstName
             // 
@@ -227,6 +223,7 @@ namespace Sayen.UserControls
             this.txt_lastName.Size = new System.Drawing.Size(188, 20);
             this.txt_lastName.TabIndex = 1;
             this.txt_lastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_lastName_KeyPress);
+            this.txt_lastName.Validating += new System.ComponentModel.CancelEventHandler(this.txt_lastName_Validating);
             // 
             // lbl_petName
             // 
@@ -444,40 +441,29 @@ namespace Sayen.UserControls
             this.txt_addressProof.TabIndex = 1;
             this.txt_addressProof.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_addressProof_KeyPress);
             // 
-            // lbl_filename_uid
+            // lbl_fileName_uid
             // 
-            this.lbl_filename_uid.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbl_filename_uid.AutoSize = true;
-            this.lbl_filename_uid.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_filename_uid.Location = new System.Drawing.Point(364, 6);
-            this.lbl_filename_uid.Name = "lbl_filename_uid";
-            this.lbl_filename_uid.Size = new System.Drawing.Size(61, 13);
-            this.lbl_filename_uid.TabIndex = 38;
-            this.lbl_filename_uid.Text = "<file name>";
-            this.lbl_filename_uid.Visible = false;
+            this.lbl_fileName_uid.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_fileName_uid.AutoSize = true;
+            this.lbl_fileName_uid.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbl_fileName_uid.Location = new System.Drawing.Point(94, 3);
+            this.lbl_fileName_uid.Name = "lbl_fileName_uid";
+            this.lbl_fileName_uid.Size = new System.Drawing.Size(61, 13);
+            this.lbl_fileName_uid.TabIndex = 38;
+            this.lbl_fileName_uid.Text = "<file name>";
+            this.lbl_fileName_uid.Visible = false;
             // 
             // lbl_upload_uid
             // 
             this.lbl_upload_uid.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_upload_uid.AutoSize = true;
-            this.lbl_upload_uid.Location = new System.Drawing.Point(300, 6);
+            this.lbl_upload_uid.Location = new System.Drawing.Point(3, 3);
             this.lbl_upload_uid.Name = "lbl_upload_uid";
             this.lbl_upload_uid.Size = new System.Drawing.Size(41, 13);
             this.lbl_upload_uid.TabIndex = 1;
             this.lbl_upload_uid.TabStop = true;
             this.lbl_upload_uid.Text = "Upload";
             this.lbl_upload_uid.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_upload_uid_LinkClicked);
-            // 
-            // lbl_upload_address
-            // 
-            this.lbl_upload_address.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbl_upload_address.AutoSize = true;
-            this.lbl_upload_address.Location = new System.Drawing.Point(300, 32);
-            this.lbl_upload_address.Name = "lbl_upload_address";
-            this.lbl_upload_address.Size = new System.Drawing.Size(41, 13);
-            this.lbl_upload_address.TabIndex = 3;
-            this.lbl_upload_address.TabStop = true;
-            this.lbl_upload_address.Text = "Upload";
             // 
             // btn_submit
             // 
@@ -547,6 +533,8 @@ namespace Sayen.UserControls
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.BackColor = System.Drawing.Color.AliceBlue;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.panel6);
+            this.panel1.Controls.Add(this.panel7_viewDoc);
             this.panel1.Controls.Add(this.tableLayoutPanel5);
             this.panel1.Controls.Add(this.tableLayoutPanel4);
             this.panel1.Controls.Add(this.tableLayoutPanel3);
@@ -554,18 +542,52 @@ namespace Sayen.UserControls
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(885, 1326);
+            this.panel1.Size = new System.Drawing.Size(1079, 1326);
             this.panel1.TabIndex = 0;
+            // 
+            // panel7_viewDoc
+            // 
+            this.panel7_viewDoc.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel7_viewDoc.Controls.Add(this.lbl_hide_viewDoc);
+            this.panel7_viewDoc.Controls.Add(this.pb_viewDoc);
+            this.panel7_viewDoc.Location = new System.Drawing.Point(889, 110);
+            this.panel7_viewDoc.Name = "panel7_viewDoc";
+            this.panel7_viewDoc.Size = new System.Drawing.Size(185, 199);
+            this.panel7_viewDoc.TabIndex = 5;
+            this.panel7_viewDoc.Visible = false;
+            // 
+            // lbl_hide_viewDoc
+            // 
+            this.lbl_hide_viewDoc.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lbl_hide_viewDoc.AutoSize = true;
+            this.lbl_hide_viewDoc.Location = new System.Drawing.Point(153, 3);
+            this.lbl_hide_viewDoc.Name = "lbl_hide_viewDoc";
+            this.lbl_hide_viewDoc.Size = new System.Drawing.Size(29, 13);
+            this.lbl_hide_viewDoc.TabIndex = 5;
+            this.lbl_hide_viewDoc.TabStop = true;
+            this.lbl_hide_viewDoc.Text = "Hide";
+            this.lbl_hide_viewDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_hide_viewDoc_LinkClicked);
+            // 
+            // pb_viewDoc
+            // 
+            this.pb_viewDoc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pb_viewDoc.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pb_viewDoc.Location = new System.Drawing.Point(0, 20);
+            this.pb_viewDoc.Name = "pb_viewDoc";
+            this.pb_viewDoc.Size = new System.Drawing.Size(185, 179);
+            this.pb_viewDoc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_viewDoc.TabIndex = 4;
+            this.pb_viewDoc.TabStop = false;
             // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(84, 78);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(204, 78);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(751, 23);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(691, 23);
             this.tableLayoutPanel5.TabIndex = 3;
             // 
             // tableLayoutPanel4
@@ -582,7 +604,7 @@ namespace Sayen.UserControls
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.chk_prefill, 3, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel3, 2, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(24, 14);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(84, 7);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.27778F));
@@ -675,7 +697,7 @@ namespace Sayen.UserControls
             this.tableLayoutPanel3.Controls.Add(this.ddl_hiring_manager, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.txt_experience, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.panel5, 1, 4);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(401, 319);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(404, 315);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
@@ -730,11 +752,11 @@ namespace Sayen.UserControls
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 91F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 186F));
+            this.tableLayoutPanel2.Controls.Add(this.panel_ap_image, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.dtp_validity, 1, 7);
             this.tableLayoutPanel2.Controls.Add(this.txt_rto, 1, 6);
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 7);
@@ -743,21 +765,16 @@ namespace Sayen.UserControls
             this.tableLayoutPanel2.Controls.Add(this.label10, 0, 6);
             this.tableLayoutPanel2.Controls.Add(this.lbl_dlTypes, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.txt_aadhaar, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_upload_uid, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_filename_uid, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.lbl_addressProof, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.txt_addressProof, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_upload_address, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_filename_address, 3, 1);
             this.tableLayoutPanel2.Controls.Add(this.lbl_drivingLicence, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.label_upload_photo, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_filename_photo, 3, 2);
             this.tableLayoutPanel2.Controls.Add(this.lbl_dlno, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.txt_dlno, 1, 4);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_upload_dl, 2, 4);
-            this.tableLayoutPanel2.Controls.Add(this.lbl_filename_dl, 3, 4);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 5);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(401, 104);
+            this.tableLayoutPanel2.Controls.Add(this.panel_uid_image, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel_ppic_image, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.panel_dl_image, 2, 4);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(404, 107);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 8;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
@@ -768,8 +785,69 @@ namespace Sayen.UserControls
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(434, 202);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(479, 202);
             this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // panel_ap_image
+            // 
+            this.panel_ap_image.Controls.Add(this.pb_del_ap);
+            this.panel_ap_image.Controls.Add(this.lbl_view_ap);
+            this.panel_ap_image.Controls.Add(this.lbl_upload_ap);
+            this.panel_ap_image.Controls.Add(this.lbl_fileName_ap);
+            this.panel_ap_image.Location = new System.Drawing.Point(296, 29);
+            this.panel_ap_image.Name = "panel_ap_image";
+            this.panel_ap_image.Size = new System.Drawing.Size(180, 19);
+            this.panel_ap_image.TabIndex = 53;
+            // 
+            // pb_del_ap
+            // 
+            this.pb_del_ap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pb_del_ap.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pb_del_ap.Image = ((System.Drawing.Image)(resources.GetObject("pb_del_ap.Image")));
+            this.pb_del_ap.Location = new System.Drawing.Point(72, 3);
+            this.pb_del_ap.Name = "pb_del_ap";
+            this.pb_del_ap.Size = new System.Drawing.Size(17, 14);
+            this.pb_del_ap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_del_ap.TabIndex = 1;
+            this.pb_del_ap.TabStop = false;
+            this.pb_del_ap.Visible = false;
+            this.pb_del_ap.Click += new System.EventHandler(this.pb_del_ap_Click);
+            // 
+            // lbl_view_ap
+            // 
+            this.lbl_view_ap.AutoSize = true;
+            this.lbl_view_ap.Location = new System.Drawing.Point(43, 3);
+            this.lbl_view_ap.Name = "lbl_view_ap";
+            this.lbl_view_ap.Size = new System.Drawing.Size(30, 13);
+            this.lbl_view_ap.TabIndex = 0;
+            this.lbl_view_ap.TabStop = true;
+            this.lbl_view_ap.Text = "View";
+            this.lbl_view_ap.Visible = false;
+            this.lbl_view_ap.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_view_ap_LinkClicked);
+            // 
+            // lbl_upload_ap
+            // 
+            this.lbl_upload_ap.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_upload_ap.AutoSize = true;
+            this.lbl_upload_ap.Location = new System.Drawing.Point(3, 2);
+            this.lbl_upload_ap.Name = "lbl_upload_ap";
+            this.lbl_upload_ap.Size = new System.Drawing.Size(41, 13);
+            this.lbl_upload_ap.TabIndex = 1;
+            this.lbl_upload_ap.TabStop = true;
+            this.lbl_upload_ap.Text = "Upload";
+            this.lbl_upload_ap.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_upload_ap_LinkClicked);
+            // 
+            // lbl_fileName_ap
+            // 
+            this.lbl_fileName_ap.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_fileName_ap.AutoSize = true;
+            this.lbl_fileName_ap.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbl_fileName_ap.Location = new System.Drawing.Point(95, 3);
+            this.lbl_fileName_ap.Name = "lbl_fileName_ap";
+            this.lbl_fileName_ap.Size = new System.Drawing.Size(61, 13);
+            this.lbl_fileName_ap.TabIndex = 38;
+            this.lbl_fileName_ap.Text = "<file name>";
+            this.lbl_fileName_ap.Visible = false;
             // 
             // dtp_validity
             // 
@@ -780,6 +858,7 @@ namespace Sayen.UserControls
             this.dtp_validity.Name = "dtp_validity";
             this.dtp_validity.Size = new System.Drawing.Size(200, 20);
             this.dtp_validity.TabIndex = 5;
+            this.dtp_validity.Validating += new System.ComponentModel.CancelEventHandler(this.dtp_validity_Validating);
             // 
             // txt_rto
             // 
@@ -850,29 +929,6 @@ namespace Sayen.UserControls
             this.lbl_drivingLicence.TabIndex = 21;
             this.lbl_drivingLicence.Text = "Driving Licence";
             // 
-            // label_upload_photo
-            // 
-            this.label_upload_photo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label_upload_photo.AutoSize = true;
-            this.label_upload_photo.Location = new System.Drawing.Point(300, 57);
-            this.label_upload_photo.Name = "label_upload_photo";
-            this.label_upload_photo.Size = new System.Drawing.Size(41, 13);
-            this.label_upload_photo.TabIndex = 4;
-            this.label_upload_photo.TabStop = true;
-            this.label_upload_photo.Text = "Upload";
-            // 
-            // lbl_filename_photo
-            // 
-            this.lbl_filename_photo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbl_filename_photo.AutoSize = true;
-            this.lbl_filename_photo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_filename_photo.Location = new System.Drawing.Point(364, 57);
-            this.lbl_filename_photo.Name = "lbl_filename_photo";
-            this.lbl_filename_photo.Size = new System.Drawing.Size(61, 13);
-            this.lbl_filename_photo.TabIndex = 51;
-            this.lbl_filename_photo.Text = "<file name>";
-            this.lbl_filename_photo.Visible = false;
-            // 
             // lbl_dlno
             // 
             this.lbl_dlno.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -926,6 +982,165 @@ namespace Sayen.UserControls
             this.chk_dltype_htmv.Text = "HTMV";
             this.chk_dltype_htmv.UseVisualStyleBackColor = true;
             // 
+            // panel_uid_image
+            // 
+            this.panel_uid_image.Controls.Add(this.pb_del_uid);
+            this.panel_uid_image.Controls.Add(this.lbl_view_uid);
+            this.panel_uid_image.Controls.Add(this.lbl_upload_uid);
+            this.panel_uid_image.Controls.Add(this.lbl_fileName_uid);
+            this.panel_uid_image.Location = new System.Drawing.Point(296, 3);
+            this.panel_uid_image.Name = "panel_uid_image";
+            this.panel_uid_image.Size = new System.Drawing.Size(180, 20);
+            this.panel_uid_image.TabIndex = 52;
+            // 
+            // pb_del_uid
+            // 
+            this.pb_del_uid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pb_del_uid.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pb_del_uid.Image = ((System.Drawing.Image)(resources.GetObject("pb_del_uid.Image")));
+            this.pb_del_uid.Location = new System.Drawing.Point(72, 3);
+            this.pb_del_uid.Name = "pb_del_uid";
+            this.pb_del_uid.Size = new System.Drawing.Size(17, 14);
+            this.pb_del_uid.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_del_uid.TabIndex = 1;
+            this.pb_del_uid.TabStop = false;
+            this.pb_del_uid.Visible = false;
+            this.pb_del_uid.Click += new System.EventHandler(this.pb_del_uid_Click);
+            // 
+            // lbl_view_uid
+            // 
+            this.lbl_view_uid.AutoSize = true;
+            this.lbl_view_uid.Location = new System.Drawing.Point(43, 3);
+            this.lbl_view_uid.Name = "lbl_view_uid";
+            this.lbl_view_uid.Size = new System.Drawing.Size(30, 13);
+            this.lbl_view_uid.TabIndex = 0;
+            this.lbl_view_uid.TabStop = true;
+            this.lbl_view_uid.Text = "View";
+            this.lbl_view_uid.Visible = false;
+            this.lbl_view_uid.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_view_uid_LinkClicked);
+            // 
+            // panel_ppic_image
+            // 
+            this.panel_ppic_image.Controls.Add(this.pb_del_ppic);
+            this.panel_ppic_image.Controls.Add(this.lbl_view_ppic);
+            this.panel_ppic_image.Controls.Add(this.lbl_upload_ppic);
+            this.panel_ppic_image.Controls.Add(this.lbl_fileName_ppic);
+            this.panel_ppic_image.Location = new System.Drawing.Point(296, 54);
+            this.panel_ppic_image.Name = "panel_ppic_image";
+            this.panel_ppic_image.Size = new System.Drawing.Size(180, 19);
+            this.panel_ppic_image.TabIndex = 54;
+            // 
+            // pb_del_ppic
+            // 
+            this.pb_del_ppic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pb_del_ppic.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pb_del_ppic.Image = ((System.Drawing.Image)(resources.GetObject("pb_del_ppic.Image")));
+            this.pb_del_ppic.Location = new System.Drawing.Point(72, 3);
+            this.pb_del_ppic.Name = "pb_del_ppic";
+            this.pb_del_ppic.Size = new System.Drawing.Size(17, 14);
+            this.pb_del_ppic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_del_ppic.TabIndex = 1;
+            this.pb_del_ppic.TabStop = false;
+            this.pb_del_ppic.Visible = false;
+            this.pb_del_ppic.Click += new System.EventHandler(this.pb_del_ppic_Click);
+            // 
+            // lbl_view_ppic
+            // 
+            this.lbl_view_ppic.AutoSize = true;
+            this.lbl_view_ppic.Location = new System.Drawing.Point(43, 3);
+            this.lbl_view_ppic.Name = "lbl_view_ppic";
+            this.lbl_view_ppic.Size = new System.Drawing.Size(30, 13);
+            this.lbl_view_ppic.TabIndex = 0;
+            this.lbl_view_ppic.TabStop = true;
+            this.lbl_view_ppic.Text = "View";
+            this.lbl_view_ppic.Visible = false;
+            this.lbl_view_ppic.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_view_ppic_LinkClicked);
+            // 
+            // lbl_upload_ppic
+            // 
+            this.lbl_upload_ppic.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_upload_ppic.AutoSize = true;
+            this.lbl_upload_ppic.Location = new System.Drawing.Point(3, 2);
+            this.lbl_upload_ppic.Name = "lbl_upload_ppic";
+            this.lbl_upload_ppic.Size = new System.Drawing.Size(41, 13);
+            this.lbl_upload_ppic.TabIndex = 1;
+            this.lbl_upload_ppic.TabStop = true;
+            this.lbl_upload_ppic.Text = "Upload";
+            this.lbl_upload_ppic.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_upload_ppic_LinkClicked);
+            // 
+            // lbl_fileName_ppic
+            // 
+            this.lbl_fileName_ppic.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_fileName_ppic.AutoSize = true;
+            this.lbl_fileName_ppic.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbl_fileName_ppic.Location = new System.Drawing.Point(95, 3);
+            this.lbl_fileName_ppic.Name = "lbl_fileName_ppic";
+            this.lbl_fileName_ppic.Size = new System.Drawing.Size(61, 13);
+            this.lbl_fileName_ppic.TabIndex = 38;
+            this.lbl_fileName_ppic.Text = "<file name>";
+            this.lbl_fileName_ppic.Visible = false;
+            // 
+            // panel_dl_image
+            // 
+            this.panel_dl_image.Controls.Add(this.pb_del_dl);
+            this.panel_dl_image.Controls.Add(this.lbl_view_dl);
+            this.panel_dl_image.Controls.Add(this.lbl_upload_dl);
+            this.panel_dl_image.Controls.Add(this.lbl_fileName_dl);
+            this.panel_dl_image.Location = new System.Drawing.Point(296, 97);
+            this.panel_dl_image.Name = "panel_dl_image";
+            this.panel_dl_image.Size = new System.Drawing.Size(180, 19);
+            this.panel_dl_image.TabIndex = 55;
+            // 
+            // pb_del_dl
+            // 
+            this.pb_del_dl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pb_del_dl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pb_del_dl.Image = ((System.Drawing.Image)(resources.GetObject("pb_del_dl.Image")));
+            this.pb_del_dl.Location = new System.Drawing.Point(72, 3);
+            this.pb_del_dl.Name = "pb_del_dl";
+            this.pb_del_dl.Size = new System.Drawing.Size(17, 14);
+            this.pb_del_dl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_del_dl.TabIndex = 1;
+            this.pb_del_dl.TabStop = false;
+            this.pb_del_dl.Visible = false;
+            this.pb_del_dl.Click += new System.EventHandler(this.pb_del_dl_Click);
+            // 
+            // lbl_view_dl
+            // 
+            this.lbl_view_dl.AutoSize = true;
+            this.lbl_view_dl.Location = new System.Drawing.Point(43, 3);
+            this.lbl_view_dl.Name = "lbl_view_dl";
+            this.lbl_view_dl.Size = new System.Drawing.Size(30, 13);
+            this.lbl_view_dl.TabIndex = 0;
+            this.lbl_view_dl.TabStop = true;
+            this.lbl_view_dl.Text = "View";
+            this.lbl_view_dl.Visible = false;
+            this.lbl_view_dl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_view_dl_LinkClicked);
+            // 
+            // lbl_upload_dl
+            // 
+            this.lbl_upload_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_upload_dl.AutoSize = true;
+            this.lbl_upload_dl.Location = new System.Drawing.Point(3, 2);
+            this.lbl_upload_dl.Name = "lbl_upload_dl";
+            this.lbl_upload_dl.Size = new System.Drawing.Size(41, 13);
+            this.lbl_upload_dl.TabIndex = 1;
+            this.lbl_upload_dl.TabStop = true;
+            this.lbl_upload_dl.Text = "Upload";
+            this.lbl_upload_dl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_upload_dl_LinkClicked);
+            // 
+            // lbl_fileName_dl
+            // 
+            this.lbl_fileName_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_fileName_dl.AutoSize = true;
+            this.lbl_fileName_dl.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbl_fileName_dl.Location = new System.Drawing.Point(95, 3);
+            this.lbl_fileName_dl.Name = "lbl_fileName_dl";
+            this.lbl_fileName_dl.Size = new System.Drawing.Size(61, 13);
+            this.lbl_fileName_dl.TabIndex = 38;
+            this.lbl_fileName_dl.Text = "<file name>";
+            this.lbl_fileName_dl.Visible = false;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -960,7 +1175,7 @@ namespace Sayen.UserControls
             this.tableLayoutPanel1.Controls.Add(this.lbl_email, 0, 11);
             this.tableLayoutPanel1.Controls.Add(this.txt_mobileNo, 1, 10);
             this.tableLayoutPanel1.Controls.Add(this.txt_email, 1, 11);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(84, 104);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(84, 107);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 14;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -990,6 +1205,7 @@ namespace Sayen.UserControls
             this.dtp_dob.Size = new System.Drawing.Size(188, 20);
             this.dtp_dob.TabIndex = 4;
             this.dtp_dob.ValueChanged += new System.EventHandler(this.dtp_dob_ValueChanged);
+            this.dtp_dob.Validating += new System.ComponentModel.CancelEventHandler(this.dtp_dob_Validating);
             // 
             // lbl_dob
             // 
@@ -1047,6 +1263,7 @@ namespace Sayen.UserControls
             this.txt_mobileNo.Name = "txt_mobileNo";
             this.txt_mobileNo.Size = new System.Drawing.Size(188, 20);
             this.txt_mobileNo.TabIndex = 58;
+            this.txt_mobileNo.Validating += new System.ComponentModel.CancelEventHandler(this.txt_mobileNo_Validating);
             // 
             // txt_email
             // 
@@ -1064,6 +1281,36 @@ namespace Sayen.UserControls
             // 
             this.fwd_addEmp.RootFolder = System.Environment.SpecialFolder.MyDocuments;
             // 
+            // lbl_empId
+            // 
+            this.lbl_empId.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbl_empId.AutoSize = true;
+            this.lbl_empId.Location = new System.Drawing.Point(5, 5);
+            this.lbl_empId.Name = "lbl_empId";
+            this.lbl_empId.Size = new System.Drawing.Size(53, 13);
+            this.lbl_empId.TabIndex = 47;
+            this.lbl_empId.Text = "<emp ID>";
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.chk_editEmp);
+            this.panel6.Controls.Add(this.lbl_empId);
+            this.panel6.Location = new System.Drawing.Point(84, 78);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(114, 23);
+            this.panel6.TabIndex = 48;
+            this.panel6.Visible = false;
+            // 
+            // chk_editEmp
+            // 
+            this.chk_editEmp.AutoSize = true;
+            this.chk_editEmp.Location = new System.Drawing.Point(72, 4);
+            this.chk_editEmp.Name = "chk_editEmp";
+            this.chk_editEmp.Size = new System.Drawing.Size(44, 17);
+            this.chk_editEmp.TabIndex = 0;
+            this.chk_editEmp.Text = "Edit";
+            this.chk_editEmp.UseVisualStyleBackColor = true;
+            // 
             // uc_AddEmpl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1074,10 +1321,13 @@ namespace Sayen.UserControls
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.panel1);
             this.Name = "uc_AddEmpl";
-            this.Size = new System.Drawing.Size(898, 1134);
+            this.Size = new System.Drawing.Size(1092, 1134);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel7_viewDoc.ResumeLayout(false);
+            this.panel7_viewDoc.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_viewDoc)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -1087,19 +1337,31 @@ namespace Sayen.UserControls
             this.panel5.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.panel_ap_image.ResumeLayout(false);
+            this.panel_ap_image.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_del_ap)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel_uid_image.ResumeLayout(false);
+            this.panel_uid_image.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_del_uid)).EndInit();
+            this.panel_ppic_image.ResumeLayout(false);
+            this.panel_ppic_image.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_del_ppic)).EndInit();
+            this.panel_dl_image.ResumeLayout(false);
+            this.panel_dl_image.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_del_dl)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.TextBox txt_dlno;
-        private System.Windows.Forms.LinkLabel lbl_upload_dl;
-        private System.Windows.Forms.Label lbl_filename_dl;
         private System.Windows.Forms.Label lbl_dlTypes;
         private System.Windows.Forms.Label lbl_firstName;
         private System.Windows.Forms.Label lbl_title;
@@ -1128,10 +1390,8 @@ namespace Sayen.UserControls
         private System.Windows.Forms.TextBox txt_attributes;
         private System.Windows.Forms.TextBox txt_aadhaar;
         private System.Windows.Forms.TextBox txt_addressProof;
-        private System.Windows.Forms.Label lbl_filename_uid;
-        private System.Windows.Forms.Label lbl_filename_address;
+        private System.Windows.Forms.Label lbl_fileName_uid;
         private System.Windows.Forms.LinkLabel lbl_upload_uid;
-        private System.Windows.Forms.LinkLabel lbl_upload_address;
         private System.Windows.Forms.Button btn_submit;
         private System.Windows.Forms.CheckBox chk_prefill;
         private System.Windows.Forms.Label lbl_designation;
@@ -1144,8 +1404,6 @@ namespace Sayen.UserControls
         private System.Windows.Forms.Button btn_reset;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.LinkLabel label_upload_photo;
-        private System.Windows.Forms.Label lbl_filename_photo;
         private System.Windows.Forms.Label lbl_hiring_manager;
         private System.Windows.Forms.ComboBox ddl_hiring_manager;
         private System.Windows.Forms.CheckBox chk_dltype_lmv;
@@ -1178,5 +1436,29 @@ namespace Sayen.UserControls
         private System.Windows.Forms.TextBox txt_email;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.FolderBrowserDialog fwd_addEmp;
+        private System.Windows.Forms.Panel panel_uid_image;
+        private System.Windows.Forms.PictureBox pb_del_uid;
+        private System.Windows.Forms.LinkLabel lbl_view_uid;
+        private System.Windows.Forms.PictureBox pb_viewDoc;
+        private System.Windows.Forms.Panel panel_ap_image;
+        private System.Windows.Forms.PictureBox pb_del_ap;
+        private System.Windows.Forms.LinkLabel lbl_view_ap;
+        private System.Windows.Forms.LinkLabel lbl_upload_ap;
+        private System.Windows.Forms.Label lbl_fileName_ap;
+        private System.Windows.Forms.Panel panel7_viewDoc;
+        private System.Windows.Forms.LinkLabel lbl_hide_viewDoc;
+        private System.Windows.Forms.Panel panel_ppic_image;
+        private System.Windows.Forms.PictureBox pb_del_ppic;
+        private System.Windows.Forms.LinkLabel lbl_view_ppic;
+        private System.Windows.Forms.LinkLabel lbl_upload_ppic;
+        private System.Windows.Forms.Label lbl_fileName_ppic;
+        private System.Windows.Forms.Panel panel_dl_image;
+        private System.Windows.Forms.PictureBox pb_del_dl;
+        private System.Windows.Forms.LinkLabel lbl_view_dl;
+        private System.Windows.Forms.LinkLabel lbl_upload_dl;
+        private System.Windows.Forms.Label lbl_fileName_dl;
+        private System.Windows.Forms.Label lbl_empId;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.CheckBox chk_editEmp;
     }
 }

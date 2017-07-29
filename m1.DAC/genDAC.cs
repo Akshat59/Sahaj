@@ -40,7 +40,7 @@ namespace m1.DAC
             List<SqlParameter> sp = new List<SqlParameter>()
             {
                 new SqlParameter() {ParameterName = "@user_id", SqlDbType = SqlDbType.NVarChar, Value= GEntity.UserEntity.Input_user_id},
-                //new SqlParameter() {ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value= GEntity.UserEntity.User_pwd},
+                //new SqlParameter() {ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value= GEntity.UserEntity.User_pwd}, #futureCode add pwd
             };
 
 
@@ -74,6 +74,47 @@ namespace m1.DAC
             }
         }
 
+        public EmployeeEntity dacGetEmpDetails(EmployeeEntity m_emp)
+        {
+            string SQLselect = base.RetrieveSqlQuery(QueryConstants.ValidateUserLogin).ToString();
+            DataTable dt = new DataTable();
+            
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= m_emp.Emp_id},
+            };
+
+
+
+            using (dt = base.ExecuteDataAdapter(SQLselect, sp))
+            {
+                if (dt.Rows.Count < 1)
+                {
+                    return null;
+                }
+                else
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        //m_eCol. = dr["user_id"].ToString();
+                        //GEntity.UserEntity.User_name = dr["user_name"].ToString();
+                        //GEntity.UserEntity.User_fname = dr["user_first_name"].ToString();
+                        //GEntity.UserEntity.User_lname = dr["user_last_name"].ToString();
+                        //GEntity.UserEntity.Role_id = dr["role_id"].ToString();
+                        //GEntity.UserEntity.Last_accessed = dr["last_accessed"].ToString();
+                        //GEntity.UserEntity.Last_pwd_change = dr["last_pwd_change"].ToString();
+                        //GEntity.UserEntity.Profilepic = dr["profilepic"].ToString();
+                        //break;
+                    }
+
+                    //AppGlobal.g_GEntity = GEntity;
+                    //AppGlobal.g_GEntity.SessionEntity.User_id = GEntity.UserEntity.User_id;
+                    //AppGlobal.g_GEntity.SessionEntity.Role_id = GEntity.UserEntity.Role_id;
+                    return m_emp;
+                }
+            }
+        }
+
         /// <summary>
         /// This method is to retrive next id column (primary key) from table from the database table as per enum e_PrimaryKeySeries
         /// </summary>
@@ -81,7 +122,7 @@ namespace m1.DAC
         /// <param name="seriesInitials as specified enum e_PrimaryKeySeries"></param>
         /// <param name="sqlColumn target column"></param>
         /// <param name="totallength for padding"
-        public string GetNextID(string tableName,string sqlColumn, string totalLength, string seriesInitials)
+        public string dacGetNextID(string tableName,string sqlColumn, string totalLength, string seriesInitials)
         {
             string _nextID = string.Empty;
             string sqlSelectQuery = base.RetrieveSqlQuery(QueryConstants.GetNextID).ToString();
@@ -128,7 +169,7 @@ namespace m1.DAC
             //Retrieve Query to insert employee details
             string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.InsertEmpDetails).ToString();
 
-            List<SqlParameter> cp = base.GetCommonParameters();
+            List<SqlParameter> cp = base.GetCommonParameters_Ins();
 
             List<SqlParameter> sp = new List<SqlParameter>()
             {
@@ -153,6 +194,7 @@ namespace m1.DAC
                 new SqlParameter() {ParameterName = "@dl_hmv", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_hmv},
                 new SqlParameter() {ParameterName = "@dl_lmv", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_lmv},
                 new SqlParameter() {ParameterName = "@dl_rto", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_rto},
+                new SqlParameter() {ParameterName = "@dl_expdt", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_expDt},
                 new SqlParameter() {ParameterName = "@hiring_manager_id", SqlDbType = SqlDbType.NVarChar, Value= emp.Hiring_manager_id},
                 new SqlParameter() {ParameterName = "@experience", SqlDbType = SqlDbType.NVarChar, Value= emp.Experience},
                 new SqlParameter() {ParameterName = "@attributes", SqlDbType = SqlDbType.NVarChar, Value= emp.Attributes},
@@ -178,12 +220,12 @@ namespace m1.DAC
 
         }
 
-        public void dacInsertDocs(EmployeeDocs edoc)
+        public void dacInsertDocs(formDocs edoc)
         {
-            //Retrieve Query to insert employee details
+            //Retrieve Query to insert employee docs details
             string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.InsertEmpDocs).ToString();
 
-            List<SqlParameter> cp = base.GetCommonParameters();            
+            List<SqlParameter> cp = base.GetCommonParameters_Ins();            
 
             List<SqlParameter> sp = new List<SqlParameter>()
             {

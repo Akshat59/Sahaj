@@ -87,18 +87,33 @@ namespace m1.BPC
             eCol.Messages = _sb.ToString();
         }
 
-        public void bpcInsertEmployeeDocs(EmployeeDocsCollection edocCol)
+        public void bpcInsertEmployeeDocs(DocumentCollection edocCol)
         {
             StringBuilder _sb = new StringBuilder();
-            foreach (EmployeeDocs edoc in edocCol)
+            foreach (formDocs edoc in edocCol)
             {
-
                 GenBC.bcInsertEmpDocs(edoc);
 
                 if (edoc.RetMessage != string.Empty) { _sb.Append(edoc.RetMessage); _sb.Append("\r\n"); }
-                if (edoc.RetIndicator == AppKeys.Failure) { edoc.RetIndicator = AppKeys.Failure; }
+                if (edoc.RetIndicator == AppKeys.Failure) { edocCol.RetIndicator = AppKeys.Failure; }
 
             }
+        }
+
+        public EmployeeCollection bpcGetEmpDetails(EmployeeCollection m_eCol)
+        {
+            EmployeeCollection ecol = new EmployeeCollection();
+
+            foreach (EmployeeEntity m_emp in m_eCol)
+            {
+                EmployeeEntity emp = new EmployeeEntity();
+                emp = _genBC.bcGetEmpDetails(m_emp);
+                if (emp != null)
+                { m_eCol.Add(emp); }
+                else
+                { m_eCol.RetIndicator = AppKeys.Failure; m_eCol.Messages = UserMessages.RetrieveEmpFailed; }
+            }
+            return ecol;
         }
     }
 }

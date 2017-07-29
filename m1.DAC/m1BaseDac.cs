@@ -46,12 +46,23 @@ namespace m1.DAC
             //#futurecode
         }
 
-        protected List<SqlParameter> GetCommonParameters()
+        protected List<SqlParameter> GetCommonParameters_Ins()
         {
             List<SqlParameter> cp = new List<SqlParameter>()
             {
                 new SqlParameter() {ParameterName = "@create_id", SqlDbType = SqlDbType.NVarChar, Value= AppGlobal.g_GEntity.SessionEntity.User_id},
                 new SqlParameter() {ParameterName = "@create_date", SqlDbType = SqlDbType.DateTime2, Value= AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp},
+                new SqlParameter() {ParameterName = "@update_id", SqlDbType = SqlDbType.NVarChar, Value= AppGlobal.g_GEntity.SessionEntity.User_id},
+                new SqlParameter() {ParameterName = "@update_date", SqlDbType = SqlDbType.DateTime2, Value= AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp},
+
+             };
+            return cp;
+        }
+
+        protected List<SqlParameter> GetCommonParameters_Updt()
+        {
+            List<SqlParameter> cp = new List<SqlParameter>()
+            {
                 new SqlParameter() {ParameterName = "@update_id", SqlDbType = SqlDbType.NVarChar, Value= AppGlobal.g_GEntity.SessionEntity.User_id},
                 new SqlParameter() {ParameterName = "@update_date", SqlDbType = SqlDbType.DateTime2, Value= AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp},
 

@@ -39,7 +39,7 @@ namespace m1.BC
 
         public string  bcGetNextID(string tableName, string sqlColumn, string totallength, string seriesInitials)
         {
-            return GenDAC.GetNextID(tableName, sqlColumn, totallength, seriesInitials);
+            return GenDAC.dacGetNextID(tableName, sqlColumn, totallength, seriesInitials);
         }
 
         public void bcInsertEmpDetails(EmployeeEntity emp)
@@ -47,9 +47,14 @@ namespace m1.BC
             GenDAC.dacInsertEmpDetails(emp);
         }
 
-        public void bcInsertEmpDocs(EmployeeDocs edoc)
+        public void bcInsertEmpDocs(formDocs edoc)
         {
             GenDAC.dacInsertDocs(edoc);
+        }
+
+        public EmployeeEntity bcGetEmpDetails(EmployeeEntity m_emp)
+        {
+            return _genDAC.dacGetEmpDetails(m_emp);
         }
     }
 }

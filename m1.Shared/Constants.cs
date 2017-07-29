@@ -159,15 +159,17 @@ namespace m1.Shared
 
         public const string NoLogsMsg = "No Logs to Show";
         public const string ShowLogTitle = "App Logs";
+        public const string NextIDEmpty = "Retrieved Next ID is empty";
+        public const string SubmitFormError = "There are errors on form, Correct and Resubmit";
+        public const string SubmitFormSuccess = "Form Validated successfully";
 
         public const string InsertEmpFailure = "Unexpected Error While Inserting Employee Details";
         public const string InsertEmpSuccess = "Details for {0} added Successfully";
         public const string InsertEmpDocFailure = "Unexpected Error While Inserting Employee Docs";
-        public const string InsertEmpDocSuccess = "Documents for {0} added Successfully";
-
-        
-
-        public const string NextIDEmpty = "Retrieved Next ID is empty";
+        public const string InsertEmpDocSuccess = "Documents for {0} added Successfully";        
+        public const string ValidDLRequired = "Valid DL is required";
+        public const string InvalidMobileNumber = "Invalid Mobile Number";
+        public const string RetrieveEmpFailed = "Error while retrieving employee details";
     }
     #endregion UserMessages
 
