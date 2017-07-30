@@ -101,6 +101,12 @@
     <Compile Include="UserControls\uc_welcome.Designer.cs">
       <DependentUpon>uc_welcome.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\uc_ViewEntity.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_ViewEntity.Designer.cs">
+      <DependentUpon>uc_ViewEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="userForms\frm_Backdoor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\uc_BulkUpload_z.resx">
       <DependentUpon>uc_BulkUpload_z.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\uc_ViewEntity.resx">
+      <DependentUpon>uc_ViewEntity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\uc_welcome.resx">
       <DependentUpon>uc_welcome.cs</DependentUpon>

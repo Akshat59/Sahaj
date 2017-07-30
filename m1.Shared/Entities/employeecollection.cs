@@ -4,7 +4,26 @@ namespace m1.Shared.Entities
 {
     public class EmployeeCollection:BaseEntityCollection
     {
-       
+
+        public EmployeeCollection()
+        {
+            formMessages = new FormMessageCollection();
+        }
+
+        private FormMessageCollection formMessages;
+        public FormMessageCollection FormMessages
+        {
+            get
+            {
+                return formMessages;
+            }
+
+            set
+            {
+                formMessages = value;
+            }
+        }
+
         private AppConstants.e_frmOperationType optype;
         public AppConstants.e_frmOperationType Optype
         {
@@ -60,7 +79,9 @@ namespace m1.Shared.Entities
             }
         }
 
-       
+        
+
+
 
         #region Collection Methods
         public void Add(EmployeeEntity child)

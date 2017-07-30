@@ -69,6 +69,9 @@ namespace Sayen.UserControls
             this.ddl_designation = new System.Windows.Forms.ComboBox();
             this.txt_otherDetails = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.chk_editEmp = new System.Windows.Forms.CheckBox();
+            this.lbl_empId = new System.Windows.Forms.Label();
             this.panel7_viewDoc = new System.Windows.Forms.Panel();
             this.lbl_hide_viewDoc = new System.Windows.Forms.LinkLabel();
             this.pb_viewDoc = new System.Windows.Forms.PictureBox();
@@ -82,9 +85,11 @@ namespace Sayen.UserControls
             this.rdl_singleUpload = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_hiring_manager = new System.Windows.Forms.Label();
-            this.ddl_hiring_manager = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.btn_reset = new System.Windows.Forms.Button();
+            this.lbl_hiringDate = new System.Windows.Forms.Label();
+            this.dtp_hiringDate = new System.Windows.Forms.DateTimePicker();
+            this.ddl_hiring_manager = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel_ap_image = new System.Windows.Forms.Panel();
             this.pb_del_ap = new System.Windows.Forms.PictureBox();
@@ -128,11 +133,9 @@ namespace Sayen.UserControls
             this.txt_email = new System.Windows.Forms.TextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.fwd_addEmp = new System.Windows.Forms.FolderBrowserDialog();
-            this.lbl_empId = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.chk_editEmp = new System.Windows.Forms.CheckBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.panel7_viewDoc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_viewDoc)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
@@ -151,7 +154,6 @@ namespace Sayen.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.pb_del_dl)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // txt_dlno
@@ -379,7 +381,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_attributes.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_attributes.AutoSize = true;
-            this.lbl_attributes.Location = new System.Drawing.Point(3, 96);
+            this.lbl_attributes.Location = new System.Drawing.Point(3, 116);
             this.lbl_attributes.Name = "lbl_attributes";
             this.lbl_attributes.Size = new System.Drawing.Size(51, 13);
             this.lbl_attributes.TabIndex = 23;
@@ -389,7 +391,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_otherDetails.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_otherDetails.AutoSize = true;
-            this.lbl_otherDetails.Location = new System.Drawing.Point(3, 161);
+            this.lbl_otherDetails.Location = new System.Drawing.Point(3, 181);
             this.lbl_otherDetails.Name = "lbl_otherDetails";
             this.lbl_otherDetails.Size = new System.Drawing.Size(68, 13);
             this.lbl_otherDetails.TabIndex = 24;
@@ -399,7 +401,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_experience.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_experience.AutoSize = true;
-            this.lbl_experience.Location = new System.Drawing.Point(3, 45);
+            this.lbl_experience.Location = new System.Drawing.Point(3, 66);
             this.lbl_experience.Name = "lbl_experience";
             this.lbl_experience.Size = new System.Drawing.Size(60, 13);
             this.lbl_experience.TabIndex = 26;
@@ -408,16 +410,16 @@ namespace Sayen.UserControls
             // txt_experience
             // 
             this.txt_experience.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txt_experience.Location = new System.Drawing.Point(89, 34);
+            this.txt_experience.Location = new System.Drawing.Point(89, 57);
             this.txt_experience.Multiline = true;
             this.txt_experience.Name = "txt_experience";
-            this.txt_experience.Size = new System.Drawing.Size(332, 35);
+            this.txt_experience.Size = new System.Drawing.Size(332, 32);
             this.txt_experience.TabIndex = 1;
             // 
             // txt_attributes
             // 
             this.txt_attributes.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txt_attributes.Location = new System.Drawing.Point(89, 75);
+            this.txt_attributes.Location = new System.Drawing.Point(89, 95);
             this.txt_attributes.Multiline = true;
             this.txt_attributes.Name = "txt_attributes";
             this.txt_attributes.Size = new System.Drawing.Size(332, 55);
@@ -473,7 +475,7 @@ namespace Sayen.UserControls
             this.btn_submit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.RoyalBlue;
             this.btn_submit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btn_submit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_submit.Location = new System.Drawing.Point(257, 17);
+            this.btn_submit.Location = new System.Drawing.Point(257, 12);
             this.btn_submit.Name = "btn_submit";
             this.btn_submit.Size = new System.Drawing.Size(75, 23);
             this.btn_submit.TabIndex = 1;
@@ -518,7 +520,7 @@ namespace Sayen.UserControls
             // txt_otherDetails
             // 
             this.txt_otherDetails.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txt_otherDetails.Location = new System.Drawing.Point(89, 141);
+            this.txt_otherDetails.Location = new System.Drawing.Point(89, 161);
             this.txt_otherDetails.Multiline = true;
             this.txt_otherDetails.Name = "txt_otherDetails";
             this.txt_otherDetails.Size = new System.Drawing.Size(332, 54);
@@ -544,6 +546,36 @@ namespace Sayen.UserControls
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1079, 1326);
             this.panel1.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.chk_editEmp);
+            this.panel6.Controls.Add(this.lbl_empId);
+            this.panel6.Location = new System.Drawing.Point(84, 78);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(114, 23);
+            this.panel6.TabIndex = 48;
+            this.panel6.Visible = false;
+            // 
+            // chk_editEmp
+            // 
+            this.chk_editEmp.AutoSize = true;
+            this.chk_editEmp.Location = new System.Drawing.Point(72, 4);
+            this.chk_editEmp.Name = "chk_editEmp";
+            this.chk_editEmp.Size = new System.Drawing.Size(44, 17);
+            this.chk_editEmp.TabIndex = 0;
+            this.chk_editEmp.Text = "Edit";
+            this.chk_editEmp.UseVisualStyleBackColor = true;
+            // 
+            // lbl_empId
+            // 
+            this.lbl_empId.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbl_empId.AutoSize = true;
+            this.lbl_empId.Location = new System.Drawing.Point(5, 5);
+            this.lbl_empId.Name = "lbl_empId";
+            this.lbl_empId.Size = new System.Drawing.Size(53, 13);
+            this.lbl_empId.TabIndex = 47;
+            this.lbl_empId.Text = "<emp ID>";
             // 
             // panel7_viewDoc
             // 
@@ -688,24 +720,27 @@ namespace Sayen.UserControls
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.90741F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.09259F));
-            this.tableLayoutPanel3.Controls.Add(this.lbl_experience, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.txt_attributes, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.txt_otherDetails, 1, 3);
-            this.tableLayoutPanel3.Controls.Add(this.lbl_attributes, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.lbl_otherDetails, 0, 3);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_experience, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.txt_attributes, 1, 3);
+            this.tableLayoutPanel3.Controls.Add(this.txt_otherDetails, 1, 4);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_attributes, 0, 3);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_otherDetails, 0, 4);
             this.tableLayoutPanel3.Controls.Add(this.lbl_hiring_manager, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.txt_experience, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.panel5, 1, 5);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_hiringDate, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.dtp_hiringDate, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.ddl_hiring_manager, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.txt_experience, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.panel5, 1, 4);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(404, 315);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 5;
+            this.tableLayoutPanel3.RowCount = 6;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(434, 265);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(434, 280);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // lbl_hiring_manager
@@ -718,6 +753,48 @@ namespace Sayen.UserControls
             this.lbl_hiring_manager.TabIndex = 36;
             this.lbl_hiring_manager.Text = "Hiring Manager";
             // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.btn_submit);
+            this.panel5.Controls.Add(this.btn_reset);
+            this.panel5.Location = new System.Drawing.Point(89, 226);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(342, 51);
+            this.panel5.TabIndex = 4;
+            // 
+            // btn_reset
+            // 
+            this.btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_reset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_reset.Location = new System.Drawing.Point(171, 12);
+            this.btn_reset.Name = "btn_reset";
+            this.btn_reset.Size = new System.Drawing.Size(75, 23);
+            this.btn_reset.TabIndex = 0;
+            this.btn_reset.Text = "Reset";
+            this.btn_reset.UseVisualStyleBackColor = true;
+            this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
+            // 
+            // lbl_hiringDate
+            // 
+            this.lbl_hiringDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbl_hiringDate.AutoSize = true;
+            this.lbl_hiringDate.Location = new System.Drawing.Point(3, 36);
+            this.lbl_hiringDate.Name = "lbl_hiringDate";
+            this.lbl_hiringDate.Size = new System.Drawing.Size(60, 13);
+            this.lbl_hiringDate.TabIndex = 37;
+            this.lbl_hiringDate.Text = "Hiring Date";
+            // 
+            // dtp_hiringDate
+            // 
+            this.dtp_hiringDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.dtp_hiringDate.CustomFormat = "dd-MM-yyyy";
+            this.dtp_hiringDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtp_hiringDate.Location = new System.Drawing.Point(89, 34);
+            this.dtp_hiringDate.Name = "dtp_hiringDate";
+            this.dtp_hiringDate.Size = new System.Drawing.Size(185, 20);
+            this.dtp_hiringDate.TabIndex = 38;
+            this.dtp_hiringDate.Validating += new System.ComponentModel.CancelEventHandler(this.dtp_hiringDate_Validating);
+            // 
             // ddl_hiring_manager
             // 
             this.ddl_hiring_manager.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -727,27 +804,6 @@ namespace Sayen.UserControls
             this.ddl_hiring_manager.Name = "ddl_hiring_manager";
             this.ddl_hiring_manager.Size = new System.Drawing.Size(185, 21);
             this.ddl_hiring_manager.TabIndex = 0;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.btn_submit);
-            this.panel5.Controls.Add(this.btn_reset);
-            this.panel5.Location = new System.Drawing.Point(89, 206);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(342, 56);
-            this.panel5.TabIndex = 4;
-            // 
-            // btn_reset
-            // 
-            this.btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_reset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_reset.Location = new System.Drawing.Point(171, 17);
-            this.btn_reset.Name = "btn_reset";
-            this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 0;
-            this.btn_reset.Text = "Reset";
-            this.btn_reset.UseVisualStyleBackColor = true;
-            this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -1281,36 +1337,6 @@ namespace Sayen.UserControls
             // 
             this.fwd_addEmp.RootFolder = System.Environment.SpecialFolder.MyDocuments;
             // 
-            // lbl_empId
-            // 
-            this.lbl_empId.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lbl_empId.AutoSize = true;
-            this.lbl_empId.Location = new System.Drawing.Point(5, 5);
-            this.lbl_empId.Name = "lbl_empId";
-            this.lbl_empId.Size = new System.Drawing.Size(53, 13);
-            this.lbl_empId.TabIndex = 47;
-            this.lbl_empId.Text = "<emp ID>";
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.chk_editEmp);
-            this.panel6.Controls.Add(this.lbl_empId);
-            this.panel6.Location = new System.Drawing.Point(84, 78);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(114, 23);
-            this.panel6.TabIndex = 48;
-            this.panel6.Visible = false;
-            // 
-            // chk_editEmp
-            // 
-            this.chk_editEmp.AutoSize = true;
-            this.chk_editEmp.Location = new System.Drawing.Point(72, 4);
-            this.chk_editEmp.Name = "chk_editEmp";
-            this.chk_editEmp.Size = new System.Drawing.Size(44, 17);
-            this.chk_editEmp.TabIndex = 0;
-            this.chk_editEmp.Text = "Edit";
-            this.chk_editEmp.UseVisualStyleBackColor = true;
-            // 
             // uc_AddEmpl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1325,6 +1351,8 @@ namespace Sayen.UserControls
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.panel7_viewDoc.ResumeLayout(false);
             this.panel7_viewDoc.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_viewDoc)).EndInit();
@@ -1354,8 +1382,6 @@ namespace Sayen.UserControls
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1460,5 +1486,7 @@ namespace Sayen.UserControls
         private System.Windows.Forms.Label lbl_empId;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.CheckBox chk_editEmp;
+        private System.Windows.Forms.Label lbl_hiringDate;
+        private System.Windows.Forms.DateTimePicker dtp_hiringDate;
     }
 }

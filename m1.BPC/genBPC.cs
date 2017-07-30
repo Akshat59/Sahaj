@@ -79,7 +79,15 @@ namespace m1.BPC
             {
                 GenBC.bcInsertEmpDetails(emp);
 
-                if (emp.RetMessage != string.Empty) { _sb.Append(emp.RetMessage); _sb.Append("\r\n"); }
+                if (emp.RetMessage != string.Empty)
+                {
+                    FormMessage fm = new FormMessage();
+                    fm.Message = emp.RetMessage;
+                    if (emp.RetIndicator == AppKeys.Failure)
+                    { fm.MessageType = AppConstants.e_MsgType.E; }
+                    else { fm.MessageType = AppConstants.e_MsgType.A; }
+                    eCol.FormMessages.Add(fm);
+                }
                 if(emp.RetIndicator == AppKeys.Failure) { eCol.RetIndicator = AppKeys.Failure; }
                
             }
@@ -87,17 +95,29 @@ namespace m1.BPC
             eCol.Messages = _sb.ToString();
         }
 
+        public void bpcSearchEntity(SearchEntity se)
+        {
+            GenBC.bcSearchEntity(se);
+        }
+
         public void bpcInsertEmployeeDocs(DocumentCollection edocCol)
         {
-            StringBuilder _sb = new StringBuilder();
+            
             foreach (formDocs edoc in edocCol)
             {
                 GenBC.bcInsertEmpDocs(edoc);
-
-                if (edoc.RetMessage != string.Empty) { _sb.Append(edoc.RetMessage); _sb.Append("\r\n"); }
-                if (edoc.RetIndicator == AppKeys.Failure) { edocCol.RetIndicator = AppKeys.Failure; }
-
+                                
+                if (edoc.RetIndicator == AppKeys.Failure)
+                {                    
+                    edocCol.RetIndicator = AppKeys.Failure;
+                }
             }
+
+            FormMessage fm = new FormMessage();
+            if (edocCol.RetIndicator == AppKeys.Failure)
+            {fm.Message = UserMessages.InsertEmpDocFailure;}
+            else { fm.Message = UserMessages.InsertEmpDocSuccess; }
+            edocCol.FormMessages.Add(fm);
         }
 
         public EmployeeCollection bpcGetEmpDetails(EmployeeCollection m_eCol)

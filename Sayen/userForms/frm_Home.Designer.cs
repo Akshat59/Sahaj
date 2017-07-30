@@ -367,7 +367,7 @@
             this.tsmi2_bulkUpload});
             this.menuStrip_Manage.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_Manage.Name = "menuStrip_Manage";
-            this.menuStrip_Manage.Size = new System.Drawing.Size(459, 24);
+            this.menuStrip_Manage.Size = new System.Drawing.Size(551, 24);
             this.menuStrip_Manage.TabIndex = 0;
             this.menuStrip_Manage.Text = "Manage";
             // 
@@ -512,20 +512,21 @@
             // tsmi2_emp_addNew
             // 
             this.tsmi2_emp_addNew.Name = "tsmi2_emp_addNew";
-            this.tsmi2_emp_addNew.Size = new System.Drawing.Size(123, 22);
+            this.tsmi2_emp_addNew.Size = new System.Drawing.Size(152, 22);
             this.tsmi2_emp_addNew.Text = "Add New";
             this.tsmi2_emp_addNew.Click += new System.EventHandler(this.tsmi2_emp_addNew_Click);
             // 
             // tsmi2_emp_modify
             // 
             this.tsmi2_emp_modify.Name = "tsmi2_emp_modify";
-            this.tsmi2_emp_modify.Size = new System.Drawing.Size(123, 22);
+            this.tsmi2_emp_modify.Size = new System.Drawing.Size(152, 22);
             this.tsmi2_emp_modify.Text = "Modify";
+            this.tsmi2_emp_modify.Click += new System.EventHandler(this.tsmi2_emp_modify_Click);
             // 
             // tsmi2_emp_salary
             // 
             this.tsmi2_emp_salary.Name = "tsmi2_emp_salary";
-            this.tsmi2_emp_salary.Size = new System.Drawing.Size(123, 22);
+            this.tsmi2_emp_salary.Size = new System.Drawing.Size(152, 22);
             this.tsmi2_emp_salary.Text = "Salary";
             // 
             // tsmi2_routes

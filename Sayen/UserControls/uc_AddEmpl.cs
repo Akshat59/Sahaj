@@ -168,13 +168,21 @@ namespace Sayen.UserControls
 
         private void txt_dlno_Validating(object sender, CancelEventArgs e)
         {
-            if(ddl_empType.Text== e_EmployeeType.Driver.ToString()&&txt_dlno.TextLength <5)
+            if (ddl_empType.Text == e_EmployeeType.Driver.ToString() && txt_dlno.TextLength < 5)
             {
                 txt_rto.Text = string.Empty;
                 dtp_validity.Text = string.Empty;
                 errorProvider1.SetError(txt_dlno, UserMessages.ValidDLRequired);
                 e.Cancel = true;
             }
+
+            else { errorProvider1.SetError(txt_dlno, ""); }
+
+        }
+
+        private void dtp_hiringDate_Validating(object sender, CancelEventArgs e)
+        {
+            Utilities.DontAllow_FutureDate(dtp_hiringDate, errorProvider1, e);
         }
 
         #endregion Validation
@@ -372,6 +380,7 @@ namespace Sayen.UserControls
             chk_dltype_htmv.Checked = true;
             chk_dltype_lmv.Checked = true;
             dtp_validity.Text = "01/01/2025";
+            dtp_hiringDate.Text = DateTime.Now.Date.ToString();
             txt_rto.Text = "nagrota bagwan";
             txt_experience.Text = "5 years with national\r\n3 years with shivalik";
             txt_attributes.Text = "Long Route driver";
@@ -431,7 +440,7 @@ namespace Sayen.UserControls
 
                 //call method chain to insert emp details
                 _genBPC.bpcInsertEmployeeDetails(empCol);
-                this.postSubmission(empCol);
+               
 
                 //call method chain to insert emp Documents details
                 this.SetEmployeeDocCollection(emp.Emp_id);
@@ -443,8 +452,8 @@ namespace Sayen.UserControls
                 ExceptionManagement.logAppException(Ex);
             }
             finally
-            {                
-                docCol = new DocumentCollection();
+            {
+                this.postSubmission(empCol, docCol);
             }
         }
 
@@ -479,12 +488,13 @@ namespace Sayen.UserControls
             emp.Aadhaarno = txt_aadhaar.Text == String.Empty ? String.Empty : txt_aadhaar.Text;
             emp.Addressproof = txt_addressProof.Text == String.Empty ? String.Empty : txt_addressProof.Text;
             emp.Dl_no = txt_dlno.Text == String.Empty ? String.Empty : txt_dlno.Text;
-            emp.Dl_htmv = chk_dltype_htmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
-            emp.Dl_hmv = chk_dltype_hmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
-            emp.Dl_lmv = chk_dltype_lmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
+            emp.Dl_htmv = txt_dlno.Text != String.Empty && chk_dltype_htmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
+            emp.Dl_hmv = txt_dlno.Text != String.Empty && chk_dltype_hmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
+            emp.Dl_lmv = txt_dlno.Text != String.Empty && chk_dltype_lmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
             emp.Dl_rto = txt_rto.Text == String.Empty || txt_dlno.Text == String.Empty ? String.Empty : txt_rto.Text;
             emp.Dl_expDt = dtp_validity.Text == String.Empty || txt_dlno.Text == String.Empty ? String.Empty : dtp_validity.Text;
             emp.Hiring_manager_id = ddl_hiring_manager.Text == String.Empty ? String.Empty : ddl_hiring_manager.Text;
+            emp.Hiring_Date = dtp_hiringDate.Text == String.Empty ? String.Empty : dtp_hiringDate.Text;
             emp.Experience = txt_experience.Text == String.Empty ? String.Empty : txt_experience.Text;
             emp.Attributes = txt_attributes.Text == String.Empty ? String.Empty : txt_attributes.Text;
             emp.Otherdetails = txt_otherDetails.Text == String.Empty ? String.Empty : txt_otherDetails.Text;
@@ -586,26 +596,36 @@ namespace Sayen.UserControls
             }
         }
 
-        private void postSubmission(EmployeeCollection empCol)
+        private void postSubmission(EmployeeCollection empCol,DocumentCollection docCol)
         {
             //Post Insertion Reset Controls
             if (empCol.RetIndicator == AppKeys.Success) { Utilities.CallResetControl(this.panel1); }
 
-            if (empCol.Messages != string.Empty)
+            if (empCol.FormMessages.Count >0 || docCol.FormMessages.Count>0)
             {
                 TextBox txt_ucAlerts = Utilities.GetAlertTextBox();
-                txt_ucAlerts.Text = Text = empCol.Messages.Trim();
+
+                foreach (FormMessage msg in empCol.FormMessages)
+                {
+                    txt_ucAlerts.Text  = msg.Message + "\r\n";
+                }
+
+                foreach (FormMessage msg in docCol.FormMessages)
+                {
+                    txt_ucAlerts.Text  = txt_ucAlerts.Text + msg.Message + "\r\n";
+                }
+                txt_ucAlerts.Text=txt_ucAlerts.Text.Trim();
 
                 var lines = txt_ucAlerts.Lines.Count();
                 lines -= String.IsNullOrWhiteSpace(txt_ucAlerts.Lines.Last()) ? 1 : 0;
 
                 if (lines > 1) { txt_ucAlerts.ScrollBars = ScrollBars.Both; }
-                //panel6_ucAlert.Controls.Add(txt_ucAlerts);
-                //panel6_ucAlert.AutoSize = true;
                 tableLayoutPanel5.Controls.Add(txt_ucAlerts, 0, 0);
             }
 
             empCol = new EmployeeCollection();
+            docCol = new DocumentCollection();
+
             Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
             Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
             Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
@@ -635,5 +655,6 @@ namespace Sayen.UserControls
 
         #endregion UserMethods
 
+       
     }
 }

@@ -56,5 +56,10 @@ namespace m1.BC
         {
             return _genDAC.dacGetEmpDetails(m_emp);
         }
+
+        public void bcSearchEntity(SearchEntity se)
+        {
+            GenDAC.dacSearchEntity(se);
+        }
     }
 }

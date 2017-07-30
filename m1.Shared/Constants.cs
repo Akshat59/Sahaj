@@ -59,7 +59,12 @@ namespace m1.Shared
         };
 
         public enum e_EmployeeType { Driver, Conductor, OfficeStaff,Board }
-        
+
+        /// <summary>
+        /// This enum have codes which signifies type of Message of form
+        /// A-Alert, E - Error, W - Warning, N - Notification
+        /// </summary>
+        public enum e_MsgType { A, E, W,N };
 
         public const string TabPageWelcome= "tabPage_welcome";
         public const string TabPageNotifications = "tabPage_notifications";
@@ -90,6 +95,11 @@ namespace m1.Shared
         public enum e_PrimaryKeySeries { a09, e11, e12,e13,v15, v16, v17, p20,i30,r40 };
 
         public enum e_BulkUploadType { NONE,EMPLOYEE, VEHICLE, PERMIT, INSURANCE, ROUTE };
+
+        /// <summary>
+        /// Differeny Entities which can use use view User control EMPLOYEE, VEHICLE, PERMIT, INSURANCE, ROUTE, ALL
+        /// </summary>
+        public enum e_ViewEntityType { EMPLOYEE, VEHICLE, PERMIT, INSURANCE, ROUTE, ALL };
         public enum e_DrivingLicence { HMV, HLTV, LMV };
 
         /// <summary>
@@ -165,8 +175,8 @@ namespace m1.Shared
 
         public const string InsertEmpFailure = "Unexpected Error While Inserting Employee Details";
         public const string InsertEmpSuccess = "Details for {0} added Successfully";
-        public const string InsertEmpDocFailure = "Unexpected Error While Inserting Employee Docs";
-        public const string InsertEmpDocSuccess = "Documents for {0} added Successfully";        
+        public const string InsertEmpDocFailure = "One or more Employee Docs failed to Insert";
+        public const string InsertEmpDocSuccess = "Documents added Successfully";
         public const string ValidDLRequired = "Valid DL is required";
         public const string InvalidMobileNumber = "Invalid Mobile Number";
         public const string RetrieveEmpFailed = "Error while retrieving employee details";

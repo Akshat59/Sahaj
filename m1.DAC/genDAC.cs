@@ -74,6 +74,32 @@ namespace m1.DAC
             }
         }
 
+        public void dacSearchEntity(SearchEntity se)
+        {
+            string SQLselect = base.RetrieveSqlQuery(QueryConstants.SearchEntity).ToString();
+            DataTable dt = new DataTable();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@searchtype", SqlDbType = SqlDbType.NVarChar, Value= se.SearchType},
+                new SqlParameter() {ParameterName = "@entId", SqlDbType = SqlDbType.NVarChar, Value= se.EntID},
+                new SqlParameter() {ParameterName = "@name", SqlDbType = SqlDbType.NVarChar, Value= se.Name},
+            };
+
+            using (dt = base.ExecuteDataAdapter_SP(SQLselect, sp))
+            {
+                if (dt.Rows.Count < 1)
+                {
+                    se.RetCount = "0";
+                }
+                else
+                {
+                    se.RetCount = dt.Rows.Count.ToString();
+                    se._retDT = dt;
+                }
+            }
+        }
+
         public EmployeeEntity dacGetEmpDetails(EmployeeEntity m_emp)
         {
             string SQLselect = base.RetrieveSqlQuery(QueryConstants.ValidateUserLogin).ToString();
@@ -196,6 +222,7 @@ namespace m1.DAC
                 new SqlParameter() {ParameterName = "@dl_rto", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_rto},
                 new SqlParameter() {ParameterName = "@dl_expdt", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_expDt},
                 new SqlParameter() {ParameterName = "@hiring_manager_id", SqlDbType = SqlDbType.NVarChar, Value= emp.Hiring_manager_id},
+                new SqlParameter() {ParameterName = "@hiring_date", SqlDbType = SqlDbType.NVarChar, Value= emp.Hiring_Date},
                 new SqlParameter() {ParameterName = "@experience", SqlDbType = SqlDbType.NVarChar, Value= emp.Experience},
                 new SqlParameter() {ParameterName = "@attributes", SqlDbType = SqlDbType.NVarChar, Value= emp.Attributes},
                 new SqlParameter() {ParameterName = "@otherdetails", SqlDbType = SqlDbType.NVarChar, Value= emp.Otherdetails},
@@ -246,12 +273,9 @@ namespace m1.DAC
 
             int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
             if (_cnt <= 0)
-            { edoc.RetIndicator = AppKeys.Failure; edoc.RetMessage = UserMessages.InsertEmpDocFailure; }
-            else
-            {
-                
-                { edoc.RetIndicator = AppKeys.Success; edoc.RetMessage = string.Format(UserMessages.InsertEmpDocSuccess, edoc.EmpId); }
-            }
+            { edoc.RetIndicator = AppKeys.Failure; }
+            else { edoc.RetIndicator = AppKeys.Success; }
+
         }
 
         #endregion PublicMethod

@@ -12,6 +12,26 @@ namespace m1.Shared.Entities
     public class DocumentCollection : BaseEntityCollection
     {
 
+        public DocumentCollection()
+        {
+
+            formMessages = new FormMessageCollection();
+        }
+
+        private FormMessageCollection formMessages;
+        public FormMessageCollection FormMessages
+        {
+            get
+            {
+                return formMessages;
+            }
+
+            set
+            {
+                formMessages = value;
+            }
+        }
+
         private AppConstants.e_frmOperationType optype;
         public AppConstants.e_frmOperationType Optype
         {

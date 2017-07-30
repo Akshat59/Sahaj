@@ -181,6 +181,51 @@ namespace m1.DAC
 
         }
 
+        protected DataTable ExecuteDataAdapter_SP(string sqlQuery, List<SqlParameter> sp = null)
+        {
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+
+            //Setting _queryLog as actual query got executed including parameters value
+            string _queryLog = sqlQuery;
+            foreach (SqlParameter p in sp)
+            {
+                _queryLog = _queryLog.Replace(p.ParameterName.ToString(), p.Value.ToString());
+                //Add _querylog to logs/db       #futureCode
+            }
+
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
+                    oCmd.CommandType = CommandType.StoredProcedure;
+
+                    if (sp != null)
+                    {
+                        oCmd.Parameters.AddRange(sp.ToArray());
+                    }
+
+                    myConnection.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(oCmd);
+                    int res = da.Fill(ds, "dt");
+                    dt = ds.Tables["dt"];
+                    return dt;
+                }
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);
+                return dt;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;
+            }
+
+        }
+
         public int bExecuteNonQuery(string sqlQuery, List<SqlParameter> sp)
         {            
             _ret = 0;

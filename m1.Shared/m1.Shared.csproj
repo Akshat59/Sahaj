@@ -60,7 +60,10 @@
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\BaseEntityCollection.cs" />
     <Compile Include="Entities\CommonParamCollection.cs" />
+    <Compile Include="Entities\SearchEntity.cs" />
+    <Compile Include="Entities\FormMessageCollection.cs" />
     <Compile Include="Entities\EmployeeCollection.cs" />
+    <Compile Include="Entities\FormMessage.cs" />
     <Compile Include="Entities\EmployeeEntity.cs" />
     <Compile Include="Entities\SessionEntity.cs" />
     <Compile Include="Entities\SqlScript.cs" />

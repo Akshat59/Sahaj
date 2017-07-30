@@ -175,6 +175,23 @@ namespace m1.Shared
                 else { errorProvider.SetError(errControl, ""); }
             }
         }
+        public static void DontAllow_FutureDate(Control control,  ErrorProvider errorProvider, CancelEventArgs e)
+        {
+            if (control is DateTimePicker)
+            {
+                DateTimePicker dtp = (DateTimePicker)control;
+
+                DateTime dt1 = DateTime.Now.Date;
+                DateTime dt2 = Convert.ToDateTime(DateTime.ParseExact(dtp.Text, "dd-MM-yyyy", CultureInfo.InvariantCulture));
+
+                if (dt2 > dt1)
+                {
+                    errorProvider.SetError(control, "Cannot be future date");
+                    e.Cancel = true;
+                }
+                else { errorProvider.SetError(control, ""); }
+            }
+        }
 
         public static void DontAllow_InvalidExpiryDate(Control control, ErrorProvider errorProvider, CancelEventArgs e)
         {

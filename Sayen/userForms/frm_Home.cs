@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Sayen.UserControls;
 using m1.Shared;
 using Sayen.userForms;
+using Sahaj.UserControls;
 
 namespace Sayen
 {
@@ -176,6 +177,12 @@ namespace Sayen
 
             this.LoadStripUC(_ucAddEmp, AppConstants.TabPageManage);
         }
+        private void tsmi2_emp_modify_Click(object sender, EventArgs e)
+        {
+            uc_ViewEntity _ucViewEmp = new uc_ViewEntity(AppConstants.e_ViewEntityType.EMPLOYEE);
+
+            this.LoadStripUC(_ucViewEmp, AppConstants.TabPageManage);
+        }
         #endregion ManageEmployee
 
 
@@ -185,9 +192,16 @@ namespace Sayen
 
         #region UserMethods
 
-        
+
         public void LoadStripUC(UserControl obj,string stripID)
-        {            
+        {
+
+            foreach (Control ctrl in tabCtrl_home.TabPages[stripID].Controls)
+            {
+                if(ctrl.Name!= "menuStrip_Manage")
+                tabCtrl_home.TabPages[stripID].Controls.Remove(ctrl);
+            }
+                     
             tabCtrl_home.TabPages[stripID].Controls.Add(obj);
         }
 
@@ -227,5 +241,7 @@ namespace Sayen
                 e.Handled = true;
             }
         }
+
+
     }
 }

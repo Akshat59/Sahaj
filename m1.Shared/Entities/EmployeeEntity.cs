@@ -31,6 +31,7 @@ namespace m1.Shared.Entities
         private string _dl_rto = string.Empty;
         private string _dl_expDt = string.Empty;        
         private string _hiring_manager_id = string.Empty;
+        private string _hiring_date = string.Empty;
         private string _experience = string.Empty;
         private string _attributes = string.Empty;
         private string _otherdetails = string.Empty;
@@ -309,6 +310,19 @@ namespace m1.Shared.Entities
             set
             {
                 _hiring_manager_id = value;
+            }
+        }
+
+        public string Hiring_Date
+        {
+            get
+            {
+                return _hiring_date;
+            }
+
+            set
+            {
+                _hiring_date = value;
             }
         }
 
