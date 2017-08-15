@@ -117,7 +117,7 @@ namespace Sayen.UserControls
             {
                 _isPostback = false;
                 rdl_singleUpload.Enabled = false;
-                uc_AddEmpl obj = new uc_AddEmpl(_objfrmHome,AppConstants.e_frmOperationType.S);
+                uc_AddEmpl obj = new uc_AddEmpl(AppConstants.e_frmOperationType.S, _objfrmHome);
                 
                 _objfrmHome.LoadStripUC_frmUC(obj, AppConstants.TabPageManage, this, AppConstants.TabPageManage);
                 this.Dispose();

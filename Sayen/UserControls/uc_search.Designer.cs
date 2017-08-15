@@ -42,11 +42,12 @@
             // 
             // pb_searchlogo
             // 
+            this.pb_searchlogo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pb_searchlogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pb_searchlogo.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pb_searchlogo.ErrorImage")));
             this.pb_searchlogo.Image = ((System.Drawing.Image)(resources.GetObject("pb_searchlogo.Image")));
             this.pb_searchlogo.InitialImage = ((System.Drawing.Image)(resources.GetObject("pb_searchlogo.InitialImage")));
-            this.pb_searchlogo.Location = new System.Drawing.Point(288, 16);
+            this.pb_searchlogo.Location = new System.Drawing.Point(222, 13);
             this.pb_searchlogo.Name = "pb_searchlogo";
             this.pb_searchlogo.Size = new System.Drawing.Size(207, 87);
             this.pb_searchlogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -55,14 +56,16 @@
             // 
             // txt_search
             // 
-            this.txt_search.Location = new System.Drawing.Point(149, 133);
+            this.txt_search.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txt_search.Location = new System.Drawing.Point(59, 130);
             this.txt_search.Name = "txt_search";
             this.txt_search.Size = new System.Drawing.Size(456, 20);
             this.txt_search.TabIndex = 4;
             // 
             // btn_search
             // 
-            this.btn_search.Location = new System.Drawing.Point(627, 130);
+            this.btn_search.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btn_search.Location = new System.Drawing.Point(538, 128);
             this.btn_search.Name = "btn_search";
             this.btn_search.Size = new System.Drawing.Size(80, 24);
             this.btn_search.TabIndex = 5;
@@ -71,8 +74,9 @@
             // 
             // lbl_advSearch
             // 
+            this.lbl_advSearch.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbl_advSearch.AutoSize = true;
-            this.lbl_advSearch.Location = new System.Drawing.Point(624, 157);
+            this.lbl_advSearch.Location = new System.Drawing.Point(533, 108);
             this.lbl_advSearch.Name = "lbl_advSearch";
             this.lbl_advSearch.Size = new System.Drawing.Size(93, 13);
             this.lbl_advSearch.TabIndex = 6;
@@ -81,6 +85,7 @@
             // 
             // dg_search
             // 
+            this.dg_search.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dg_search.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dg_search.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dg_search.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -92,7 +97,7 @@
             // 
             // panel1
             // 
-            this.panel1.AutoSize = true;
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel1.Controls.Add(this.pb_searchlogo);
             this.panel1.Controls.Add(this.dg_search);
             this.panel1.Controls.Add(this.lbl_advSearch);
@@ -112,12 +117,12 @@
             this.Controls.Add(this.panel1);
             this.Name = "uc_search";
             this.Size = new System.Drawing.Size(880, 388);
+            this.Load += new System.EventHandler(this.uc_search_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pb_searchlogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dg_search)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

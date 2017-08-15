@@ -13,7 +13,13 @@ namespace m1.DAC
         public const string GetAppInfo = "Query_GetAppInfo";
         public const string TruncateTable = "TRUNCATE TABLE ";
         public const string InsertEmpDetails = "Query_InsertEmpDetails";
+        public const string UpdateEmpDetails = "Query_UpdateEmpDetails";
+        public const string TerminateEmp = "Query_TerminateEmp";
+        public const string RetrieveEmpDetails = "Query_RetrieveEmpDetails";
+        public const string RetrieveEmpDocs = "Query_RetrieveEmpDocs";
         public const string InsertEmpDocs = "Query_InsertEmpDocs";
+        public const string UpdateEmpDocs = "Query_UpdateEmpDocs";
+        public const string TerminateEmpDocs = "Query_TerminateEmpDocs";
         public const string GetNextID = "Query_GetNextID";
         public const string SearchEntity = "Query_SearchEntity";  
     }

@@ -9,6 +9,7 @@ using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.SqlClient;
 using m1.Shared;
 using static System.Net.Mime.MediaTypeNames;
+using System.IO;
 
 namespace m1.DAC
 {
@@ -81,7 +82,7 @@ namespace m1.DAC
 
             List<SqlParameter> sp = new List<SqlParameter>()
             {
-                new SqlParameter() {ParameterName = "@searchtype", SqlDbType = SqlDbType.NVarChar, Value= se.SearchType},
+                new SqlParameter() {ParameterName = "@searchtype", SqlDbType = SqlDbType.NVarChar, Value= se.SearchType.ToString()},
                 new SqlParameter() {ParameterName = "@entId", SqlDbType = SqlDbType.NVarChar, Value= se.EntID},
                 new SqlParameter() {ParameterName = "@name", SqlDbType = SqlDbType.NVarChar, Value= se.Name},
             };
@@ -100,9 +101,9 @@ namespace m1.DAC
             }
         }
 
-        public EmployeeEntity dacGetEmpDetails(EmployeeEntity m_emp)
+        public void dacGetEmpDetails(EmployeeEntity m_emp)
         {
-            string SQLselect = base.RetrieveSqlQuery(QueryConstants.ValidateUserLogin).ToString();
+            string SQLselect = base.RetrieveSqlQuery(QueryConstants.RetrieveEmpDetails).ToString();
             DataTable dt = new DataTable();
             
             List<SqlParameter> sp = new List<SqlParameter>()
@@ -116,29 +117,105 @@ namespace m1.DAC
             {
                 if (dt.Rows.Count < 1)
                 {
-                    return null;
+                    m_emp.RetIndicator = AppKeys.Failure;
+                    m_emp.RetMessage = UserMessages.RetrieveEmpFailed;
                 }
                 else
                 {
                     foreach (DataRow dr in dt.Rows)
                     {
-                        //m_eCol. = dr["user_id"].ToString();
-                        //GEntity.UserEntity.User_name = dr["user_name"].ToString();
-                        //GEntity.UserEntity.User_fname = dr["user_first_name"].ToString();
-                        //GEntity.UserEntity.User_lname = dr["user_last_name"].ToString();
-                        //GEntity.UserEntity.Role_id = dr["role_id"].ToString();
-                        //GEntity.UserEntity.Last_accessed = dr["last_accessed"].ToString();
-                        //GEntity.UserEntity.Last_pwd_change = dr["last_pwd_change"].ToString();
-                        //GEntity.UserEntity.Profilepic = dr["profilepic"].ToString();
-                        //break;
+                        m_emp.Firstname = dr["firstname"].ToString();
+                        m_emp.Lastname = dr["lastname"].ToString();
+                        m_emp.Petname = dr["petname"].ToString();
+                        m_emp.Dob = dr["dob"].ToString();
+                        m_emp.Gender = dr["gender"].ToString();
+                        m_emp.Emptype = dr["emptype"].ToString();
+                        m_emp.Designation = dr["designation"].ToString();
+                        m_emp.Empaddress = dr["empaddress"].ToString();
+                        m_emp.Pincode = dr["pincode"].ToString();
+                        m_emp.Homephone = dr["homephone"].ToString();
+                        m_emp.Mobile = dr["mobile"].ToString();
+                        m_emp.Emailid = dr["emailid"].ToString();
+                        m_emp.Education = dr["education"].ToString();
+                        m_emp.Aadhaarno = dr["aadhaarno"].ToString();
+                        m_emp.Addressproof = dr["addressproof"].ToString();
+                        m_emp.Dl_no = dr["dl_no"].ToString();
+                        m_emp.Dl_htmv = dr["dl_htmv"].ToString();
+                        m_emp.Dl_hmv = dr["dl_hmv"].ToString();
+                        m_emp.Dl_lmv = dr["dl_lmv"].ToString();
+                        m_emp.Dl_rto = dr["dl_rto"].ToString();
+                        m_emp.Dl_expDt = dr["dl_expdt"].ToString();
+                        m_emp.Hiring_manager_id = dr["hiring_manager_id"].ToString();
+                        m_emp.Hiring_Date = dr["hiring_date"].ToString();
+                        m_emp.Experience = dr["experience"].ToString();
+                        m_emp.Attributes = dr["attributes"].ToString();
+                        m_emp.Otherdetails = dr["otherdetails"].ToString();
+                        m_emp.Emp_status = dr["emp_status"].ToString();
+                        //m_emp.Allow_login = dr["allow_login"].ToString();
+                        break;
                     }
-
-                    //AppGlobal.g_GEntity = GEntity;
-                    //AppGlobal.g_GEntity.SessionEntity.User_id = GEntity.UserEntity.User_id;
-                    //AppGlobal.g_GEntity.SessionEntity.Role_id = GEntity.UserEntity.Role_id;
-                    return m_emp;
+                    m_emp.RetIndicator = AppKeys.Success;
+                    m_emp.RetMessage = string.Empty;
                 }
             }
+        }
+
+        public DocumentCollection dacGetEmpDocs(DocumentCollection m_dcol)
+        {
+            string SQLselect = base.RetrieveSqlQuery(QueryConstants.RetrieveEmpDocs).ToString();
+            DataTable dt = new DataTable();
+            DocumentCollection dcol = new DocumentCollection();
+            dcol.Optype = m_dcol.Optype;
+
+            foreach (formDocs m_edoc in m_dcol)
+            {
+                List<SqlParameter> sp = new List<SqlParameter>()
+                {
+                    new SqlParameter() {ParameterName = "@empid", SqlDbType = SqlDbType.NVarChar, Value= m_edoc.EmpId},
+                };               
+
+                using (dt = base.ExecuteDataAdapter(SQLselect, sp))
+                {
+                    if (dt.Rows.Count < 1)
+                    {                        
+                        dcol = m_dcol; //return same collection if nothing is in database
+                    }
+                    else
+                    {
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            formDocs fd = new formDocs();
+
+                            fd.EmpId = m_edoc.EmpId;                            
+                            AppConstants.e_DocType _docType = AppConstants.e_DocType.XXX;
+                            Enum.TryParse(dr["doctype"].ToString(), out _docType); //string to enum conversion
+                            fd.DocType = _docType;
+                            fd.DocName = dr["doc_name"].ToString();
+                            fd.Image = dr["doc_img"] as byte[] ?? null;
+                            fd.DocExtn = dr["doc_extn"].ToString();
+                            fd.DocUpdateType = Utilities.e_DocAction.M;
+                            fd.ExistInDB = true;
+                            fd.HasChange = false;
+                            fd.RetIndicator = AppKeys.Success;
+                            fd.RetMessage = string.Empty;
+
+                            //check if file present in folders
+                            DirectoryInfo dir = new DirectoryInfo(AppConstants.setHomePath);
+                            string _imgPath = dir.FullName + AppConstants.setImagesPath + AppConstants.empImgDocPath + "\\" + fd.DocName+ fd.DocExtn;
+
+                            //string _imgPath = AppConstants.setHomePath + AppConstants.setImagesPath + AppConstants.empImgDocPath+"\\"+ fd.DocName;
+                            if (File.Exists(_imgPath))
+                            { fd.DocPath = _imgPath; }
+
+                            dcol.Add(fd);
+                        }
+                        
+                    }
+                }
+
+            }
+            return dcol;
+
         }
 
         /// <summary>
@@ -242,8 +319,85 @@ namespace m1.DAC
             else
             {
                 string _s = emp.Firstname + " " + emp.Lastname;
-                { emp.RetIndicator = AppKeys.Success; emp.RetMessage = string.Format(UserMessages.InsertEmpSuccess, _s.Trim()); }
+                { emp.RetIndicator = AppKeys.Success; emp.RetMessage = string.Format(UserMessages.InsertEmpSuccess, _s.Trim(),emp.Emp_id); }
             }
+
+        }
+
+        public void dacUpdateEmpDetails(EmployeeEntity emp)
+        {
+            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.UpdateEmpDetails).ToString();
+
+            List<SqlParameter> cp = base.GetCommonParameters_Updt();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_id},
+                new SqlParameter() {ParameterName = "@firstname", SqlDbType = SqlDbType.NVarChar, Value= emp.Firstname},
+                new SqlParameter() {ParameterName = "@lastname", SqlDbType = SqlDbType.NVarChar, Value= emp.Lastname},
+                new SqlParameter() {ParameterName = "@petname", SqlDbType = SqlDbType.NVarChar, Value= emp.Petname},
+                new SqlParameter() {ParameterName = "@dob", SqlDbType = SqlDbType.NVarChar, Value= emp.Dob},
+                new SqlParameter() {ParameterName = "@gender", SqlDbType = SqlDbType.NVarChar, Value= emp.Gender},
+                new SqlParameter() {ParameterName = "@emptype", SqlDbType = SqlDbType.NVarChar, Value= emp.Emptype},
+                new SqlParameter() {ParameterName = "@designation", SqlDbType = SqlDbType.NVarChar, Value= emp.Designation},
+                new SqlParameter() {ParameterName = "@empaddress", SqlDbType = SqlDbType.NVarChar, Value= emp.Empaddress},
+                new SqlParameter() {ParameterName = "@pincode", SqlDbType = SqlDbType.NVarChar, Value= emp.Pincode},
+                new SqlParameter() {ParameterName = "@homephone", SqlDbType = SqlDbType.NVarChar, Value= emp.Homephone},
+                new SqlParameter() {ParameterName = "@mobile", SqlDbType = SqlDbType.NVarChar, Value= emp.Mobile},
+                new SqlParameter() {ParameterName = "@emailid", SqlDbType = SqlDbType.NVarChar, Value= emp.Emailid},
+                new SqlParameter() {ParameterName = "@education", SqlDbType = SqlDbType.NVarChar, Value= emp.Education},
+                new SqlParameter() {ParameterName = "@aadhaarno", SqlDbType = SqlDbType.NVarChar, Value= emp.Aadhaarno},
+                new SqlParameter() {ParameterName = "@addressproof", SqlDbType = SqlDbType.NVarChar, Value= emp.Addressproof},
+                new SqlParameter() {ParameterName = "@dl_no", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_no},
+                new SqlParameter() {ParameterName = "@dl_htmv", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_htmv},
+                new SqlParameter() {ParameterName = "@dl_hmv", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_hmv},
+                new SqlParameter() {ParameterName = "@dl_lmv", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_lmv},
+                new SqlParameter() {ParameterName = "@dl_rto", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_rto},
+                new SqlParameter() {ParameterName = "@dl_expdt", SqlDbType = SqlDbType.NVarChar, Value= emp.Dl_expDt},
+                new SqlParameter() {ParameterName = "@hiring_manager_id", SqlDbType = SqlDbType.NVarChar, Value= emp.Hiring_manager_id},
+                new SqlParameter() {ParameterName = "@hiring_date", SqlDbType = SqlDbType.NVarChar, Value= emp.Hiring_Date},
+                new SqlParameter() {ParameterName = "@experience", SqlDbType = SqlDbType.NVarChar, Value= emp.Experience},
+                new SqlParameter() {ParameterName = "@attributes", SqlDbType = SqlDbType.NVarChar, Value= emp.Attributes},
+                new SqlParameter() {ParameterName = "@otherdetails", SqlDbType = SqlDbType.NVarChar, Value= emp.Otherdetails},
+                new SqlParameter() {ParameterName = "@emp_status", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_status},
+                new SqlParameter() {ParameterName = "@allow_login", SqlDbType = SqlDbType.NVarChar, Value= emp.Allow_login},
+
+            };
+
+            sp.AddRange(cp);
+
+            int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
+            if (_cnt <= 0)
+            { emp.RetIndicator = AppKeys.Failure; emp.RetMessage = UserMessages.UpdateEmpFailure; }
+            else
+            {
+                string _s = emp.Firstname + " " + emp.Lastname;
+                { emp.RetIndicator = AppKeys.Success; emp.RetMessage = string.Format(UserMessages.UpdateEmpSuccess, _s.Trim()); }
+            }
+
+        }
+
+        public void dacTerminateEmp(EmployeeEntity emp)
+        {
+            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.TerminateEmp).ToString();
+
+            List<SqlParameter> cp = base.GetCommonParameters_Updt();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_id},
+                new SqlParameter() {ParameterName = "@emp_status", SqlDbType = SqlDbType.NVarChar, Value= emp.Emp_status},
+                new SqlParameter() {ParameterName = "@allow_login", SqlDbType = SqlDbType.NVarChar, Value= emp.Allow_login},
+            };
+
+            sp.AddRange(cp);
+
+            int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
+            if (_cnt <= 0)
+            { emp.RetIndicator = AppKeys.Failure; emp.RetMessage = UserMessages.DatabaseUpdateFailure; }
+            else
+            { emp.RetIndicator = AppKeys.Success; emp.RetMessage = UserMessages.DatabaseUpdateSuccess; }
+            
 
         }
 
@@ -268,8 +422,56 @@ namespace m1.DAC
 
             sp.AddRange(cp);
 
+            int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
+            if (_cnt <= 0)
+            { edoc.RetIndicator = AppKeys.Failure; }
+            else { edoc.RetIndicator = AppKeys.Success; }
+
+        }
+
+        public void dacUpdateEmpDocs(formDocs edoc)
+        {
+            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.UpdateEmpDocs).ToString();
+
+            List<SqlParameter> cp = base.GetCommonParameters_Updt();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= edoc.EmpId},
+                new SqlParameter() {ParameterName = "@doc_type", SqlDbType = SqlDbType.NVarChar, Value= edoc.DocType},
+                new SqlParameter() {ParameterName = "@doctype_id", SqlDbType = SqlDbType.NVarChar, Value= string.Empty},
+                new SqlParameter() {ParameterName = "@doc_name", SqlDbType = SqlDbType.NVarChar, Value= edoc.DocName},
+                new SqlParameter() {ParameterName = "@doc_extn", SqlDbType = SqlDbType.NVarChar, Value= edoc.DocExtn},
+                new SqlParameter() {ParameterName = "@doc_img", SqlDbType = SqlDbType.Image, Value= edoc.Image},
+                new SqlParameter() {ParameterName = "@active_ind", SqlDbType = SqlDbType.NVarChar, Value= edoc.ActiveInd},
+            };
+
+            sp.AddRange(cp);
+
             //just for test #future code - remove this test method
             //dacTruncateTable("d1_cdt_empdocs");
+
+            int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
+            if (_cnt <= 0)
+            { edoc.RetIndicator = AppKeys.Failure; }
+            else { edoc.RetIndicator = AppKeys.Success; }
+
+        }
+
+        public void dacTerminateEmpDoc(formDocs edoc)
+        {
+            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.TerminateEmpDocs).ToString();
+
+            List<SqlParameter> cp = base.GetCommonParameters_Updt();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@emp_id", SqlDbType = SqlDbType.NVarChar, Value= edoc.EmpId},
+                new SqlParameter() {ParameterName = "@doc_type", SqlDbType = SqlDbType.NVarChar, Value= edoc.DocType},
+                new SqlParameter() {ParameterName = "@active_ind", SqlDbType = SqlDbType.NVarChar, Value= edoc.ActiveInd},
+            };
+
+            sp.AddRange(cp);
 
             int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
             if (_cnt <= 0)

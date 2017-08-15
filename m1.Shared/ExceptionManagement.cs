@@ -17,6 +17,14 @@ namespace m1.Shared
             //Code to write logs to file................... #futureCode
         }
 
+        public static void logUserException(Exception Ex)
+        {
+            _appErrorLog = "\r\n" + Ex.Message;
+            AppGlobal.appErrorLog = AppGlobal.appErrorLog + "\r\n" + _appErrorLog;
+
+            //Code to write logs to file................... #futureCode
+        }
+
 
     }
 }

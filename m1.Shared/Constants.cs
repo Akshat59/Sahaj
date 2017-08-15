@@ -104,7 +104,7 @@ namespace m1.Shared
 
         /// <summary>
         /// This enum have codes which signifies type of operation happening
-        /// V-View, S- Single Insert, B- Bulk Insert, X - Single Delete, U- Update
+        /// V-View, S- Single Insert, B- Bulk Insert, X - Single Delete/Terminate, U- Single Update/Modify
         /// </summary>
         public enum e_frmOperationType { V, S, B, X, U };
 
@@ -116,9 +116,9 @@ namespace m1.Shared
 
         /// <summary>
         /// This enum have codes which signifies type of Document
-        /// AAD-Adhaar, APX - Address Proof, DLF - Driving Licence Front, DLF - Driving Licence Back, EPH- Employee Photograph
+        /// XXX- Invalid, AAD-Adhaar, APX - Address Proof, DLF - Driving Licence Front, DLF - Driving Licence Back, EPH- Employee Photograph
         /// </summary>
-        public enum e_DocType { AAD, APX, DLF, EPH};
+        public enum e_DocType { XXX, AAD, APX, DLF, EPH};
 
         #region GetSetPaths
         public const string setHomePath = "..\\..\\..";
@@ -175,11 +175,19 @@ namespace m1.Shared
 
         public const string InsertEmpFailure = "Unexpected Error While Inserting Employee Details";
         public const string InsertEmpSuccess = "Details for {0} added Successfully";
+        public const string InsertEmpIDSuccess = "Details for {0} added Successfully with empID: {1}";
+        public const string UpdateEmpFailure = "Unexpected Error While Updating Employee Details";
+        public const string UpdateEmpSuccess = "Details for {0} updated Successfully";
         public const string InsertEmpDocFailure = "One or more Employee Docs failed to Insert";
         public const string InsertEmpDocSuccess = "Documents added Successfully";
+        public const string UpdateEmpDocFailure = "One or more Employee Docs failed to Update";
+        public const string UpdateEmpDocSuccess = "Documents updated Successfully";
         public const string ValidDLRequired = "Valid DL is required";
         public const string InvalidMobileNumber = "Invalid Mobile Number";
         public const string RetrieveEmpFailed = "Error while retrieving employee details";
+        public const string RetrieveEmpDocsFailed = "Error while retrieving employee docs";
+        public const string DatabaseUpdateFailure = "Error while updating Details";
+        public const string DatabaseUpdateSuccess = "Details updated Successfully";
     }
     #endregion UserMessages
 

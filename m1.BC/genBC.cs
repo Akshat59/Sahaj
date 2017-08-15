@@ -47,15 +47,40 @@ namespace m1.BC
             GenDAC.dacInsertEmpDetails(emp);
         }
 
+        public void bcUpdateEmpDetails(EmployeeEntity emp)
+        {
+            GenDAC.dacUpdateEmpDetails(emp);
+        }
+
+        public void bcTerminateEmp(EmployeeEntity emp)
+        {
+            GenDAC.dacTerminateEmp(emp);
+        }
+
         public void bcInsertEmpDocs(formDocs edoc)
         {
             GenDAC.dacInsertDocs(edoc);
         }
 
-        public EmployeeEntity bcGetEmpDetails(EmployeeEntity m_emp)
+        public void bcUpdateEmpDocs(formDocs edoc)
         {
-            return _genDAC.dacGetEmpDetails(m_emp);
+            GenDAC.dacUpdateEmpDocs(edoc);
         }
+
+        public void bcTerminateEmpDoc(formDocs edoc)
+        {
+            GenDAC.dacTerminateEmpDoc(edoc);
+        }
+
+        public void bcGetEmpDetails(EmployeeEntity m_emp)
+        {
+            GenDAC.dacGetEmpDetails(m_emp);
+        }
+        public DocumentCollection bcGetEmpDocs(DocumentCollection m_dcol)
+        {
+           return GenDAC.dacGetEmpDocs(m_dcol);
+        }
+
 
         public void bcSearchEntity(SearchEntity se)
         {

@@ -24,7 +24,7 @@ namespace m1.Shared.Entities
         private string _searchField5 = string.Empty;
         private string _retCount = string.Empty;
         public DataTable _retDT = new DataTable();
-        private string _searchType = string.Empty;
+        private e_ViewEntityType _searchType;
 
         private FormMessageCollection formMessages;
         public FormMessageCollection FormMessages
@@ -144,7 +144,7 @@ namespace m1.Shared.Entities
             }
         }
 
-        public string SearchType
+        public e_ViewEntityType SearchType
         {
             get
             {

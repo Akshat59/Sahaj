@@ -31,6 +31,7 @@ namespace Sayen.UserControls
         AppConstants.e_frmOperationType _operationType;
         EmployeeEntity emp = new EmployeeEntity();
         DocumentCollection docCol = null;
+        string _empID = string.Empty;
         //EmployeeDocs edoc = new EmployeeDocs();
 
         private genBPC _genBPC;
@@ -53,20 +54,21 @@ namespace Sayen.UserControls
         public uc_AddEmpl()
         {
             InitializeComponent();
-            LoadAddEmp();
+            LoadAddEmpUC();
         }
 
-        public uc_AddEmpl(frm_Home objFrmHome, AppConstants.e_frmOperationType optyp,string empId = "")
+        public uc_AddEmpl(AppConstants.e_frmOperationType optyp, frm_Home objFrmHome, string empId = "")
         {
-            InitializeComponent();            
+            InitializeComponent();
             _objfrmHome = objFrmHome;
             _operationType = optyp;
             docCol = new DocumentCollection();
 
             if (optyp == AppConstants.e_frmOperationType.S)
-            { LoadAddEmp(); }
+            { LoadAddEmpUC(); }
             else if (optyp == AppConstants.e_frmOperationType.V)
-            { LoadViewEmp(empId); }
+            { LoadAddEmpUC(); LoadViewEmp(empId); }
+            else { } //RaiseError  #futureCode}
 
             this._genBPC = null;
             if (_genBPC == null) { _genBPC = new genBPC(); }
@@ -74,6 +76,9 @@ namespace Sayen.UserControls
         #endregion
 
         #region Controls
+
+        #region Events
+
 
         private void ddl_empType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -95,13 +100,18 @@ namespace Sayen.UserControls
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
-            if (this.Validate_AddEmpl())
+            if (_operationType == e_frmOperationType.S || _operationType == e_frmOperationType.U)
+            {
+                if (this.Validate_AddEmpl())
+                { this.Save_addEmpl(); }
+            }
+            else if (_operationType == e_frmOperationType.X)
             { this.Save_addEmpl(); }
         }
 
 
 
-        
+
 
         private void rdl_singleUpload_CheckedChanged(object sender, EventArgs e)
         {
@@ -134,55 +144,113 @@ namespace Sayen.UserControls
             //chk_escalatedEmp.Visible = false;
         }
 
+        private void rdl_editEmp_CheckedChanged(object sender, EventArgs e)
+        {
+
+            panel5.Visible = true;
+            txt_age.Enabled = false;
+
+            if (rdl_editEmp.Checked)
+            {
+                _operationType = AppConstants.e_frmOperationType.U;
+                Utilities.EnableDisableControls(panel1.Controls, true);
+                Utilities.SetControlReadonly(panel1.Controls, false);
+                txt_age.Enabled = false;
+
+            }
+            else if (rdl_terminateEmp.Checked)
+            {
+                _operationType = AppConstants.e_frmOperationType.X;
+                Utilities.EnableDisableControls(panel1.Controls, false);
+                Utilities.SetControlReadonly(panel1.Controls, true);
+                Utilities.EnableDisableControls(panel5.Controls, true);
+                Utilities.EnableDisableControls(panel7.Controls, true);
+
+            }
+        }
+
+        private void rdl_terminateEmp_CheckedChanged(object sender, EventArgs e)
+        {
+            panel5.Visible = true;
+            txt_age.Enabled = false;
+
+            if (rdl_terminateEmp.Checked)
+            {
+                _operationType = AppConstants.e_frmOperationType.X;
+                Utilities.EnableDisableControls(panel1.Controls, false);
+                Utilities.SetControlReadonly(panel1.Controls, true);
+                Utilities.EnableDisableControls(panel5.Controls, true);
+                Utilities.EnableDisableControls(panel7.Controls, true);
+
+            }
+            else if (rdl_editEmp.Checked)
+            {
+                _operationType = AppConstants.e_frmOperationType.U;
+                Utilities.EnableDisableControls(panel1.Controls, true);
+                Utilities.SetControlReadonly(panel1.Controls, false);
+
+            }
+
+        }
+
+        #endregion Events
+
         #region Validation
         private void txt_firstName_Validating(object sender, CancelEventArgs e)
         {
-            Utilities.DontAllow_Empty(txt_firstName, errorProvider1, e);
+            if (!txt_firstName.ReadOnly) { Utilities.DontAllow_Empty(txt_firstName, errorProvider1, e); }
         }
 
         private void txt_lastName_Validating(object sender, CancelEventArgs e)
         {
-            Utilities.DontAllow_Empty(txt_lastName, errorProvider1, e);
+            if (!txt_lastName.ReadOnly) { Utilities.DontAllow_Empty(txt_lastName, errorProvider1, e); }
         }
         private void dtp_dob_Validating(object sender, CancelEventArgs e)
         {
-            Utilities.DontAllow_InvalidDOB(dtp_dob, txt_age, errorProvider1, e);
+            if (dtp_dlValidity.Enabled) { Utilities.DontAllow_InvalidDOB(dtp_dob, txt_age, errorProvider1, e); }
         }
 
         private void dtp_validity_Validating(object sender, CancelEventArgs e)
         {
-            if (txt_dlno.Text.Length > 0)
-            { Utilities.DontAllow_InvalidExpiryDate(dtp_validity, errorProvider1, e); }
+
+            if (dtp_dlValidity.Enabled && txt_dlno.Text.Length > 0)
+            { Utilities.DontAllow_InvalidExpiryDate(dtp_dlValidity, errorProvider1, e); }
         }
 
         private void txt_mobileNo_Validating(object sender, CancelEventArgs e)
         {
-            Utilities.DontAllow_Empty(txt_mobileNo, errorProvider1, e);
-            if(txt_mobileNo.TextLength !=10)
+            if (!txt_mobileNo.ReadOnly)
             {
-                errorProvider1.SetError(txt_mobileNo, UserMessages.InvalidMobileNumber);
-                e.Cancel = true;
+                Utilities.DontAllow_Empty(txt_mobileNo, errorProvider1, e);
+                if (txt_mobileNo.TextLength != 10)
+                {
+                    errorProvider1.SetError(txt_mobileNo, UserMessages.InvalidMobileNumber);
+                    e.Cancel = true;
+                }
             }
         }
 
 
         private void txt_dlno_Validating(object sender, CancelEventArgs e)
         {
-            if (ddl_empType.Text == e_EmployeeType.Driver.ToString() && txt_dlno.TextLength < 5)
+            if (!txt_dlno.ReadOnly)
             {
-                txt_rto.Text = string.Empty;
-                dtp_validity.Text = string.Empty;
-                errorProvider1.SetError(txt_dlno, UserMessages.ValidDLRequired);
-                e.Cancel = true;
-            }
+                if (ddl_empType.Text == e_EmployeeType.Driver.ToString() && txt_dlno.TextLength < 5)
+                {
+                    txt_rto.Text = string.Empty;
+                    dtp_dlValidity.Text = string.Empty;
+                    errorProvider1.SetError(txt_dlno, UserMessages.ValidDLRequired);
+                    e.Cancel = true;
+                }
 
-            else { errorProvider1.SetError(txt_dlno, ""); }
+                else { errorProvider1.SetError(txt_dlno, ""); }
+            }
 
         }
 
         private void dtp_hiringDate_Validating(object sender, CancelEventArgs e)
         {
-            Utilities.DontAllow_FutureDate(dtp_hiringDate, errorProvider1, e);
+            if (dtp_hiringDate.Enabled) { Utilities.DontAllow_FutureDate(dtp_hiringDate, errorProvider1, e); }
         }
 
         #endregion Validation
@@ -191,67 +259,67 @@ namespace Sayen.UserControls
 
         private void lbl_hide_viewDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.H, docCol);
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.H, docCol);
         }
 
         private void lbl_upload_uid_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.U, docCol);
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.U, docCol);
         }
 
         private void lbl_view_uid_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.V, docCol);
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.V, docCol);
         }
 
         private void pb_del_uid_Click(object sender, EventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
         }
 
         private void lbl_upload_ap_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.U, docCol);
+            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.U, docCol);
         }
 
         private void lbl_view_ap_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.V, docCol);
+            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.V, docCol);
         }
 
         private void pb_del_ap_Click(object sender, EventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
         }
 
         private void lbl_upload_ppic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.U, docCol);
+            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.U, docCol);
         }
 
         private void lbl_view_ppic_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.V, docCol);
+            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.V, docCol);
         }
 
         private void pb_del_ppic_Click(object sender, EventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
         }
 
         private void lbl_upload_dl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.U, docCol);
+            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.U, docCol);
         }
 
         private void lbl_view_dl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.V, docCol);
+            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.V, docCol);
         }
 
         private void pb_del_dl_Click(object sender, EventArgs e)
         {
-            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
 
         }
         #endregion EmpDocs
@@ -309,14 +377,13 @@ namespace Sayen.UserControls
         #region UserMethods
 
 
-        private void LoadAddEmp()
+        private void LoadAddEmpUC()
         {
             if (AppGlobal.CurrentAppEnv == AppConstants.d_AppEnvironments.FirstOrDefault(x => x.Key == AppConstants.e_AppEnvironment.DEV.ToString()).Key
                 || AppGlobal.CurrentAppEnv == AppConstants.d_AppEnvironments.FirstOrDefault(x => x.Key == AppConstants.e_AppEnvironment.TEST.ToString()).Key)
             { chk_prefill.Visible = true; }
             else { chk_prefill.Visible = false; }
-
-
+            rdl_bulkUpload.Enabled = true;
 
             ddl_empType.DataSource = new BindingSource(AppConstants.d_EmployeeType, null);
             ddl_empType.ValueMember = "Value";
@@ -337,25 +404,115 @@ namespace Sayen.UserControls
 
         private void LoadViewEmp(string empID)
         {
+            lbl_title.Text = "View / Edit" + " " + "Employee";
+            { rdl_bulkUpload.Visible = rdl_singleUpload.Visible = btn_reset.Visible = chk_prefill.Visible = panel5.Visible = false; }
+
+
+            Utilities.EnableDisableControls(panel1.Controls, false);
+            { lbl_view_uid.Enabled = lbl_view_ap.Enabled = lbl_view_ppic.Enabled = lbl_view_dl.Enabled = lbl_hide_viewDoc.Enabled = true; }
+            Utilities.SetControlReadonly(panel1.Controls, true);
+            Utilities.EnableDisableControls(panel7.Controls, true);
+            panel7.Visible = true;
+
             if (empID.Length > 0)
             {
-                //Retrieve emp details 
+                _empID = empID;
+                lbl_empId.Visible = true;
+                lbl_empId.Text = empID;
+
+                //Retrieve emp details from database
                 EmployeeCollection m_eCol = new EmployeeCollection();
-                EmployeeEntity emp = new EmployeeEntity();
-                m_eCol.Optype = e_frmOperationType.V;
-                emp.Emp_id = empID;
-                m_eCol.Add(emp);
+                EmployeeEntity m_emp = new EmployeeEntity();
+                m_eCol.Optype = _operationType;
+                m_emp.Emp_id = empID;
+                m_eCol.Add(m_emp);
 
-                m_eCol = _genBPC.bpcGetEmpDetails(m_eCol);
+                GenBPC.bpcGetEmpDetails(m_eCol);
 
+                foreach (EmployeeEntity _emp in m_eCol)
+                {
+                    PopulateControls(_emp);
+                    break;
+                }
 
                 //Retrieve emp docs
                 DocumentCollection m_dCol = new DocumentCollection();
+                formDocs m_doc = new formDocs();
+                m_dCol.Optype = _operationType;
+                m_doc.EmpId = empID;
+                m_dCol.Add(m_doc);
+
+                docCol = GenBPC.bpcGetEmpDocs(m_dCol);
+                //m_dcol.FormMessages. = UserMessages.RetrieveEmpDocsFailed;
+                foreach (formDocs _empdoc in docCol)
+                {
+                    PopulateDocsPanel(_empdoc);
+                }
+
             }
             else
             {
                 //Raise error  #futureCode
             }
+
+        }
+
+        private void PopulateControls(EmployeeEntity emp)
+        {
+            txt_firstName.Text = emp.Firstname;
+            txt_lastName.Text = emp.Lastname;
+            txt_petName.Text = emp.Petname;
+            dtp_dob.Text = emp.Dob;
+            rdl_gender_m.Checked = emp.Gender.Equals(e_Gender.M.ToString()) ? true : false;
+            rdl_gender_f.Checked = emp.Gender.Equals(e_Gender.F.ToString()) ? true : false;
+            ddl_empType.Text = emp.Emptype;
+            ddl_designation.Text = emp.Designation;
+            txt_address.Text = emp.Empaddress;
+            txt_pinCode.Text = emp.Pincode;
+            txt_homePhone.Text = emp.Homephone;
+            txt_mobileNo.Text = emp.Mobile;
+            txt_email.Text = emp.Emailid;
+            txt_education.Text = emp.Education;
+            txt_aadhaar.Text = emp.Aadhaarno;
+            txt_addressProof.Text = emp.Addressproof;
+            txt_dlno.Text = emp.Dl_no;
+            chk_dltype_htmv.Checked = emp.Dl_htmv.Equals(AppKeys.Yes) ? true : false;
+            chk_dltype_hmv.Checked = emp.Dl_hmv.Equals(AppKeys.Yes) ? true : false;
+            chk_dltype_lmv.Checked = emp.Dl_lmv.Equals(AppKeys.Yes) ? true : false;
+            txt_rto.Text = emp.Dl_rto;
+            dtp_dlValidity.Text = emp.Dl_expDt;
+            ddl_hiring_manager.Text = emp.Hiring_manager_id;
+            dtp_hiringDate.Text = (DateTime.ParseExact(emp.Hiring_Date, "dd-MM-yyyy", CultureInfo.InvariantCulture)).ToString();
+            txt_experience.Text = emp.Experience;
+            txt_attributes.Text = emp.Attributes;
+            txt_otherDetails.Text = emp.Otherdetails;
+            lbl_empStatus.Text = emp.Emp_status == AppKeys.Active ? "Active" : "Terminated";
+            lbl_empStatus.ForeColor = emp.Emp_status == AppKeys.Active ? Color.LimeGreen : Color.Red;
+            //txt_allow_login.Text = emp.Allow_login;
+        }
+
+        private void PopulateDocsPanel(formDocs empDoc)
+        {
+            switch (empDoc.DocType)
+            {
+                case AppConstants.e_DocType.AAD:
+                    Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.P, docCol);
+                    break;
+                case AppConstants.e_DocType.APX:
+                    Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.P, docCol);
+                    break;
+                case AppConstants.e_DocType.DLF:
+                    Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.P, docCol);
+                    break;
+                case AppConstants.e_DocType.EPH:
+                    //lbl_fileName_ppic.Text = empDoc.DocName;
+                    Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.P, docCol);
+                    Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.V, docCol);
+                    break;
+            }
+
+            //txt_firstName.Text = emp.Firstname;
+            //txt_lastName.Text = emp.Lastname;
 
         }
 
@@ -379,7 +536,7 @@ namespace Sayen.UserControls
             chk_dltype_hmv.Checked = true;
             chk_dltype_htmv.Checked = true;
             chk_dltype_lmv.Checked = true;
-            dtp_validity.Text = "01/01/2025";
+            dtp_dlValidity.Text = "01/01/2025";
             dtp_hiringDate.Text = DateTime.Now.Date.ToString();
             txt_rto.Text = "nagrota bagwan";
             txt_experience.Text = "5 years with national\r\n3 years with shivalik";
@@ -413,11 +570,11 @@ namespace Sayen.UserControls
                 return false;
             }
             else
-             //if we get here the validation passed
+            //if we get here the validation passed
             {
                 MessageBox.Show(UserMessages.SubmitFormSuccess);
                 return true;
-            }            
+            }
         }
 
         /// <summary>
@@ -428,23 +585,64 @@ namespace Sayen.UserControls
             EmployeeCollection empCol = new EmployeeCollection();
 
             empCol.Optype = _operationType;
-            empCol.Optype = _operationType;
             try
             {
                 //SetEmployeeCollections
                 this.SetEmployeeCollection(emp);
-
                 empCol.Add(emp);
                 empCol.Messages = string.Empty;
-                
-
-                //call method chain to insert emp details
-                _genBPC.bpcInsertEmployeeDetails(empCol);
-               
-
-                //call method chain to insert emp Documents details
                 this.SetEmployeeDocCollection(emp.Emp_id);
-                _genBPC.bpcInsertEmployeeDocs(docCol);
+
+
+                if (_operationType == e_frmOperationType.S)
+                {
+                    //call method chain to insert emp details
+                    _genBPC.bpcInsertEmployeeDetails(empCol);
+
+
+                    if (empCol.RetIndicator != AppKeys.Failure)
+                    {
+                        string _s = emp.Firstname + " " + emp.Lastname;
+                        string _msg = string.Format(UserMessages.InsertEmpIDSuccess, _s.Trim(), emp.Emp_id); 
+                        MessageBox.Show(_msg);
+                    }
+
+                    //call method chain to insert emp Documents details
+                    _genBPC.bpcInsertEmployeeDocs(docCol);
+
+                    if (empCol.RetIndicator == AppKeys.Failure)
+                    {                        
+                        MessageBox.Show(UserMessages.UpdateEmpDocFailure);
+                    }
+
+                }
+                else if (_operationType == e_frmOperationType.U)
+                {
+                    _genBPC.bpcUpdateEmployeeDetails(empCol);
+                    
+                    _genBPC.bpcUpdateEmployeeDocs(docCol);
+
+                    if (empCol.RetIndicator != AppKeys.Failure)
+                    {
+                        MessageBox.Show(UserMessages.DatabaseUpdateSuccess);
+                    }
+                }
+                else if (_operationType == e_frmOperationType.X)
+                {
+                    //DialogResult res = MessageBox.Show(UserMessages.LogonDisclaimer, UserMessages.LogonDisclaimerTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    _genBPC.bpcTerminateEmployee(empCol);
+
+                    _genBPC.bpcTerminateEmployeeDocs(docCol);
+
+                    if (empCol.RetIndicator != AppKeys.Failure)
+                    {
+                        MessageBox.Show(UserMessages.DatabaseUpdateSuccess);
+                    }
+                }
+
+
+
 
             }
             catch (Exception Ex)
@@ -460,18 +658,25 @@ namespace Sayen.UserControls
 
         private void SetEmployeeCollection(EmployeeEntity emp)
         {
-            string _seriesInitals = string.Empty;
-            //First Get Next ID
-            //set empid series
-            if (chk_escalatedEmp.Checked || ddl_empType.Text == AppConstants.e_EmployeeType.Board.ToString())
-            { _seriesInitals = AppConstants.e_PrimaryKeySeries.a09.ToString(); }
-            else if (ddl_empType.Text == AppConstants.e_EmployeeType.OfficeStaff.ToString())
-            { _seriesInitals = AppConstants.e_PrimaryKeySeries.e11.ToString(); }
-            else if (ddl_empType.Text == AppConstants.e_EmployeeType.Driver.ToString() || ddl_empType.Text == AppConstants.e_EmployeeType.Conductor.ToString())
-            { _seriesInitals = AppConstants.e_PrimaryKeySeries.e12.ToString(); }
-            else { _seriesInitals = AppConstants.e_PrimaryKeySeries.e13.ToString(); }
+            if (_operationType == e_frmOperationType.S)
+            {
+                string _seriesInitals = string.Empty;
+                //First Get Next ID
+                //set empid series
+                if (chk_escalatedEmp.Checked || ddl_empType.Text == AppConstants.e_EmployeeType.Board.ToString())
+                { _seriesInitals = AppConstants.e_PrimaryKeySeries.a09.ToString(); }
+                else if (ddl_empType.Text == AppConstants.e_EmployeeType.OfficeStaff.ToString())
+                { _seriesInitals = AppConstants.e_PrimaryKeySeries.e11.ToString(); }
+                else if (ddl_empType.Text == AppConstants.e_EmployeeType.Driver.ToString() || ddl_empType.Text == AppConstants.e_EmployeeType.Conductor.ToString())
+                { _seriesInitals = AppConstants.e_PrimaryKeySeries.e12.ToString(); }
+                else { _seriesInitals = AppConstants.e_PrimaryKeySeries.e13.ToString(); }
 
-            emp.Emp_id = GenBPC.bpcGetNextID(AppDBContants.EmpDetails, AppDBContants.EmpDetailsPkey, AppDBContants.EmpDetailsPkeyLen, _seriesInitals);
+                emp.Emp_id = GenBPC.bpcGetNextID(AppDBContants.EmpDetails, AppDBContants.EmpDetailsPkey, AppDBContants.EmpDetailsPkeyLen, _seriesInitals);
+
+            }
+            else
+            { emp.Emp_id = _empID; }
+
             emp.Firstname = txt_firstName.Text == String.Empty ? String.Empty : txt_firstName.Text;
             emp.Lastname = txt_lastName.Text == String.Empty ? String.Empty : txt_lastName.Text;
             emp.Petname = txt_petName.Text == String.Empty ? String.Empty : txt_petName.Text;
@@ -492,14 +697,23 @@ namespace Sayen.UserControls
             emp.Dl_hmv = txt_dlno.Text != String.Empty && chk_dltype_hmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
             emp.Dl_lmv = txt_dlno.Text != String.Empty && chk_dltype_lmv.Checked ? AppKeys.Yes.ToString() : AppKeys.No.ToString();
             emp.Dl_rto = txt_rto.Text == String.Empty || txt_dlno.Text == String.Empty ? String.Empty : txt_rto.Text;
-            emp.Dl_expDt = dtp_validity.Text == String.Empty || txt_dlno.Text == String.Empty ? String.Empty : dtp_validity.Text;
+            emp.Dl_expDt = dtp_dlValidity.Text == String.Empty || txt_dlno.Text == String.Empty ? String.Empty : dtp_dlValidity.Text;
             emp.Hiring_manager_id = ddl_hiring_manager.Text == String.Empty ? String.Empty : ddl_hiring_manager.Text;
             emp.Hiring_Date = dtp_hiringDate.Text == String.Empty ? String.Empty : dtp_hiringDate.Text;
             emp.Experience = txt_experience.Text == String.Empty ? String.Empty : txt_experience.Text;
             emp.Attributes = txt_attributes.Text == String.Empty ? String.Empty : txt_attributes.Text;
             emp.Otherdetails = txt_otherDetails.Text == String.Empty ? String.Empty : txt_otherDetails.Text;
-            emp.Emp_status = AppKeys.Active;
-            emp.Allow_login = AppKeys.Yes;
+            if (_operationType == e_frmOperationType.S || _operationType == e_frmOperationType.U)
+            {
+                emp.Emp_status = AppKeys.Active;
+                emp.Allow_login = AppKeys.Yes;
+            }
+            else if (_operationType == e_frmOperationType.X)
+            {
+                emp.Emp_status = AppKeys.Deactive;
+                emp.Allow_login = AppKeys.No;
+            }
+
 
             //format emp properties
             this.formatEntity(emp);
@@ -508,33 +722,46 @@ namespace Sayen.UserControls
 
         private void SetEmployeeDocCollection(string _empID)
         {
-            FileInfo _f;
-            string _sourcePath = string.Empty;
-            string _fileName;
-            string _sp = Directory.GetParent(Path.GetDirectoryName(System.Windows.Forms.Application.StartupPath)).FullName;
-            DirectoryInfo dir = new DirectoryInfo(AppConstants.setHomePath);
-            string _targetPath = dir.FullName + AppConstants.setImagesPath + AppConstants.empImgDocPath;
-            string _sourceFile;
-            string _destFile;
-
-            if (!System.IO.Directory.Exists(_targetPath))
-            {
-                System.IO.Directory.CreateDirectory(_targetPath);
-            }
-
             foreach (formDocs edoc in docCol)
             {
-                if (File.Exists(edoc.DocPath))
+                if (_operationType == e_frmOperationType.X)
                 {
+                    edoc.ActiveInd = AppKeys.Deactive;
+                    edoc.EmpId = _empID;
+                    edoc.DocUpdateType = Utilities.e_DocAction.D;
+                    edoc.HasChange = true;
+                }
+
+                else if (File.Exists(edoc.DocPath) && (_operationType == e_frmOperationType.S || _operationType == e_frmOperationType.U))
+                {
+                    FileInfo _f;
+                    string _sourcePath = string.Empty;
+                    string _fileName;
+                    string _sp = Directory.GetParent(Path.GetDirectoryName(System.Windows.Forms.Application.StartupPath)).FullName;
+                    DirectoryInfo dir = new DirectoryInfo(AppConstants.setHomePath);
+                    string _targetPath = dir.FullName + AppConstants.setImagesPath + AppConstants.empImgDocPath;
+                    string _sourceFile;
+                    string _destFile;
+
+                    if (!System.IO.Directory.Exists(_targetPath))
+                    {
+                        System.IO.Directory.CreateDirectory(_targetPath);
+                    }
+
+
                     _f = new FileInfo(edoc.DocPath);
                     edoc.EmpId = _empID;
                     edoc.DocName = AppConstants.fn_empDoc + _empID + "_" + edoc.DocType.ToString() + "_001";
                     edoc.DocExtn = _f.Extension;
-                    edoc.ActiveInd = AppKeys.Active;
+
+                    //if (_operationType == e_frmOperationType.S || _operationType == e_frmOperationType.U)
+                    //{ edoc.ActiveInd = AppKeys.Active; }                    
+                    //else { /*Not a expected operation log into app/error logs #futureCode*/}
+                    //if (_operationType == e_frmOperationType.S)
+                    //{ edoc.DocUpdateType = Utilities.e_DocAction.U; }
 
                     // we are saving file in app images folder and also into database
                     //Copy to SQL
-
                     Image img = Image.FromFile(edoc.DocPath);
                     MemoryStream tmpStream = new MemoryStream();
                     img.Save(tmpStream, ImageFormat.Png); // change to other format
@@ -550,14 +777,28 @@ namespace Sayen.UserControls
                     _sourceFile = Path.Combine(_sourcePath, _fileName);
                     _destFile = Path.Combine(_targetPath, edoc.DocName + edoc.DocExtn);
 
-                    // To copy a file to another location and Overwrite the destination file if it already exists.               
-                    File.Copy(_sourceFile, _destFile, true);
+                    // To copy a file to another location and Overwrite the destination file if it already exists.
+                    if (!_sourceFile.Equals(_destFile))
+                    { File.Copy(_sourceFile, _destFile, true); }
+                    else if (_sourceFile.Equals(_destFile) && _operationType == e_frmOperationType.U)
+                    { }//ignore as file update is existing /*log into app logs #futureCode*/
+                    else
+                    { /*log into app/error logs #futureCode*/
+                        Exception Ex = new Exception("Operation Not allowed. Source: " + "SetEmployeeDocCollection");
+                        ExceptionManagement.logUserException(Ex);
+                    }
+
                 }
+
                 else
-                { /*log into app/error logs #futureCode*/}
-
-
+                {
+                    Exception Ex = new Exception("Operation Not allowed. Source: " + "SetEmployeeDocCollection");
+                    ExceptionManagement.logUserException(Ex);
+                }/*log into app/error logs #futureCode*/
             }
+
+
+
 
 
         }
@@ -596,25 +837,25 @@ namespace Sayen.UserControls
             }
         }
 
-        private void postSubmission(EmployeeCollection empCol,DocumentCollection docCol)
+        private void postSubmission(EmployeeCollection empCol, DocumentCollection docCol)
         {
             //Post Insertion Reset Controls
             if (empCol.RetIndicator == AppKeys.Success) { Utilities.CallResetControl(this.panel1); }
 
-            if (empCol.FormMessages.Count >0 || docCol.FormMessages.Count>0)
+            if (empCol.FormMessages.Count > 0 || docCol.FormMessages.Count > 0)
             {
                 TextBox txt_ucAlerts = Utilities.GetAlertTextBox();
 
                 foreach (FormMessage msg in empCol.FormMessages)
                 {
-                    txt_ucAlerts.Text  = msg.Message + "\r\n";
+                    txt_ucAlerts.Text = msg.Message + "\r\n";
                 }
 
                 foreach (FormMessage msg in docCol.FormMessages)
                 {
-                    txt_ucAlerts.Text  = txt_ucAlerts.Text + msg.Message + "\r\n";
+                    txt_ucAlerts.Text = txt_ucAlerts.Text + msg.Message + "\r\n";
                 }
-                txt_ucAlerts.Text=txt_ucAlerts.Text.Trim();
+                txt_ucAlerts.Text = txt_ucAlerts.Text.Trim();
 
                 var lines = txt_ucAlerts.Lines.Count();
                 lines -= String.IsNullOrWhiteSpace(txt_ucAlerts.Lines.Last()) ? 1 : 0;
@@ -626,10 +867,17 @@ namespace Sayen.UserControls
             empCol = new EmployeeCollection();
             docCol = new DocumentCollection();
 
-            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
-            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
-            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
-            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
+            Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
+
+            //Leave Add/View/Edit Emp UserControl
+            if (_operationType == e_frmOperationType.U || _operationType == e_frmOperationType.X)
+            {
+                uc_ViewEntity _ucViewEmp = new uc_ViewEntity(AppConstants.e_ViewEntityType.EMPLOYEE, _objfrmHome);
+                _objfrmHome.LoadStripUC(_ucViewEmp, AppConstants.TabPageManage);
+            }
         }
 
         private void ucResetControls()
@@ -653,8 +901,9 @@ namespace Sayen.UserControls
 
 
 
+
         #endregion UserMethods
 
-       
+
     }
 }

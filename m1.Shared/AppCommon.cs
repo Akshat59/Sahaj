@@ -29,15 +29,15 @@ namespace m1.Shared
         }
         /// <summary>
         /// This enum have codes which signifies type of operation done on Document upload panel
-        /// U- Upload, V- View, D- Delete
+        /// U- Upload/Add New, V- View, D- Delete,  H-Hide , P-Populate, M - Modify/UpdateDoc for existing
         /// </summary>
 
-        public enum DocAction { U=0, V=1, D=2,H=3 }
+        public enum e_DocAction { U=0, V=1, D=2,H=3,P=4,M=5 }
 
         #endregion Declaration
 
 
-        #region ResetControls
+        #region ResetEnableDisableControls
         public static void CallResetControl(Control ParentControl)
         {
             if (ParentControl.HasChildren)
@@ -120,8 +120,42 @@ namespace m1.Shared
 
         }
 
+        public static void EnableDisableControls(Control.ControlCollection controls, bool status)
+        {
+            foreach (Control control in controls)
+            {
+                if (control.HasChildren)
+                { EnableDisableControls(control.Controls, status); }
+                else
+                {
+                    var _property = control.GetType().GetProperty("Enabled");
+                    if (_property != null && !(control is Label)||(control is LinkLabel))
+                    {
+                        control.Enabled = status;
+                    }
 
-        #endregion ResetControls
+                }
+            }
+        }
+
+        public static void SetControlReadonly(Control.ControlCollection controls, bool status)
+        {
+            foreach (Control control in controls)
+            {
+                if (control.HasChildren)
+                { SetControlReadonly(control.Controls, status); }
+                else
+                {
+
+                    if (control is TextBox)
+                    { TextBox txtbox = (TextBox)control; txtbox.ReadOnly = status; txtbox.Enabled = true; }
+                                    
+                }
+            }
+        }
+
+
+        #endregion ResetEnableDisableControls
 
         #region RegEx Control
         public static void DontAllowAlphabet(object sender, KeyPressEventArgs e)
@@ -356,7 +390,7 @@ namespace m1.Shared
 
         #region SetDocPanel
        
-        public static void SetDocPanel(e_DocType docType, LinkLabel lbl_upload, LinkLabel lbl_view, PictureBox pb_del, Label lbl_filename, PictureBox pb_viewDoc,Panel panel_viewDoc, DocAction mode, DocumentCollection docColl)
+        public static void SetDocPanel(e_DocType docType, LinkLabel lbl_upload, LinkLabel lbl_view, PictureBox pb_del, Label lbl_filename, PictureBox pb_viewDoc,Panel panel_viewDoc, e_DocAction mode, DocumentCollection docColl)
         {
             string _fileName = string.Empty;
 
@@ -364,47 +398,79 @@ namespace m1.Shared
             switch (mode)
             {
                 //Upload
-                case DocAction.U:
+                case e_DocAction.U:
                     HideDoc(pb_viewDoc, panel_viewDoc);
-                    RemoveDoc(docType, docColl);
                     if (AddDoc(docType, out _fileName, docColl))
                     {
                         lbl_view.Visible = pb_del.Visible = lbl_filename.Visible = true;
                         lbl_filename.Text = _fileName;
                     }
-                    else { lbl_view.Visible = pb_del.Visible = lbl_filename.Visible = false; }
+                    else
+                    {
+                        if (PopulateDoc(docType, docColl, lbl_filename))
+                        { lbl_view.Visible = pb_del.Visible = lbl_filename.Visible = true; }
+                        else { lbl_view.Visible = pb_del.Visible = lbl_filename.Visible = false; }                        
+                    }
                     if(_fileName.Length>0)
                     { lbl_filename.Text = _fileName;}
                     break;
                 //View
-                case DocAction.V:
+                case e_DocAction.V:
                     if (ViewDoc(docType, pb_viewDoc, docColl))
                     { panel_viewDoc.Visible = true; }
                     else { panel_viewDoc.Visible = false; }
                     break;
                 //Delete
-                case DocAction.D:
+                case e_DocAction.D:
                     HideDoc(pb_viewDoc, panel_viewDoc);
                     RemoveDoc(docType, docColl);
                     lbl_view.Visible = pb_del.Visible = lbl_filename.Visible = false;
                     break;
                 //Hide
-                case DocAction.H:
+                case e_DocAction.H:
                     HideDoc(pb_viewDoc, panel_viewDoc);
                     break;
+                //Populate
+                case e_DocAction.P:
+                    if (PopulateDoc(docType, docColl, lbl_filename))
+                    { lbl_view.Visible = pb_del.Visible = lbl_filename.Visible = true; }
+                    break;
             }
-        }
-        
+        }        
 
         private static bool AddDoc(e_DocType e_DocType, out string filename, DocumentCollection docCol)
         {         
-            formDocs edoc = new formDocs();
+            
             //edoc.DocPath = "C:\\Users\\punee\\Desktop\\akshat\\img_usr_a01659_ppic.png";
-            edoc.DocPath = Utilities.SelectImagePath(out filename);
-            if (edoc.DocPath != string.Empty)
+            string docPath = Utilities.SelectImagePath(out filename);
+            if (docPath != string.Empty)
             {
-                RemoveDoc(e_DocType,docCol);
+                formDocs edoc = new formDocs();
+                foreach (formDocs fd in docCol)
+                {                    
+                    if(fd.DocType == e_DocType && fd.ExistInDB)
+                    {
+                        fd.DocPath = docPath;
+                        fd.Image = null;
+                        fd.DocUpdateType = e_DocAction.M; fd.HasChange = true; fd.ActiveInd = AppKeys.Active;             
+                        return true;
+                    }
+                }
+
+                RemoveDoc(e_DocType, docCol);
                 edoc.DocType = e_DocType;
+                edoc.DocUpdateType = e_DocAction.U; edoc.HasChange = true; edoc.ActiveInd = AppKeys.Active;
+
+                //RemoveDoc(e_DocType,docCol);
+                //edoc.DocType = e_DocType;
+
+                //if (edoc.DocUpdateType != e_DocAction.M && !edoc.ExistInDB)
+                //{ edoc.DocUpdateType = e_DocAction.U; edoc.HasChange = true; edoc.ActiveInd = AppKeys.Active; }
+                //else if (edoc.DocUpdateType != e_DocAction.U && edoc.ExistInDB)
+                //{ edoc.DocUpdateType = e_DocAction.M; edoc.HasChange = true; edoc.ActiveInd = AppKeys.Active; }
+                //else { return false;/*Only 2 above possible way alowed for doc to get added; Log into applog #futureCode*/ }
+
+                edoc.DocPath = docPath;
                 docCol.Add(edoc);
                 return true;
             }
@@ -417,7 +483,10 @@ namespace m1.Shared
             {
                 if (item.DocType.Equals(e_DocType))
                 {
-                    docCol.Remove(item);
+                    if (item.ExistInDB && item.DocUpdateType != e_DocAction.D)
+                    { item.DocUpdateType = e_DocAction.D; item.HasChange = true; item.ActiveInd = AppKeys.Deactive; }
+                    else
+                    { docCol.Remove(item);}
                     break;
                 }
             }
@@ -431,19 +500,28 @@ namespace m1.Shared
             {
                 if (item.DocType.Equals(e_DocType))
                 {
-                    if (File.Exists(item.DocPath))
+                    if (item.Image != null)
+                    {
+                        using (MemoryStream ms = new MemoryStream(item.Image))
+                        {
+                            // Load the image from the memory stream.
+                            System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(ms);
+                            pb_viewDoc.Image = bmp;
+                            return true;
+                        }
+                    }
+                    else if (File.Exists(item.DocPath))
                     {
                         pb_viewDoc.Image = Image.FromFile(item.DocPath);
+                        return true;                  
                     }
-                    return true;
-                }
-                //else { return false; }
-            }            
+                    
+                }               
+            }          
 
-            if (pb_viewDoc.Image == null)
-            { return false; }
-
-            return false;
+            if (pb_viewDoc.Image != null){ return true; }
+            else { return false; }
+            
 
         }
 
@@ -451,6 +529,19 @@ namespace m1.Shared
         {
             pb_viewDoc.Image = null;
             panel_viewDoc.Visible = false;
+        }
+
+        private static bool PopulateDoc(e_DocType e_DocType, DocumentCollection docCol,Label lbl_fileName)
+        {
+            foreach (formDocs item in docCol)
+            {
+                if (item.DocType.Equals(e_DocType)&&item.DocUpdateType!=e_DocAction.D)
+                {                    
+                    if (item.DocName.Length > 0)
+                    { lbl_fileName.Text = item.DocName; return true; }                    
+                }                
+            }
+            return false;
         }
 
         #endregion SetDocPanel

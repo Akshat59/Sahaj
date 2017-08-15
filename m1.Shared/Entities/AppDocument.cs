@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using static m1.Shared.AppConstants;
+using static m1.Shared.Utilities;
 
 namespace m1.Shared.Entities
 {
@@ -155,9 +156,14 @@ namespace m1.Shared.Entities
         private e_DocType _docType;
         private string _docPath = string.Empty;
         private string _docExtn = string.Empty;
-        private string _activeInd = string.Empty;
         private string _fileType = string.Empty;
         public byte[] Image = null;
+        private string _activeInd = string.Empty;
+
+        private e_DocAction _docUpdateType = e_DocAction.U;
+        private bool _existInDB = false;
+        private bool _hasChange = false;
+
 
 
 
@@ -251,6 +257,45 @@ namespace m1.Shared.Entities
             set
             {
                 _docName = value;
+            }
+        }
+
+        public e_DocAction DocUpdateType
+        {
+            get
+            {
+                return _docUpdateType;
+            }
+
+            set
+            {
+                _docUpdateType = value;
+            }
+        }
+
+        public bool HasChange
+        {
+            get
+            {
+                return _hasChange;
+            }
+
+            set
+            {
+                _hasChange = value;
+            }
+        }
+
+        public bool ExistInDB
+        {
+            get
+            {
+                return _existInDB;
+            }
+
+            set
+            {
+                _existInDB = value;
             }
         }
 

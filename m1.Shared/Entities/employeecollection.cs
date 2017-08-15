@@ -89,6 +89,8 @@ namespace m1.Shared.Entities
             List.Add(child);
         }
 
+        
+
         public void Remove(EmployeeEntity child)
         {
             List.Remove(child);

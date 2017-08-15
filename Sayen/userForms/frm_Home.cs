@@ -173,13 +173,13 @@ namespace Sayen
         #region ManageEmployee
         private void tsmi2_emp_addNew_Click(object sender, EventArgs e)
         {
-            uc_AddEmpl _ucAddEmp = new uc_AddEmpl(this,AppConstants.e_frmOperationType.S);          
+            uc_AddEmpl _ucAddEmp = new uc_AddEmpl(AppConstants.e_frmOperationType.S, this);          
 
             this.LoadStripUC(_ucAddEmp, AppConstants.TabPageManage);
         }
         private void tsmi2_emp_modify_Click(object sender, EventArgs e)
         {
-            uc_ViewEntity _ucViewEmp = new uc_ViewEntity(AppConstants.e_ViewEntityType.EMPLOYEE);
+            uc_ViewEntity _ucViewEmp = new uc_ViewEntity(AppConstants.e_ViewEntityType.EMPLOYEE,this);
 
             this.LoadStripUC(_ucViewEmp, AppConstants.TabPageManage);
         }
