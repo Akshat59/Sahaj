@@ -106,12 +106,17 @@ namespace Sayen.UserControls
                 { this.Save_addEmpl(); }
             }
             else if (_operationType == e_frmOperationType.X)
-            { this.Save_addEmpl(); }
+            {
+                DialogResult res = Utilities.GetYesNoConfirmation(UserMessages.ConfirmTerminateEmp_title, UserMessages.ConfirmTerminateEmp_text);
+                if (res.Equals(DialogResult.Yes))
+                { this.Save_addEmpl(); }
+            }
+            else
+            {
+                Exception Ex = new Exception("Operation Not allowed; _operationType is UnExpected; Source: " + "uc_AddEmpl.btn_submit_Click");
+                ExceptionManagement.logUserException(Ex);
+            }
         }
-
-
-
-
 
         private void rdl_singleUpload_CheckedChanged(object sender, EventArgs e)
         {
@@ -131,11 +136,7 @@ namespace Sayen.UserControls
 
         private void lbl_title_Click(object sender, EventArgs e)
         {
-            if (AppGlobal.g_GEntity.UserEntity.Role_id.Equals(((int)AppConstants.e_AppUserRoles.Admin).ToString())
-                || AppGlobal.g_GEntity.UserEntity.Role_id.Equals(((int)AppConstants.e_AppUserRoles.AppDeveloper).ToString()))
-            {
-                chk_escalatedEmp.Visible = true;
-            }
+           
         }
 
         private void chk_escalatedEmp_CheckedChanged(object sender, EventArgs e)
@@ -193,6 +194,15 @@ namespace Sayen.UserControls
 
         }
 
+        private void lbl_title_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (_operationType==e_frmOperationType.S &&(AppGlobal.g_GEntity.UserEntity.Role_id.Equals(((int)AppConstants.e_AppUserRoles.Admin).ToString())
+               || AppGlobal.g_GEntity.UserEntity.Role_id.Equals(((int)AppConstants.e_AppUserRoles.AppDeveloper).ToString())))
+            {
+                chk_escalatedEmp.Visible = true;
+            }
+        }
+
         #endregion Events
 
         #region Validation
@@ -230,7 +240,18 @@ namespace Sayen.UserControls
             }
         }
 
-
+        private void txt_aadhaar_Validating(object sender, CancelEventArgs e)
+        {
+            if (!txt_aadhaar.ReadOnly)
+            {
+                Utilities.DontAllow_Empty(txt_aadhaar, errorProvider1, e);
+                if (txt_aadhaar.TextLength != 12)
+                {
+                    errorProvider1.SetError(txt_aadhaar, UserMessages.InvalidAadhar);
+                    e.Cancel = true;
+                }
+            }
+        }
         private void txt_dlno_Validating(object sender, CancelEventArgs e)
         {
             if (!txt_dlno.ReadOnly)
@@ -252,6 +273,8 @@ namespace Sayen.UserControls
         {
             if (dtp_hiringDate.Enabled) { Utilities.DontAllow_FutureDate(dtp_hiringDate, errorProvider1, e); }
         }
+
+
 
         #endregion Validation
 
@@ -334,6 +357,9 @@ namespace Sayen.UserControls
         private void txt_firstName_KeyPress(object sender, KeyPressEventArgs e)
         {
             Utilities.DontAllowDigit(sender, e);
+
+            if (tableLayoutPanel5.HasChildren)
+            { tableLayoutPanel5.Controls.Clear(); }
         }
 
         private void txt_lastName_KeyPress(object sender, KeyPressEventArgs e)
@@ -429,30 +455,38 @@ namespace Sayen.UserControls
 
                 GenBPC.bpcGetEmpDetails(m_eCol);
 
+                string empStatus;
                 foreach (EmployeeEntity _emp in m_eCol)
                 {
                     PopulateControls(_emp);
+                    empStatus = _emp.Emp_status;
+                    if(_emp.Emp_status !=AppKeys.Active)
+                    { MessageBox.Show("Employee is terminated, Edit and submit to Reactivate"); }
+                    else
+                    {
+                        //Retrieve emp docs
+                        DocumentCollection m_dCol = new DocumentCollection();
+                        formDocs m_doc = new formDocs();
+                        m_dCol.Optype = _operationType;
+                        m_doc.EmpId = empID;
+                        m_dCol.Add(m_doc);
+
+                        docCol = GenBPC.bpcGetEmpDocs(m_dCol);
+                        //m_dcol.FormMessages. = UserMessages.RetrieveEmpDocsFailed;
+
+                        if (docCol.DocCount>0)
+                        { foreach (formDocs _empdoc in docCol) { PopulateDocsPanel(_empdoc); } }
+                    }
                     break;
                 }
 
-                //Retrieve emp docs
-                DocumentCollection m_dCol = new DocumentCollection();
-                formDocs m_doc = new formDocs();
-                m_dCol.Optype = _operationType;
-                m_doc.EmpId = empID;
-                m_dCol.Add(m_doc);
-
-                docCol = GenBPC.bpcGetEmpDocs(m_dCol);
-                //m_dcol.FormMessages. = UserMessages.RetrieveEmpDocsFailed;
-                foreach (formDocs _empdoc in docCol)
-                {
-                    PopulateDocsPanel(_empdoc);
-                }
+               
 
             }
             else
-            {
-                //Raise error  #futureCode
+            {                
+                Exception Ex = new Exception("Operation Not allowed; empID is not set; Source: " + "LoadViewEmp");
+                ExceptionManagement.logUserException(Ex);
             }
 
         }
@@ -591,8 +625,8 @@ namespace Sayen.UserControls
                 this.SetEmployeeCollection(emp);
                 empCol.Add(emp);
                 empCol.Messages = string.Empty;
-                this.SetEmployeeDocCollection(emp.Emp_id);
 
+                if(docCol.DocCount > 0) { this.SetEmployeeDocCollection(emp.Emp_id); }
 
                 if (_operationType == e_frmOperationType.S)
                 {
@@ -608,19 +642,22 @@ namespace Sayen.UserControls
                     }
 
                     //call method chain to insert emp Documents details
-                    _genBPC.bpcInsertEmployeeDocs(docCol);
+                    if (docCol.DocCount > 0)
+                    {
+                        _genBPC.bpcInsertEmployeeDocs(docCol);
 
-                    if (empCol.RetIndicator == AppKeys.Failure)
-                    {                        
-                        MessageBox.Show(UserMessages.UpdateEmpDocFailure);
+                        if (empCol.RetIndicator == AppKeys.Failure)
+                        {
+                            MessageBox.Show(UserMessages.UpdateEmpDocFailure);
+                        }
                     }
 
                 }
                 else if (_operationType == e_frmOperationType.U)
                 {
                     _genBPC.bpcUpdateEmployeeDetails(empCol);
-                    
-                    _genBPC.bpcUpdateEmployeeDocs(docCol);
+
+                    if (docCol.DocCount > 0) { _genBPC.bpcUpdateEmployeeDocs(docCol); }
 
                     if (empCol.RetIndicator != AppKeys.Failure)
                     {
@@ -629,16 +666,11 @@ namespace Sayen.UserControls
                 }
                 else if (_operationType == e_frmOperationType.X)
                 {
-                    //DialogResult res = MessageBox.Show(UserMessages.LogonDisclaimer, UserMessages.LogonDisclaimerTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
                     _genBPC.bpcTerminateEmployee(empCol);
 
-                    _genBPC.bpcTerminateEmployeeDocs(docCol);
+                    if (docCol.DocCount > 0) { _genBPC.bpcTerminateEmployeeDocs(docCol); }
 
-                    if (empCol.RetIndicator != AppKeys.Failure)
-                    {
-                        MessageBox.Show(UserMessages.DatabaseUpdateSuccess);
-                    }
+                    if (empCol.RetIndicator != AppKeys.Failure) { MessageBox.Show(UserMessages.DatabaseUpdateSuccess); }
                 }
 
 
@@ -902,8 +934,11 @@ namespace Sayen.UserControls
 
 
 
+
+
+
         #endregion UserMethods
 
-
+       
     }
 }

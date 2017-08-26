@@ -235,10 +235,11 @@ namespace Sayen
         #endregion UserMethods
 
         private void tabCtrl_home_KeyUp(object sender, KeyEventArgs e)
-        {
+        {           
+
             if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
             {
-                e.Handled = true;
+                //e.Handled = true;
             }
         }
 

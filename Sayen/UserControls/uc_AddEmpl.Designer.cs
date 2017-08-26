@@ -197,6 +197,7 @@ namespace Sayen.UserControls
             this.lbl_title.TabIndex = 0;
             this.lbl_title.Text = "Add Employee";
             this.lbl_title.Click += new System.EventHandler(this.lbl_title_Click);
+            this.lbl_title.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbl_title_MouseDoubleClick);
             // 
             // lbl_lastName
             // 
@@ -434,6 +435,7 @@ namespace Sayen.UserControls
             this.txt_aadhaar.Size = new System.Drawing.Size(200, 20);
             this.txt_aadhaar.TabIndex = 0;
             this.txt_aadhaar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_aadhaar_KeyPress);
+            this.txt_aadhaar.Validating += new System.ComponentModel.CancelEventHandler(this.txt_aadhaar_Validating);
             // 
             // txt_addressProof
             // 
@@ -552,7 +554,7 @@ namespace Sayen.UserControls
             this.panel7_viewDoc.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel7_viewDoc.Controls.Add(this.lbl_hide_viewDoc);
             this.panel7_viewDoc.Controls.Add(this.pb_viewDoc);
-            this.panel7_viewDoc.Location = new System.Drawing.Point(889, 110);
+            this.panel7_viewDoc.Location = new System.Drawing.Point(889, 107);
             this.panel7_viewDoc.Name = "panel7_viewDoc";
             this.panel7_viewDoc.Size = new System.Drawing.Size(185, 199);
             this.panel7_viewDoc.TabIndex = 5;
@@ -791,7 +793,7 @@ namespace Sayen.UserControls
             this.tableLayoutPanel2.Controls.Add(this.panel_uid_image, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel_ppic_image, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel_dl_image, 2, 4);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(404, 132);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(404, 134);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 8;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));

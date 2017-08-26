@@ -99,42 +99,7 @@ namespace m1.DAC
             {
                 AppGlobal.sqlErrorLog = _sqlLog;
             }
-        }
-
-        /// <summary>
-        /// Dont Use
-        /// </summary>
-        /// <param name="SQLselect"></param>
-        /// <returns></returns>
-        protected DataSet ExecuteDataAdapter(string SQLselect)
-        {       
-            //Dont Use
-            string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
-            DataSet ds = new DataSet();
-            try
-            {
-                using (SqlConnection myConnection = new SqlConnection(conStrng))
-                {
-                    SqlCommand oCmd = new SqlCommand(SQLselect, myConnection);
-                    myConnection.Open();
-                    SqlDataAdapter da = new SqlDataAdapter(oCmd);
-                    int res = da.Fill(ds);
-
-                    myConnection.Close();
-                }
-                if (ds.Tables[0].Rows[0].Equals(DBNull.Value)) { conStrng = "1"; } else { conStrng = "2"; }
-                return ds;
-            }
-            catch (Exception Ex)
-            {
-                this.SetExceptionLog(Ex);
-                return ds;
-            }
-            finally
-            {
-                AppGlobal.sqlErrorLog = _sqlLog;    
-            }    
-        }
+        }       
 
         protected DataTable ExecuteDataAdapter(string sqlQuery,List<SqlParameter> sp = null)
         {
@@ -332,6 +297,40 @@ namespace m1.DAC
 
 
         #region Scrap
+        /// <summary>
+        /// Dont Use
+        /// </summary>
+        /// <param name="SQLselect"></param>
+        /// <returns></returns>
+        protected DataSet ExecuteDataAdapter(string SQLselect)
+        {
+            //Dont Use
+            string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(SQLselect, myConnection);
+                    myConnection.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(oCmd);
+                    int res = da.Fill(ds);
+
+                    myConnection.Close();
+                }
+                if (ds.Tables[0].Rows[0].Equals(DBNull.Value)) { conStrng = "1"; } else { conStrng = "2"; }
+                return ds;
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);
+                return ds;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;
+            }
+        }
         /*
           protected SqlDataReader ExecuteDataReader(string SQLselect)
         {

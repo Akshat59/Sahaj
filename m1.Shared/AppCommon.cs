@@ -120,6 +120,12 @@ namespace m1.Shared
 
         }
 
+        public static DialogResult GetYesNoConfirmation(string title, string text)
+        {
+            DialogResult res = MessageBox.Show(text, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return res;
+        }
+
         public static void EnableDisableControls(Control.ControlCollection controls, bool status)
         {
             foreach (Control control in controls)
@@ -472,6 +478,7 @@ namespace m1.Shared
 
                 edoc.DocPath = docPath;
                 docCol.Add(edoc);
+                docCol.DocCount++;
                 return true;
             }
             else { return false; }
@@ -486,7 +493,7 @@ namespace m1.Shared
                     if (item.ExistInDB && item.DocUpdateType != e_DocAction.D)
                     { item.DocUpdateType = e_DocAction.D; item.HasChange = true; item.ActiveInd = AppKeys.Deactive; }
                     else
-                    { docCol.Remove(item);}
+                    { docCol.Remove(item);docCol.DocCount--; }
                     break;
                 }
             }
@@ -533,12 +540,15 @@ namespace m1.Shared
 
         private static bool PopulateDoc(e_DocType e_DocType, DocumentCollection docCol,Label lbl_fileName)
         {
-            foreach (formDocs item in docCol)
+            if (docCol.DocCount > 0)
             {
-                if (item.DocType.Equals(e_DocType)&&item.DocUpdateType!=e_DocAction.D)
-                {                    
-                    if (item.DocName.Length > 0)
-                    { lbl_fileName.Text = item.DocName; return true; }                    
+                foreach (formDocs item in docCol)
+                {
+                    if (item.DocType.Equals(e_DocType) && item.DocUpdateType != e_DocAction.D)
+                    {
+                        if (item.DocName.Length > 0)
+                        { lbl_fileName.Text = item.DocName; return true; }
+                    }
                 }                
             }
             return false;

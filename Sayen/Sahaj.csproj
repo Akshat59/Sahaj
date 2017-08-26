@@ -224,6 +224,7 @@
   <ItemGroup>
     <Content Include="img_appIco1.ico" />
     <Content Include="img_applogo.ico" />
+    <None Include="Resources\notee.png" />
     <None Include="Resources\img_matrixCode.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

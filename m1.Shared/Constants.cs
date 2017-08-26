@@ -172,6 +172,8 @@ namespace m1.Shared
         public const string NextIDEmpty = "Retrieved Next ID is empty";
         public const string SubmitFormError = "There are errors on form, Correct and Resubmit";
         public const string SubmitFormSuccess = "Form Validated successfully";
+        public const string DatabaseUpdateFailure = "Error while updating Details";
+        public const string DatabaseUpdateSuccess = "Details updated Successfully";
 
         public const string InsertEmpFailure = "Unexpected Error While Inserting Employee Details";
         public const string InsertEmpSuccess = "Details for {0} added Successfully";
@@ -184,10 +186,13 @@ namespace m1.Shared
         public const string UpdateEmpDocSuccess = "Documents updated Successfully";
         public const string ValidDLRequired = "Valid DL is required";
         public const string InvalidMobileNumber = "Invalid Mobile Number";
+        public const string InvalidAadhar= "Invalid Aadhaar Number";
         public const string RetrieveEmpFailed = "Error while retrieving employee details";
         public const string RetrieveEmpDocsFailed = "Error while retrieving employee docs";
-        public const string DatabaseUpdateFailure = "Error while updating Details";
-        public const string DatabaseUpdateSuccess = "Details updated Successfully";
+        public const string ConfirmTerminateEmp_text = "Are you sure you want to terminate the Employee";
+        public const string ConfirmTerminateEmp_title = "Terminate Employee?";
+
+
     }
     #endregion UserMessages
 

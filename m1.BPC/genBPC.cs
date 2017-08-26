@@ -63,7 +63,17 @@ namespace m1.BPC
                 return GenBC.bcTestDatabaseConnection(GEntity);
             }
 
+        public void bpcGetUserNotes(UserEntity userEntity)
+        {
+            GenBC.bcGetUserNotes(userEntity);
+        }
 
+        public void bpcSaveUserNotes(UserEntity userEntity)
+        {
+            GenBC.bcDeleteUserNotes(userEntity);
+            if (!userEntity.UserNoteText.Equals(string.Empty))
+            { GenBC.bcSaveUserNotes(userEntity); }
+        }
 
         public string bpcGetNextID (string tableName, string columnName,string columnLen,string seriesInitals)
         {
@@ -96,6 +106,8 @@ namespace m1.BPC
             eCol.Messages = _sb.ToString();
         }
 
+
+
         public void bpcUpdateEmployeeDetails(EmployeeCollection eCol)
         {
             StringBuilder _sb = new StringBuilder();
@@ -121,6 +133,7 @@ namespace m1.BPC
 
             eCol.Messages = _sb.ToString();
         }
+
 
         public void bpcTerminateEmployee(EmployeeCollection eCol)
         {
@@ -155,26 +168,33 @@ namespace m1.BPC
 
         public void bpcInsertEmployeeDocs(DocumentCollection edocCol)
         {
-            
+            FormMessageCollection fmCol = new FormMessageCollection();
+            FormMessage fm = new FormMessage();
+
             foreach (formDocs edoc in edocCol)
             {
-                GenBC.bcUpdateEmpDocs(edoc);
-                                
+                GenBC.bcInsertEmpDocs(edoc);
+
                 if (edoc.RetIndicator == AppKeys.Failure)
-                {                    
+                {
                     edocCol.RetIndicator = AppKeys.Failure;
                 }
+
             }
 
-            FormMessage fm = new FormMessage();
             if (edocCol.RetIndicator == AppKeys.Failure)
-            {fm.Message = UserMessages.InsertEmpDocFailure;}
-            else { fm.Message = UserMessages.InsertEmpDocSuccess; }
-            edocCol.FormMessages.Add(fm);
+            { fm.Message = UserMessages.InsertEmpDocFailure; fmCol.Add(fm); }
+            else if (edocCol.RetIndicator == AppKeys.Failure && edocCol.Count > 0)
+            { fm.Message = UserMessages.InsertEmpDocSuccess; edocCol.RetIndicator = AppKeys.Success; fmCol.Add(fm); }
+
+            edocCol.FormMessages = fmCol;
         }
 
         public void bpcUpdateEmployeeDocs(DocumentCollection edocCol)
-        {
+        {            
+            FormMessageCollection  fmCol= new FormMessageCollection();
+            FormMessage fm = new FormMessage();
+
             foreach (formDocs edoc in edocCol)
             {
                 if (edoc.DocUpdateType == e_DocAction.M && edoc.HasChange)
@@ -189,15 +209,17 @@ namespace m1.BPC
 
                 if (edoc.RetIndicator == AppKeys.Failure)
                 {
-                    edocCol.RetIndicator = AppKeys.Failure;
+                    edocCol.RetIndicator = AppKeys.Failure;                    
                 }
             }
 
-            FormMessage fm = new FormMessage();
+           
             if (edocCol.RetIndicator == AppKeys.Failure)
-            { fm.Message = UserMessages.UpdateEmpDocFailure; }
-            else { fm.Message = UserMessages.UpdateEmpDocSuccess; }
-            edocCol.FormMessages.Add(fm);
+            { fm.Message = UserMessages.UpdateEmpDocFailure; fmCol.Add(fm); }
+            else if(edocCol.RetIndicator == AppKeys.Failure&&edocCol.Count>0)
+            { fm.Message = UserMessages.UpdateEmpDocSuccess; edocCol.RetIndicator = AppKeys.Success; fmCol.Add(fm); }
+
+            edocCol.FormMessages = fmCol;
         }
         public void bpcTerminateEmployeeDocs(DocumentCollection edocCol)
         {
@@ -227,7 +249,6 @@ namespace m1.BPC
                 GenBC.bcGetEmpDetails(m_emp);                
                 if(m_emp.RetIndicator == AppKeys.Failure)
                 { m_eCol.RetIndicator = AppKeys.Failure; m_eCol.Messages = UserMessages.RetrieveEmpFailed; }
-                break;
             }
         }
 

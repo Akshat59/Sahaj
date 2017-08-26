@@ -67,6 +67,8 @@ namespace m1.BC
             GenDAC.dacUpdateEmpDocs(edoc);
         }
 
+
+
         public void bcTerminateEmpDoc(formDocs edoc)
         {
             GenDAC.dacTerminateEmpDoc(edoc);
@@ -85,6 +87,19 @@ namespace m1.BC
         public void bcSearchEntity(SearchEntity se)
         {
             GenDAC.dacSearchEntity(se);
+        }
+
+        public void bcGetUserNotes(UserEntity userEntity)
+        {
+            GenDAC.dacGetUserNotes(userEntity); 
+        }
+        public void bcSaveUserNotes(UserEntity userEntity)
+        {
+            GenDAC.dacSaveUserNotes(userEntity);
+        }
+        public void bcDeleteUserNotes(UserEntity userEntity)
+        {
+            GenDAC.dacDeleteUserNotes(userEntity);
         }
     }
 }

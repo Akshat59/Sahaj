@@ -60,6 +60,9 @@ namespace m1.Shared.Entities
                 blkUpdateType = value;
             }
         }
+
+        private int _docCount = 0;
+
         private string _messages = string.Empty;
         private string _RetIndicator = string.Empty;
         public string Messages
@@ -85,6 +88,19 @@ namespace m1.Shared.Entities
             set
             {
                 _RetIndicator = value;
+            }
+        }
+
+        public int DocCount
+        {
+            get
+            {
+                return _docCount;
+            }
+
+            set
+            {
+                _docCount = value;
             }
         }
 

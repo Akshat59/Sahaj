@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using m1.Shared.Entities;
 
 namespace m1.Shared
@@ -18,7 +19,7 @@ namespace m1.Shared
         public const string super_admin_PassKey = "1234";
 
         public static GenEntity g_GEntity = null;
-        //public static SessionEntity g_SessionEntity = null;
+        
 
     }
 }

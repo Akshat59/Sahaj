@@ -47,13 +47,13 @@ namespace Sahaj.UserControls
             panel1.Dock = DockStyle.Fill;
             panel1.AutoSize = true;
             dataGridView1.BackgroundColor = Color.AliceBlue;
+            _op_Type = op_Type;
 
             switch (op_Type)
             {
                 case e_ViewEntityType.EMPLOYEE:
                     lbl_title.Text = "View / Edit" + " " + "Employee";
-                    lbl_entID.Text = "Employee ID";
-                    _op_Type = op_Type;
+                    lbl_entID.Text = "Employee ID";                    
                     break;
             }
 
@@ -71,7 +71,7 @@ namespace Sahaj.UserControls
             dataGridView1.Visible = false;
             panel2.Visible = false;
             dataGridView1.DataSource = null;
-            dataGridView1.Refresh();
+            //dataGridView1.Refresh();
 
 
             if (txt_entID.TextLength <= 0 && txt_name.TextLength <= 0)
@@ -147,6 +147,11 @@ namespace Sahaj.UserControls
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

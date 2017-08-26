@@ -21,7 +21,12 @@ namespace m1.DAC
         public const string UpdateEmpDocs = "Query_UpdateEmpDocs";
         public const string TerminateEmpDocs = "Query_TerminateEmpDocs";
         public const string GetNextID = "Query_GetNextID";
-        public const string SearchEntity = "Query_SearchEntity";  
+        public const string SearchEntity = "Query_SearchEntity";
+        public const string DeleteUserNotes = "Query_DeleteUserNotes";
+        public const string InsertUserNotes = "Query_InsertUserNotes";
+        public const string RetrieveUserNotes = "Query_RetrieveUserNotes";
+
+        
     }
 
     public class DatabaseConstants

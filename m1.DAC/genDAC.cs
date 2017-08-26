@@ -28,9 +28,42 @@ namespace m1.DAC
             return base.TestDatabaseConnection();
         }
 
-       
 
-       
+        /// <summary>
+        /// This method is to retrive next id column (primary key) from table from the database table as per enum e_PrimaryKeySeries
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="seriesInitials as specified enum e_PrimaryKeySeries"></param>
+        /// <param name="sqlColumn target column"></param>
+        /// <param name="totallength for padding"
+        public string dacGetNextID(string tableName, string sqlColumn, string totalLength, string seriesInitials, bool randomNo=false)
+        {
+            string _nextID = string.Empty;
+            string sqlSelectQuery = base.RetrieveSqlQuery(QueryConstants.GetNextID).ToString();
+            int _i = Convert.ToInt32(totalLength) - seriesInitials.Length; //to replace as {2}
+
+            //futureCode - use Procedure to implement if user needs next id as random
+            
+
+            sqlSelectQuery = string.Format(sqlSelectQuery, tableName, sqlColumn, seriesInitials, seriesInitials.Length.ToString(), totalLength);
+
+
+            string _s_ret = base.bExecuteScalar(sqlSelectQuery);
+
+            if (_s_ret.Equals(string.Empty))
+            {
+                //log error  #futureCode
+                throw new Exception(UserMessages.NextIDEmpty);
+            }
+            else
+            {
+                _nextID = _s_ret.PadLeft(Convert.ToInt32(totalLength) - seriesInitials.Length, '0');
+                _nextID = seriesInitials + _nextID;
+            }
+
+            return _nextID;
+        }
+
 
         public bool dacValidateUserLogin(GenEntity GEntity)
         {
@@ -73,6 +106,69 @@ namespace m1.DAC
                     return true;
                 }
             }
+        }
+
+        public void dacGetUserNotes(UserEntity userEntity)
+        {
+            string SQLselect = base.RetrieveSqlQuery(QueryConstants.RetrieveUserNotes).ToString();
+            DataTable dt = new DataTable();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@user_id", SqlDbType = SqlDbType.NVarChar, Value= userEntity.User_id.ToString()},
+                new SqlParameter() {ParameterName = "@note_date", SqlDbType = SqlDbType.Date, Value= userEntity.UserNoteDate},
+            };
+
+            using (dt = base.ExecuteDataAdapter(SQLselect, sp))
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    userEntity.UserNoteText = dr["note_text"].ToString();
+                    break;
+                }
+            }
+        }        
+
+        public void dacSaveUserNotes(UserEntity userEntity)
+        {            
+            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.InsertUserNotes).ToString();
+
+            List<SqlParameter> cp = base.GetCommonParameters_Ins();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@user_id", SqlDbType = SqlDbType.NVarChar, Value= userEntity.User_id},
+                new SqlParameter() {ParameterName = "@note_date", SqlDbType = SqlDbType.NVarChar, Value= userEntity.UserNoteDate},
+                new SqlParameter() {ParameterName = "@note_text", SqlDbType = SqlDbType.NVarChar, Value= userEntity.UserNoteText},
+
+            };
+
+            sp.AddRange(cp);
+
+            int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
+            if (_cnt <= 0)
+            { }//log failure  #futureCode
+            else { }//log success #futureCode
+            }
+
+        public void dacDeleteUserNotes(UserEntity userEntity)
+        {
+            string _sqlQuery = base.RetrieveSqlQuery(QueryConstants.DeleteUserNotes).ToString();
+
+            List<SqlParameter> cp = base.GetCommonParameters_Ins();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@user_id", SqlDbType = SqlDbType.NVarChar, Value= userEntity.User_id},
+                new SqlParameter() {ParameterName = "@note_date", SqlDbType = SqlDbType.NVarChar, Value= userEntity.UserNoteDate},
+            };
+
+            sp.AddRange(cp);
+
+            int _cnt = base.bExecuteNonQuery(_sqlQuery, sp);
+            if (_cnt <= 0)
+            { }//log failure  #futureCode
+            else { }//log success #futureCode
         }
 
         public void dacSearchEntity(SearchEntity se)
@@ -207,6 +303,8 @@ namespace m1.DAC
                             if (File.Exists(_imgPath))
                             { fd.DocPath = _imgPath; }
 
+                            dcol.DocCount++;
+
                             dcol.Add(fd);
                         }
                         
@@ -216,46 +314,6 @@ namespace m1.DAC
             }
             return dcol;
 
-        }
-
-        /// <summary>
-        /// This method is to retrive next id column (primary key) from table from the database table as per enum e_PrimaryKeySeries
-        /// </summary>
-        /// <param name="tableName"></param>
-        /// <param name="seriesInitials as specified enum e_PrimaryKeySeries"></param>
-        /// <param name="sqlColumn target column"></param>
-        /// <param name="totallength for padding"
-        public string dacGetNextID(string tableName,string sqlColumn, string totalLength, string seriesInitials)
-        {
-            string _nextID = string.Empty;
-            string sqlSelectQuery = base.RetrieveSqlQuery(QueryConstants.GetNextID).ToString();
-            int _i = Convert.ToInt32(totalLength) - seriesInitials.Length; //to replace as {2}
-
-            //futureCode - clean commented code
-            //SELECT RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'E110001'),4,4)+1) AS VARCHAR(4))),4 ) FROM d1_cdt_employees;
-            //SELECT RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'{3}0001'),{2},{2})+1) AS VARCHAR({5}))),{2}) FROM {0};
-            // string sqlSelectQuery = string.Format(@"SELECT '{3}' + RIGHT('0000'+ (CAST((SUBSTRING(ISNULL(MAX({1}),'{3}0000'),{2},{2})+1) AS VARCHAR({2}))),{2}) FROM {0} WHERE SUBSTRING({1},1,{4}) = '{3}'"
-            // tableName, sqlColumn, _i.ToString(), seriesInitials, seriesInitials.Length.ToString());            //seriesInitials = "e12";
-            //string sqlSelectQuery = string.Format("SELECT ISNULL(MAX({0}),'') FROM {1} WHERE SUBSTRING({0},0,2) = '{2}'", sqlColumn, tableName, seriesInitials);
-            //string h = @"select (substring(ISNULL(MAX({1}),0),{3}+1,{4}-{3}) +1) FROM {0} WHERE SUBSTRING(emp_id,1, {3}) = &apos;{2}&apos;";
-
-            sqlSelectQuery = string.Format(sqlSelectQuery, tableName, sqlColumn, seriesInitials, seriesInitials.Length.ToString(), totalLength);
-
-
-            string _s_ret = base.bExecuteScalar(sqlSelectQuery);
-
-            if (_s_ret.Equals(string.Empty))
-            {
-                //log error  #futureCode
-                throw new Exception(UserMessages.NextIDEmpty);
-            }
-            else
-            {  
-                _nextID = _s_ret.PadLeft(Convert.ToInt32(totalLength)- seriesInitials.Length, '0');
-                _nextID = seriesInitials + _nextID;
-            }
-
-            return _nextID;
         }
 
         public void dacTruncateTable(string tableName)
