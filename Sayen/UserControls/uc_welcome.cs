@@ -10,6 +10,7 @@ using m1.BPC;
 using m1.Shared;
 using m1.Shared.Entities;
 using System.Globalization;
+using System.Collections;
 
 namespace Sayen.UserControls
 {
@@ -17,11 +18,11 @@ namespace Sayen.UserControls
     {
         #region Initiation
 
-        
         static DateTime noteDate = DateTime.Now;
         static string dt = String.Format("{0:d MMM}", noteDate);
         string noteTitle = "Notes- " + dt + " \r\n";
         bool formLoadCall = true;
+        public static List<DateTime> allNoteDates;
         private genBPC _genBPC;
         public genBPC GenBPC
         {
@@ -51,6 +52,8 @@ namespace Sayen.UserControls
             timer1.Interval = 1000;
             lbl_currentTime.Text = string.Empty;
             lbl_currentTime.Visible = true;
+            allNoteDates = GenBPC.bpcGetUserNoteAlldates(AppGlobal.g_GEntity.UserEntity.User_id);
+            monthCalendar1.BoldedDates = allNoteDates.ToArray();
             LoadNotes();
         }
 
@@ -78,7 +81,7 @@ namespace Sayen.UserControls
             noteDate = e.Start;
             formLoadCall = false;
             string dt = String.Format("{0:d MMM}", noteDate);
-            noteTitle = noteTitle + " " + dt + " \r\n";
+            noteTitle = noteTitle + " " + dt;
             richTextBox1.Text = noteTitle;
             LoadNotes();
         }
@@ -124,12 +127,22 @@ namespace Sayen.UserControls
             userEntity.UserNoteDate = noteDate;
 
             string note = richTextBox1.Text.Trim();
-
-            int q = noteTitle.Trim().Replace(System.Environment.NewLine, "").Length;
             note = note.Substring(noteTitle.Trim().Replace(System.Environment.NewLine, "").Length, note.Length - noteTitle.Trim().Replace(System.Environment.NewLine, "").Length).Trim();
-
-            userEntity.UserNoteText = note;
-            GenBPC.bpcSaveUserNotes(userEntity);
+           
+            if (note != string.Empty)
+            {
+                userEntity.UserNoteText = note;
+                if (!allNoteDates.Contains(noteDate))
+                { allNoteDates.Add(noteDate); }
+                else { GenBPC.bpcDeleteUserNotes(userEntity); }
+                GenBPC.bpcSaveUserNotes(userEntity);
+                
+            }
+            else
+            {               
+                if (allNoteDates.Contains(noteDate))
+                { allNoteDates.Remove(noteDate); GenBPC.bpcDeleteUserNotes(userEntity); }                
+            }            
         }
 
         private void LoadNotes()
@@ -144,11 +157,11 @@ namespace Sayen.UserControls
 
                 if (userEntity.UserNoteText != string.Empty)
                 {
-                    richTextBox1.Text = noteTitle + "\r\n" + userEntity.UserNoteText.ToString();                    
+                    richTextBox1.Text = noteTitle + "\r\n\r\n" + userEntity.UserNoteText.ToString();                    
                 }
                 else
                 {
-                    richTextBox1.Text = noteTitle + "\r\n";
+                    richTextBox1.Text = noteTitle;
                 }
                 FormatNotes();
 
@@ -160,26 +173,53 @@ namespace Sayen.UserControls
                 {
                     richTextBox1.Visible = true;
                 }
-            }
 
+                if(!formLoadCall)
+                {monthCalendar1.BoldedDates = allNoteDates.ToArray();}
+
+                userEntity = null;
+            }
         }
 
         private void FormatNotes()
         {
             string note = richTextBox1.Text.Trim();
             note = note.Substring(noteTitle.Replace(System.Environment.NewLine, "").Trim().Length, note.Length - noteTitle.Replace(System.Environment.NewLine, "").Trim().Length).Trim();
-            
+
+            /*
             richTextBox1.SelectionStart = 0;
-            richTextBox1.SelectionLength = noteTitle.Replace(System.Environment.NewLine, "").Length;
+            richTextBox1.SelectionLength = noteTitle.Trim().Replace(System.Environment.NewLine, "").Length;
             richTextBox1.SelectionFont = new Font("Comic Sans MS", 12,FontStyle.Bold);
             richTextBox1.SelectionColor = Color.Teal;            
             richTextBox1.SelectionLength = 0;
 
-            richTextBox1.SelectionStart = noteTitle.Replace(System.Environment.NewLine, "").Trim().Length;
-            richTextBox1.SelectionLength = richTextBox1.Text.Length - noteTitle.Replace(System.Environment.NewLine, "").Trim().Length; 
+            richTextBox1.SelectionStart = noteTitle.Trim().Length-1;// noteTitle.Trim().Replace(System.Environment.NewLine, "").Length;
+
+            if (note.Length > 0) { richTextBox1.SelectionLength = note.Length; }
+            else { richTextBox1.SelectionLength = 1; }
+            // - noteTitle.Replace(System.Environment.NewLine, "").Trim().Length; 
             richTextBox1.SelectionFont = new Font("Verdana", 10);
             richTextBox1.SelectionColor = Color.Blue;
             richTextBox1.SelectionLength = 0;
+
+    */
+            richTextBox1.SelectionStart = 0;
+            richTextBox1.SelectionLength = richTextBox1.TextLength;
+            richTextBox1.SelectionFont = new Font("Verdana", 10);
+            richTextBox1.SelectionColor = Color.Blue;
+            richTextBox1.SelectionLength = 0;
+
+            richTextBox1.Text = richTextBox1.Text.Trim()+"\r\n"+"\r\n";
+
+            richTextBox1.SelectionStart = 0;
+            richTextBox1.SelectionLength = noteTitle.Trim().Replace(System.Environment.NewLine, "").Length;
+            richTextBox1.SelectionFont = new Font("Comic Sans MS", 12, FontStyle.Bold);
+            richTextBox1.SelectionColor = Color.Teal;
+            richTextBox1.SelectionLength = 0;
+
+
+            richTextBox1.SelectionStart = richTextBox1.TextLength;
+
         }
 
         #endregion UserMethods

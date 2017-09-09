@@ -25,8 +25,7 @@ namespace m1.DAC
         public const string DeleteUserNotes = "Query_DeleteUserNotes";
         public const string InsertUserNotes = "Query_InsertUserNotes";
         public const string RetrieveUserNotes = "Query_RetrieveUserNotes";
-
-        
+        public const string RetrieveUserNoteAlldate = "Query_RetrieveUserNoteAlldate";
     }
 
     public class DatabaseConstants

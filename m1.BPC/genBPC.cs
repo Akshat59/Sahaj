@@ -68,11 +68,19 @@ namespace m1.BPC
             GenBC.bcGetUserNotes(userEntity);
         }
 
+        public List<DateTime> bpcGetUserNoteAlldates(string userID)
+        {
+            return GenBC.bcGetUserNoteAlldates(userID);
+        }
+
         public void bpcSaveUserNotes(UserEntity userEntity)
+        {   
+            GenBC.bcSaveUserNotes(userEntity);
+        }
+
+        public void bpcDeleteUserNotes(UserEntity userEntity)
         {
             GenBC.bcDeleteUserNotes(userEntity);
-            if (!userEntity.UserNoteText.Equals(string.Empty))
-            { GenBC.bcSaveUserNotes(userEntity); }
         }
 
         public string bpcGetNextID (string tableName, string columnName,string columnLen,string seriesInitals)

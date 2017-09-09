@@ -10,6 +10,8 @@ using System.Data.SqlClient;
 using m1.Shared;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
+using System.Globalization;
+using System.Collections;
 
 namespace m1.DAC
 {
@@ -127,7 +129,30 @@ namespace m1.DAC
                     break;
                 }
             }
-        }        
+        }
+
+        public List<DateTime> dacGetUserNoteAlldates(string userID)
+        {
+            string SQLselect = base.RetrieveSqlQuery(QueryConstants.RetrieveUserNoteAlldate).ToString();
+            DataTable dt = new DataTable();
+            List<DateTime> noteDates =new List<DateTime>();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@user_id", SqlDbType = SqlDbType.NVarChar, Value= userID},                
+            };
+
+            using (dt = base.ExecuteDataAdapter(SQLselect, sp))
+            {
+                foreach (DataRow dr in dt.Rows)
+                {                    
+                    DateTime d = Convert.ToDateTime(dr["note_date"].ToString());
+                    noteDates.Add(d);                                        
+                }
+
+                return noteDates;
+            }
+        }
 
         public void dacSaveUserNotes(UserEntity userEntity)
         {            

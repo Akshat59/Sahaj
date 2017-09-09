@@ -72,6 +72,9 @@ namespace Sayen.UserControls
             this.panel7_viewDoc = new System.Windows.Forms.Panel();
             this.lbl_hide_viewDoc = new System.Windows.Forms.LinkLabel();
             this.pb_viewDoc = new System.Windows.Forms.PictureBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmi_showPicture = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_savePicture = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.chk_escalatedEmp = new System.Windows.Forms.CheckBox();
@@ -138,6 +141,7 @@ namespace Sayen.UserControls
             this.panel1.SuspendLayout();
             this.panel7_viewDoc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_viewDoc)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -451,7 +455,7 @@ namespace Sayen.UserControls
             this.lbl_fileName_uid.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_fileName_uid.AutoSize = true;
             this.lbl_fileName_uid.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_fileName_uid.Location = new System.Drawing.Point(94, 3);
+            this.lbl_fileName_uid.Location = new System.Drawing.Point(105, 3);
             this.lbl_fileName_uid.Name = "lbl_fileName_uid";
             this.lbl_fileName_uid.Size = new System.Drawing.Size(61, 13);
             this.lbl_fileName_uid.TabIndex = 38;
@@ -462,7 +466,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_upload_uid.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_upload_uid.AutoSize = true;
-            this.lbl_upload_uid.Location = new System.Drawing.Point(3, 3);
+            this.lbl_upload_uid.Location = new System.Drawing.Point(8, 3);
             this.lbl_upload_uid.Name = "lbl_upload_uid";
             this.lbl_upload_uid.Size = new System.Drawing.Size(41, 13);
             this.lbl_upload_uid.TabIndex = 1;
@@ -577,6 +581,7 @@ namespace Sayen.UserControls
             // pb_viewDoc
             // 
             this.pb_viewDoc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pb_viewDoc.ContextMenuStrip = this.contextMenuStrip1;
             this.pb_viewDoc.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pb_viewDoc.Location = new System.Drawing.Point(0, 20);
             this.pb_viewDoc.Name = "pb_viewDoc";
@@ -584,6 +589,32 @@ namespace Sayen.UserControls
             this.pb_viewDoc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb_viewDoc.TabIndex = 4;
             this.pb_viewDoc.TabStop = false;
+            this.pb_viewDoc.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pb_viewDoc_MouseDown);
+            // 
+            // contextMenuStrip1
+            // 
+            this.errorProvider1.SetIconAlignment(this.contextMenuStrip1, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi_showPicture,
+            this.tsmi_savePicture});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.ShowCheckMargin = true;
+            this.contextMenuStrip1.ShowImageMargin = false;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
+            // 
+            // tsmi_showPicture
+            // 
+            this.tsmi_showPicture.Name = "tsmi_showPicture";
+            this.tsmi_showPicture.Size = new System.Drawing.Size(152, 22);
+            this.tsmi_showPicture.Text = "Show Picture";
+            this.tsmi_showPicture.Click += new System.EventHandler(this.tsmi_showPicture_Click);
+            // 
+            // tsmi_savePicture
+            // 
+            this.tsmi_savePicture.Name = "tsmi_savePicture";
+            this.tsmi_savePicture.Size = new System.Drawing.Size(152, 22);
+            this.tsmi_savePicture.Text = "Save Picture as";
+            this.tsmi_savePicture.Click += new System.EventHandler(this.tsmi_savePicture_Click);
             // 
             // tableLayoutPanel5
             // 
@@ -823,7 +854,7 @@ namespace Sayen.UserControls
             this.pb_del_ap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pb_del_ap.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pb_del_ap.Image = ((System.Drawing.Image)(resources.GetObject("pb_del_ap.Image")));
-            this.pb_del_ap.Location = new System.Drawing.Point(72, 3);
+            this.pb_del_ap.Location = new System.Drawing.Point(78, 3);
             this.pb_del_ap.Name = "pb_del_ap";
             this.pb_del_ap.Size = new System.Drawing.Size(17, 14);
             this.pb_del_ap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -835,7 +866,7 @@ namespace Sayen.UserControls
             // lbl_view_ap
             // 
             this.lbl_view_ap.AutoSize = true;
-            this.lbl_view_ap.Location = new System.Drawing.Point(43, 3);
+            this.lbl_view_ap.Location = new System.Drawing.Point(49, 3);
             this.lbl_view_ap.Name = "lbl_view_ap";
             this.lbl_view_ap.Size = new System.Drawing.Size(30, 13);
             this.lbl_view_ap.TabIndex = 0;
@@ -848,7 +879,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_upload_ap.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_upload_ap.AutoSize = true;
-            this.lbl_upload_ap.Location = new System.Drawing.Point(3, 3);
+            this.lbl_upload_ap.Location = new System.Drawing.Point(9, 3);
             this.lbl_upload_ap.Name = "lbl_upload_ap";
             this.lbl_upload_ap.Size = new System.Drawing.Size(41, 13);
             this.lbl_upload_ap.TabIndex = 1;
@@ -861,7 +892,7 @@ namespace Sayen.UserControls
             this.lbl_fileName_ap.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_fileName_ap.AutoSize = true;
             this.lbl_fileName_ap.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_fileName_ap.Location = new System.Drawing.Point(95, 3);
+            this.lbl_fileName_ap.Location = new System.Drawing.Point(107, 3);
             this.lbl_fileName_ap.Name = "lbl_fileName_ap";
             this.lbl_fileName_ap.Size = new System.Drawing.Size(61, 13);
             this.lbl_fileName_ap.TabIndex = 38;
@@ -1017,7 +1048,7 @@ namespace Sayen.UserControls
             this.pb_del_uid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pb_del_uid.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pb_del_uid.Image = ((System.Drawing.Image)(resources.GetObject("pb_del_uid.Image")));
-            this.pb_del_uid.Location = new System.Drawing.Point(72, 3);
+            this.pb_del_uid.Location = new System.Drawing.Point(77, 3);
             this.pb_del_uid.Name = "pb_del_uid";
             this.pb_del_uid.Size = new System.Drawing.Size(17, 14);
             this.pb_del_uid.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1029,7 +1060,7 @@ namespace Sayen.UserControls
             // lbl_view_uid
             // 
             this.lbl_view_uid.AutoSize = true;
-            this.lbl_view_uid.Location = new System.Drawing.Point(43, 3);
+            this.lbl_view_uid.Location = new System.Drawing.Point(48, 3);
             this.lbl_view_uid.Name = "lbl_view_uid";
             this.lbl_view_uid.Size = new System.Drawing.Size(30, 13);
             this.lbl_view_uid.TabIndex = 0;
@@ -1054,7 +1085,7 @@ namespace Sayen.UserControls
             this.pb_del_ppic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pb_del_ppic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pb_del_ppic.Image = ((System.Drawing.Image)(resources.GetObject("pb_del_ppic.Image")));
-            this.pb_del_ppic.Location = new System.Drawing.Point(72, 3);
+            this.pb_del_ppic.Location = new System.Drawing.Point(78, 3);
             this.pb_del_ppic.Name = "pb_del_ppic";
             this.pb_del_ppic.Size = new System.Drawing.Size(17, 14);
             this.pb_del_ppic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1066,7 +1097,7 @@ namespace Sayen.UserControls
             // lbl_view_ppic
             // 
             this.lbl_view_ppic.AutoSize = true;
-            this.lbl_view_ppic.Location = new System.Drawing.Point(43, 3);
+            this.lbl_view_ppic.Location = new System.Drawing.Point(49, 3);
             this.lbl_view_ppic.Name = "lbl_view_ppic";
             this.lbl_view_ppic.Size = new System.Drawing.Size(30, 13);
             this.lbl_view_ppic.TabIndex = 0;
@@ -1079,7 +1110,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_upload_ppic.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_upload_ppic.AutoSize = true;
-            this.lbl_upload_ppic.Location = new System.Drawing.Point(3, 3);
+            this.lbl_upload_ppic.Location = new System.Drawing.Point(9, 3);
             this.lbl_upload_ppic.Name = "lbl_upload_ppic";
             this.lbl_upload_ppic.Size = new System.Drawing.Size(41, 13);
             this.lbl_upload_ppic.TabIndex = 1;
@@ -1092,7 +1123,7 @@ namespace Sayen.UserControls
             this.lbl_fileName_ppic.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_fileName_ppic.AutoSize = true;
             this.lbl_fileName_ppic.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_fileName_ppic.Location = new System.Drawing.Point(95, 3);
+            this.lbl_fileName_ppic.Location = new System.Drawing.Point(108, 3);
             this.lbl_fileName_ppic.Name = "lbl_fileName_ppic";
             this.lbl_fileName_ppic.Size = new System.Drawing.Size(61, 13);
             this.lbl_fileName_ppic.TabIndex = 38;
@@ -1115,7 +1146,7 @@ namespace Sayen.UserControls
             this.pb_del_dl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pb_del_dl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pb_del_dl.Image = ((System.Drawing.Image)(resources.GetObject("pb_del_dl.Image")));
-            this.pb_del_dl.Location = new System.Drawing.Point(72, 3);
+            this.pb_del_dl.Location = new System.Drawing.Point(78, 3);
             this.pb_del_dl.Name = "pb_del_dl";
             this.pb_del_dl.Size = new System.Drawing.Size(17, 14);
             this.pb_del_dl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1127,7 +1158,7 @@ namespace Sayen.UserControls
             // lbl_view_dl
             // 
             this.lbl_view_dl.AutoSize = true;
-            this.lbl_view_dl.Location = new System.Drawing.Point(43, 3);
+            this.lbl_view_dl.Location = new System.Drawing.Point(49, 3);
             this.lbl_view_dl.Name = "lbl_view_dl";
             this.lbl_view_dl.Size = new System.Drawing.Size(30, 13);
             this.lbl_view_dl.TabIndex = 0;
@@ -1140,7 +1171,7 @@ namespace Sayen.UserControls
             // 
             this.lbl_upload_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_upload_dl.AutoSize = true;
-            this.lbl_upload_dl.Location = new System.Drawing.Point(3, 3);
+            this.lbl_upload_dl.Location = new System.Drawing.Point(9, 3);
             this.lbl_upload_dl.Name = "lbl_upload_dl";
             this.lbl_upload_dl.Size = new System.Drawing.Size(41, 13);
             this.lbl_upload_dl.TabIndex = 1;
@@ -1153,7 +1184,7 @@ namespace Sayen.UserControls
             this.lbl_fileName_dl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_fileName_dl.AutoSize = true;
             this.lbl_fileName_dl.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbl_fileName_dl.Location = new System.Drawing.Point(95, 3);
+            this.lbl_fileName_dl.Location = new System.Drawing.Point(108, 3);
             this.lbl_fileName_dl.Name = "lbl_fileName_dl";
             this.lbl_fileName_dl.Size = new System.Drawing.Size(61, 13);
             this.lbl_fileName_dl.TabIndex = 38;
@@ -1378,6 +1409,7 @@ namespace Sayen.UserControls
             this.panel7_viewDoc.ResumeLayout(false);
             this.panel7_viewDoc.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_viewDoc)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -1513,5 +1545,8 @@ namespace Sayen.UserControls
         private System.Windows.Forms.RadioButton rdl_terminateEmp;
         private System.Windows.Forms.RadioButton rdl_editEmp;
         private System.Windows.Forms.Label lbl_empStatus;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_showPicture;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_savePicture;
     }
 }

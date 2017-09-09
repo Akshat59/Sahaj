@@ -106,7 +106,9 @@ namespace m1.Shared.Entities
         }
 
         private string _userNoteText = string.Empty;
-        private DateTime _userNoteDate ;
+        private DateTime _userNoteDate;
+
+        public DateTime[] UserNoteAlldate = null;
 
 
         #endregion

@@ -34,11 +34,34 @@ namespace Sayen
         }
 
 
+        private void RmvObj(Control.ControlCollection ParentControl)
+        {
+            foreach (Control control in ParentControl)
+             {
+                if (control.HasChildren)
+                {
+                    RmvObj(control.Controls);
+                }
+                else
+                {
+                    bool _b = control.Contains(control);
+                }
+            }
+            
+        }
+
         private void tabCtrl_home_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageManage))
+            RmvObj(this.Controls);
+
+
+            if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageWelcome))
             {
                 this.LoadWelcome();
+            }
+            else if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageManage))
+            {
+                //this.LoadWelcome();
             }
             else if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageSearch))
             {
@@ -46,7 +69,8 @@ namespace Sayen
             }
             else
             {
-                //Show - Not Implemented
+                Exception Ex = new Exception("Operation Not allowed; Tab is not Designed; Source: " + "tabCtrl_home_SelectedIndexChanged");
+                ExceptionManagement.logUserException(Ex);
             }
         }
 
@@ -136,7 +160,7 @@ namespace Sayen
 
         private void tabPage_welcome_Click(object sender, EventArgs e)
         {
-            this.LoadWelcome();
+            //this.LoadWelcome();
             
         }
 
@@ -156,7 +180,7 @@ namespace Sayen
 
         private void tabPage_search_Click(object sender, EventArgs e)
         {
-            this.LoadSearch();
+            //this.LoadSearch();
         }
 
         public void LoadSearch()

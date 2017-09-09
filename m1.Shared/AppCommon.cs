@@ -3,6 +3,7 @@ using m1.Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -35,7 +36,6 @@ namespace m1.Shared
         public enum e_DocAction { U=0, V=1, D=2,H=3,P=4,M=5 }
 
         #endregion Declaration
-
 
         #region ResetEnableDisableControls
         public static void CallResetControl(Control ParentControl)
@@ -555,6 +555,55 @@ namespace m1.Shared
         }
 
         #endregion SetDocPanel
+
+        #region ContextMenuStrips
+        /// <summary>
+        /// Conext Menu strip for picture box - mode 1 - ShowPicture, 2 - Save picture
+        /// </summary>
+        /// <param name="pb"></param>
+        /// <param name="mode"></param>
+        public static void ContextMenuStrip_pb(PictureBox pb,int option)
+        {
+
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "sahaj");
+            if (!System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.CreateDirectory(path);
+            }
+
+            if (option == 1)//Show Picture - Open with windows picture viewer
+            {
+                pb.Image.Save(path+"\\npbs_tmp.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                Process.Start(path + "\\npbs_tmp.jpg");
+            }
+            else if (option == 2) //Save image to path
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+
+                               
+
+                dialog.SelectedPath = path;
+                dialog.ShowNewFolderButton = true;
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    if (pb != null )
+                    {
+                        Image im = pb.Image;
+                        im.Save(dialog.SelectedPath+"\\npbs_img001.png", System.Drawing.Imaging.ImageFormat.Png);
+                    }
+                }
+
+               // pb.Image.Save(Environment.SpecialFolder.MyDocuments + "sahaj\\npbs_tmp.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            else
+            {
+                Exception Ex = new Exception("Operation Not allowed; option for Context Menu Strip is UnExpected; Source: " + "Utilities.ContextMenuStrip_pb");
+                ExceptionManagement.logUserException(Ex);
+            }
+        }
+
+        #endregion ContextMenuStrips
 
     }
     #endregion Utilities

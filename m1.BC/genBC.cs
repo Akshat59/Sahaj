@@ -93,6 +93,12 @@ namespace m1.BC
         {
             GenDAC.dacGetUserNotes(userEntity); 
         }
+
+        public List<DateTime> bcGetUserNoteAlldates(string userID)
+        {
+            return GenDAC.dacGetUserNoteAlldates(userID);
+        }
+
         public void bcSaveUserNotes(UserEntity userEntity)
         {
             GenDAC.dacSaveUserNotes(userEntity);

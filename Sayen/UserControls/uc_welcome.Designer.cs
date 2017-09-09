@@ -76,27 +76,23 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(751, 555);
             this.panel1.TabIndex = 7;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // richTextBox1
             // 
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.AutoWordSelection = true;
             this.richTextBox1.BackColor = System.Drawing.Color.AliceBlue;
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.ForeColor = System.Drawing.Color.Teal;
+            this.richTextBox1.Font = new System.Drawing.Font("Verdana", 10F);
+            this.richTextBox1.ForeColor = System.Drawing.Color.Blue;
             this.richTextBox1.Location = new System.Drawing.Point(515, 307);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(227, 245);
             this.richTextBox1.TabIndex = 11;
             this.richTextBox1.Text = "Notes- ";
             this.richTextBox1.Visible = false;
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox1_KeyDown);
-            this.richTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox1_KeyPress);
-            this.richTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.richTextBox1_KeyUp);
             this.richTextBox1.Leave += new System.EventHandler(this.richTextBox1_Leave);
-            this.richTextBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.richTextBox1_PreviewKeyDown);
             // 
             // lbl_currentTime
             // 

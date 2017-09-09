@@ -30,7 +30,7 @@ namespace Sayen.UserControls
         bool _isPostback = false;
         AppConstants.e_frmOperationType _operationType;
         EmployeeEntity emp = new EmployeeEntity();
-        DocumentCollection docCol = null;
+        static DocumentCollection docCol = null;
         string _empID = string.Empty;
         //EmployeeDocs edoc = new EmployeeDocs();
 
@@ -87,9 +87,7 @@ namespace Sayen.UserControls
 
 
 
-        private void btn_reset_Click(object sender, EventArgs e) { this.ucResetControls(); }
-
-
+        private void btn_reset_Click(object sender, EventArgs e) { this.ucResetControls(); } 
 
         private void chk_prefill_CheckedChanged(object sender, EventArgs e)
         {
@@ -103,7 +101,15 @@ namespace Sayen.UserControls
             if (_operationType == e_frmOperationType.S || _operationType == e_frmOperationType.U)
             {
                 if (this.Validate_AddEmpl())
-                { this.Save_addEmpl(); }
+                {
+                    this.Save_addEmpl();
+                    if (docCol != null)
+                    {
+                        docCol.Clear();
+                        docCol = null;
+                        docCol = new DocumentCollection();
+                    }
+                }
             }
             else if (_operationType == e_frmOperationType.X)
             {
@@ -116,6 +122,8 @@ namespace Sayen.UserControls
                 Exception Ex = new Exception("Operation Not allowed; _operationType is UnExpected; Source: " + "uc_AddEmpl.btn_submit_Click");
                 ExceptionManagement.logUserException(Ex);
             }
+
+            
         }
 
         private void rdl_singleUpload_CheckedChanged(object sender, EventArgs e)
@@ -148,8 +156,7 @@ namespace Sayen.UserControls
         private void rdl_editEmp_CheckedChanged(object sender, EventArgs e)
         {
 
-            panel5.Visible = true;
-            txt_age.Enabled = false;
+            panel5.Visible = true;            
 
             if (rdl_editEmp.Checked)
             {
@@ -157,6 +164,7 @@ namespace Sayen.UserControls
                 Utilities.EnableDisableControls(panel1.Controls, true);
                 Utilities.SetControlReadonly(panel1.Controls, false);
                 txt_age.Enabled = false;
+                ddl_hiring_manager.Enabled = false;
 
             }
             else if (rdl_terminateEmp.Checked)
@@ -345,6 +353,29 @@ namespace Sayen.UserControls
             Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
 
         }
+
+        private void pb_viewDoc_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                Point mPointWhenClicked = new Point(e.X, e.Y);
+                Thread.Sleep(500);
+                contextMenuStrip1.Show(mPointWhenClicked);
+            }
+        }
+
+        private void tsmi_savePicture_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Hide();
+            Utilities.ContextMenuStrip_pb(pb_viewDoc, 2);
+        }
+
+        private void tsmi_showPicture_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Hide();
+            Utilities.ContextMenuStrip_pb(pb_viewDoc, 1);
+        }
+
         #endregion EmpDocs
 
         #region KeyPress
@@ -398,6 +429,7 @@ namespace Sayen.UserControls
         }
 
         #endregion KeyPress
+
         #endregion Controls
 
         #region UserMethods
@@ -433,9 +465,8 @@ namespace Sayen.UserControls
             lbl_title.Text = "View / Edit" + " " + "Employee";
             { rdl_bulkUpload.Visible = rdl_singleUpload.Visible = btn_reset.Visible = chk_prefill.Visible = panel5.Visible = false; }
 
-
             Utilities.EnableDisableControls(panel1.Controls, false);
-            { lbl_view_uid.Enabled = lbl_view_ap.Enabled = lbl_view_ppic.Enabled = lbl_view_dl.Enabled = lbl_hide_viewDoc.Enabled = true; }
+            { lbl_view_uid.Enabled = lbl_view_ap.Enabled = lbl_view_ppic.Enabled = lbl_view_dl.Enabled = lbl_hide_viewDoc.Enabled = pb_viewDoc.Enabled = true; }
             Utilities.SetControlReadonly(panel1.Controls, true);
             Utilities.EnableDisableControls(panel7.Controls, true);
             panel7.Visible = true;
@@ -672,10 +703,7 @@ namespace Sayen.UserControls
 
                     if (empCol.RetIndicator != AppKeys.Failure) { MessageBox.Show(UserMessages.DatabaseUpdateSuccess); }
                 }
-
-
-
-
+                
             }
             catch (Exception Ex)
             {
@@ -780,7 +808,6 @@ namespace Sayen.UserControls
                         System.IO.Directory.CreateDirectory(_targetPath);
                     }
 
-
                     _f = new FileInfo(edoc.DocPath);
                     edoc.EmpId = _empID;
                     edoc.DocName = AppConstants.fn_empDoc + _empID + "_" + edoc.DocType.ToString() + "_001";
@@ -828,11 +855,7 @@ namespace Sayen.UserControls
                     ExceptionManagement.logUserException(Ex);
                 }/*log into app/error logs #futureCode*/
             }
-
-
-
-
-
+            
         }
 
         private void formatEntity(object obj)
@@ -896,13 +919,20 @@ namespace Sayen.UserControls
                 tableLayoutPanel5.Controls.Add(txt_ucAlerts, 0, 0);
             }
 
-            empCol = new EmployeeCollection();
-            docCol = new DocumentCollection();
-
             Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
             Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
             Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
             Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
+
+
+            empCol = new EmployeeCollection();
+            if (docCol != null)
+            {
+                docCol.Clear();
+                docCol = null;
+                docCol = new DocumentCollection();
+            }
+
 
             //Leave Add/View/Edit Emp UserControl
             if (_operationType == e_frmOperationType.U || _operationType == e_frmOperationType.X)
@@ -923,22 +953,22 @@ namespace Sayen.UserControls
                 }
             }
             Utilities.CallResetControl(this.panel1);
+
+            if (docCol != null)
+            {
+                Utilities.SetDocPanel(e_DocType.AAD, lbl_upload_uid, lbl_view_uid, pb_del_uid, lbl_fileName_uid, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
+                Utilities.SetDocPanel(e_DocType.APX, lbl_upload_ap, lbl_view_ap, pb_del_ap, lbl_fileName_ap, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
+                Utilities.SetDocPanel(e_DocType.EPH, lbl_upload_ppic, lbl_view_ppic, pb_del_ppic, lbl_fileName_ppic, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
+                Utilities.SetDocPanel(e_DocType.DLF, lbl_upload_dl, lbl_view_dl, pb_del_dl, lbl_fileName_dl, pb_viewDoc, panel7_viewDoc, Utilities.e_DocAction.D, docCol);
+
+                docCol.Clear();
+                docCol = null;
+                docCol = new DocumentCollection();
+            }
+
+            errorProvider1.Clear();
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
         #endregion UserMethods
-
-       
     }
 }
