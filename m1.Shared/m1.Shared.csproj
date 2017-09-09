@@ -75,6 +75,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="testPR.cs" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DatabaseObjects\d1_cdt_users.sql" />
+    <Content Include="DatabaseObjects\insert_scripts.sql" />
+    <Content Include="DatabaseObjects\pr1.sql" />
+    <Content Include="DatabaseObjects\pr2.sql" />
+    <Content Include="DatabaseObjects\table_creation_scripts.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DatabaseObjects\tableCreationScripts.xlsx" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
