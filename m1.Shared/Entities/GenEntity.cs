@@ -12,6 +12,9 @@ namespace m1.Shared.Entities
         {
            userEntity = new UserEntity();
            sessionEntity = new SessionEntity();
+            empCollection = new EmployeeCollection();
+            commonparamCollection = new CommonParamCollection();
+            
         }
 
         #region Properties
@@ -22,6 +25,13 @@ namespace m1.Shared.Entities
             set { sessionEntity = value; }
         }
 
+        private CommonParamCollection commonparamCollection;
+        public CommonParamCollection CommonParamCollection
+        {
+            get { return commonparamCollection; }
+            set { commonparamCollection = value; }
+        }
+
 
 
         private UserEntity userEntity;
@@ -30,6 +40,9 @@ namespace m1.Shared.Entities
             get { return userEntity; }
             set { userEntity = value; }
         }
+
+        public EmployeeCollection empCollection { get;  set; }
+        //public EmployeeEntity empEntity { get;  set; }
         #endregion
     }
 }

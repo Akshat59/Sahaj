@@ -78,7 +78,39 @@ namespace m1.Shared.Entities
             get { return profilepic; }
             set { profilepic = value; }
         }
-                    
+
+        public string UserNoteText
+        {
+            get
+            {
+                return _userNoteText;
+            }
+
+            set
+            {
+                _userNoteText = value;
+            }
+        }
+
+        public DateTime UserNoteDate
+        {
+            get
+            {
+                return _userNoteDate;
+            }
+
+            set
+            {
+                _userNoteDate = value;
+            }
+        }
+
+        private string _userNoteText = string.Empty;
+        private DateTime _userNoteDate;
+
+        public DateTime[] UserNoteAlldate = null;
+
+
         #endregion
     }
 }

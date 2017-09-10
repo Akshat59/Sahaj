@@ -13,6 +13,21 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -83,11 +98,29 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserControls\uc_BulkUpload.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_BulkUpload.Designer.cs">
+      <DependentUpon>uc_BulkUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\uc_BulkUpload_z.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_BulkUpload_z.Designer.cs">
+      <DependentUpon>uc_BulkUpload_z.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\uc_welcome.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\uc_welcome.Designer.cs">
       <DependentUpon>uc_welcome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\uc_ViewEntity.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_ViewEntity.Designer.cs">
+      <DependentUpon>uc_ViewEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="userForms\frm_Backdoor.cs">
       <SubType>Form</SubType>
@@ -127,6 +160,15 @@
     <Compile Include="UserControls\uc_search.Designer.cs">
       <DependentUpon>uc_search.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\uc_BulkUpload.resx">
+      <DependentUpon>uc_BulkUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\uc_BulkUpload_z.resx">
+      <DependentUpon>uc_BulkUpload_z.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\uc_ViewEntity.resx">
+      <DependentUpon>uc_ViewEntity.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\uc_welcome.resx">
       <DependentUpon>uc_welcome.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,7 +200,9 @@
     <EmbeddedResource Include="UserControls\uc_search.resx">
       <DependentUpon>uc_search.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -195,7 +239,25 @@
   <ItemGroup>
     <Content Include="img_appIco1.ico" />
     <Content Include="img_applogo.ico" />
+    <None Include="Resources\notee.png" />
     <None Include="Resources\img_matrixCode.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

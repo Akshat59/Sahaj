@@ -36,5 +36,76 @@ namespace m1.BC
         {
             return GenDAC.dacTestDatabaseConnection();
         }
+
+        public string  bcGetNextID(string tableName, string sqlColumn, string totallength, string seriesInitials)
+        {
+            return GenDAC.dacGetNextID(tableName, sqlColumn, totallength, seriesInitials);
+        }
+
+        public void bcInsertEmpDetails(EmployeeEntity emp)
+        {
+            GenDAC.dacInsertEmpDetails(emp);
+        }
+
+        public void bcUpdateEmpDetails(EmployeeEntity emp)
+        {
+            GenDAC.dacUpdateEmpDetails(emp);
+        }
+
+        public void bcTerminateEmp(EmployeeEntity emp)
+        {
+            GenDAC.dacTerminateEmp(emp);
+        }
+
+        public void bcInsertEmpDocs(formDocs edoc)
+        {
+            GenDAC.dacInsertDocs(edoc);
+        }
+
+        public void bcUpdateEmpDocs(formDocs edoc)
+        {
+            GenDAC.dacUpdateEmpDocs(edoc);
+        }
+
+
+
+        public void bcTerminateEmpDoc(formDocs edoc)
+        {
+            GenDAC.dacTerminateEmpDoc(edoc);
+        }
+
+        public void bcGetEmpDetails(EmployeeEntity m_emp)
+        {
+            GenDAC.dacGetEmpDetails(m_emp);
+        }
+        public DocumentCollection bcGetEmpDocs(DocumentCollection m_dcol)
+        {
+           return GenDAC.dacGetEmpDocs(m_dcol);
+        }
+
+
+        public void bcSearchEntity(SearchEntity se)
+        {
+            GenDAC.dacSearchEntity(se);
+        }
+
+        public void bcGetUserNotes(UserEntity userEntity)
+        {
+            GenDAC.dacGetUserNotes(userEntity); 
+        }
+
+        public List<DateTime> bcGetUserNoteAlldates(string userID)
+        {
+            return GenDAC.dacGetUserNoteAlldates(userID);
+        }
+
+        public void bcSaveUserNotes(UserEntity userEntity)
+        {
+            GenDAC.dacSaveUserNotes(userEntity);
+        }
+        public void bcDeleteUserNotes(UserEntity userEntity)
+        {
+            GenDAC.dacDeleteUserNotes(userEntity);
+        }
     }
 }

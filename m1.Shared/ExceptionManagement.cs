@@ -7,12 +7,36 @@ namespace m1.Shared
 {
     public class ExceptionManagement
     {
-        static string _appErrorLog = string.Empty;
+        private static string _appErrorLog = string.Empty;
 
-        public static string logAppException(Exception Ex)
+        public static void  logAppException(Exception Ex)
         {
-            _appErrorLog = "\r\n" + Ex.Message+"\r\n"+Ex.InnerException + "\r\n" + Ex.StackTrace;
-            return Ex.Message;
+            _appErrorLog += "\r\n" + Ex.Message+"\r\n"+Ex.InnerException + "\r\n" + Ex.StackTrace;
+            PublishLogstoDatabase();
+
         }
+
+        public static void logUserException(Exception Ex)
+        {
+            _appErrorLog += "\r\n" + Ex.Message;
+            PublishLogs();
+
+
+        }
+
+        public static void PublishLogs()
+        {
+            AppGlobal.appErrorLog = AppGlobal.appErrorLog + "\r\n" + _appErrorLog;
+        }
+
+        public static void PublishLogstoDatabase()
+        {
+            AppGlobal.appErrorLog = AppGlobal.appErrorLog + "\r\n" + _appErrorLog;
+
+            //Code to write logs to file & Database................... #futureCode
+        }
+
+
+
     }
 }

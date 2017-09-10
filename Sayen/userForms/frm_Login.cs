@@ -71,7 +71,7 @@ namespace Sayen
 
         private void lbl_loginIssue_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MessageBox.Show("Contact System admin","Login Issue?");
+            MessageBox.Show(UserMessages.LoginIsuuesMsg, UserMessages.LoginIsuuesTitle);
         }
 
         private void lbl_title_Click(object sender, EventArgs e)
@@ -84,12 +84,9 @@ namespace Sayen
             }
             catch (Exception Ex)
             {
-                _appErrorLog = "\r\n" + Ex.InnerException + "\r\n" + Ex.StackTrace;
-            }
-            finally
-            {
-                AppGlobal.appErrorLog = _appErrorLog;
-            }
+                ExceptionManagement.logAppException(Ex);
+                setLables(AppConstants.CallStatusError, UserMessages.AppException);
+            }            
         }
 
 
@@ -111,7 +108,7 @@ namespace Sayen
 
                 if (S_uname.Equals(String.Empty) || S_pwd.Length < 6)
                 {
-                    setLables(ApplicationConstants.CallStatusError, UserMessages.InvalidLogon);
+                    setLables(AppConstants.CallStatusError, UserMessages.InvalidLogon);
                 }
                 else
                 {
@@ -122,7 +119,7 @@ namespace Sayen
 
                     if (!_genBPC.bpcTestDatabaseConnection(GEntity))
                     {
-                        setLables(ApplicationConstants.CallStatusError, UserMessages.DatabaseNotConnected);
+                        setLables(AppConstants.CallStatusError, UserMessages.DatabaseNotConnected);
                     }
                     else
                     {
@@ -131,7 +128,7 @@ namespace Sayen
                             //frm_login frmlgn = new frm_login();
                             //Thread newThread = new Thread(frmlgn.thread1);
                             //newThread.Start("");
-                            setLables(ApplicationConstants.CallStatusError, UserMessages.ValidLogon);
+                            setLables(AppConstants.CallStatusError, UserMessages.ValidLogon);
 
                             Thread.Sleep(500);
 
@@ -155,32 +152,28 @@ namespace Sayen
                         }
                         else
                         {
-                            setLables(ApplicationConstants.CallStatusError, UserMessages.InvalidLogon);
+                            setLables(AppConstants.CallStatusError, UserMessages.InvalidLogon);
                         }
                     }
                 }
             }
             catch (Exception Ex)
             {
-                _appErrorLog = ExceptionManagement.logAppException(Ex);
-                setLables(ApplicationConstants.CallStatusError, UserMessages.AppException);
-            }
-            finally
-            {
-                AppGlobal.appErrorLog = _appErrorLog;
+                ExceptionManagement.logAppException(Ex);
+                setLables(AppConstants.CallStatusError, UserMessages.AppException);
             }
         }
 
 
         public void setLables(string status,string Message)
         {
-            if (status == ApplicationConstants.CallStatusError)
+            if (status == AppConstants.CallStatusError)
             {
                 lbl_loginMsg.Visible = true;
                 lbl_loginMsg.ForeColor = System.Drawing.Color.Maroon;
                 lbl_loginMsg.Text = Message;
             }
-            else if (status == ApplicationConstants.CallStatusSuccess)
+            else if (status == AppConstants.CallStatusSuccess)
             {
                 lbl_loginMsg.Visible = true;
                 lbl_loginMsg.ForeColor = System.Drawing.Color.Black;

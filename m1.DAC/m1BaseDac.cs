@@ -18,6 +18,7 @@ namespace m1.DAC
     public class m1BaseDac //:BaseDac
     {
         private string _sqlLog = String.Empty;
+        int _ret = 0;
 
         protected string RetrieveSqlQuery(string key)
         {
@@ -27,6 +28,46 @@ namespace m1.DAC
         protected string GetConnectionString(string key)
         {
             return ConfigSettings.GetConnectionString(key);
+        }
+
+        private void SetExceptionLog(Exception Ex)
+        {
+            ExceptionManagement.logAppException(Ex);            
+        }
+
+        private void SetSQLExceptionLog(SqlException Ex)
+        {
+            _sqlLog = "\r\n" + Ex.Message + Ex.InnerException + "\r\n" + Ex.StackTrace;
+            //#futurecode
+        }
+
+        private void WriteLog(string log)
+        {
+            //#futurecode
+        }
+
+        protected List<SqlParameter> GetCommonParameters_Ins()
+        {
+            List<SqlParameter> cp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@create_id", SqlDbType = SqlDbType.NVarChar, Value= AppGlobal.g_GEntity.SessionEntity.User_id},
+                new SqlParameter() {ParameterName = "@create_date", SqlDbType = SqlDbType.DateTime2, Value= AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp},
+                new SqlParameter() {ParameterName = "@update_id", SqlDbType = SqlDbType.NVarChar, Value= AppGlobal.g_GEntity.SessionEntity.User_id},
+                new SqlParameter() {ParameterName = "@update_date", SqlDbType = SqlDbType.DateTime2, Value= AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp},
+
+             };
+            return cp;
+        }
+
+        protected List<SqlParameter> GetCommonParameters_Updt()
+        {
+            List<SqlParameter> cp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@update_id", SqlDbType = SqlDbType.NVarChar, Value= AppGlobal.g_GEntity.SessionEntity.User_id},
+                new SqlParameter() {ParameterName = "@update_date", SqlDbType = SqlDbType.DateTime2, Value= AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp},
+
+             };
+            return cp;
         }
 
         protected bool TestDatabaseConnection()
@@ -51,8 +92,172 @@ namespace m1.DAC
             }
             catch (Exception Ex)
             {
-                _sqlLog = "\r\n" + Ex.InnerException + "\r\n" + Ex.StackTrace;
+                this.SetExceptionLog(Ex);
                 return false;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;
+            }
+        }       
+
+        protected DataTable ExecuteDataAdapter(string sqlQuery,List<SqlParameter> sp = null)
+        {
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+
+            //Setting _queryLog as actual query got executed including parameters value
+            string _queryLog = sqlQuery;
+            foreach (SqlParameter p in sp)
+            {
+                _queryLog = _queryLog.Replace(p.ParameterName.ToString(), p.Value.ToString());
+                //Add _querylog to logs/db       #futureCode
+            }
+
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
+                    oCmd.CommandType = CommandType.Text;
+
+                    if (sp != null)
+                    {
+                        oCmd.Parameters.AddRange(sp.ToArray());
+                    }
+
+                    myConnection.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(oCmd);
+                    int res = da.Fill(ds,"dt");
+                    dt = ds.Tables["dt"];
+                    return dt;
+                }
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);                
+                return dt;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;    
+            }            
+
+        }
+
+        protected DataTable ExecuteDataAdapter_SP(string sqlQuery, List<SqlParameter> sp = null)
+        {
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+
+            //Setting _queryLog as actual query got executed including parameters value
+            string _queryLog = sqlQuery;
+            foreach (SqlParameter p in sp)
+            {
+                _queryLog = _queryLog.Replace(p.ParameterName.ToString(), p.Value.ToString());
+                //Add _querylog to logs/db       #futureCode
+            }
+
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
+                    oCmd.CommandType = CommandType.StoredProcedure;
+
+                    if (sp != null)
+                    {
+                        oCmd.Parameters.AddRange(sp.ToArray());
+                    }
+
+                    myConnection.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(oCmd);
+                    int res = da.Fill(ds, "dt");
+                    dt = ds.Tables["dt"];
+                    return dt;
+                }
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);
+                return dt;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;
+            }
+
+        }
+
+        public int bExecuteNonQuery(string sqlQuery, List<SqlParameter> sp)
+        {            
+            _ret = 0;
+            _sqlLog = string.Empty;
+
+            //Setting _queryLog as actual query got executed including parameters value
+            string _queryLog = sqlQuery;
+            foreach (SqlParameter p in sp)
+            {               
+                _queryLog = _queryLog.Replace(p.ParameterName.ToString(), "'" + p.Value.ToString() + "'");
+                AppGlobal.sqlErrorLog = _queryLog;
+                //Add _queryLog to logs       #futureCode
+            }
+
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
+                    oCmd.CommandType = CommandType.Text;
+
+                    if (sp != null)
+                    {
+                        oCmd.Parameters.AddRange(sp.ToArray());
+                    }
+
+                    myConnection.Open();
+
+                    _ret = oCmd.ExecuteNonQuery();
+                }
+                return _ret;
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);
+                return 0;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;               
+            }
+        }
+
+        public int bExecuteNonQuery(string sqlQuery)
+        {
+            _ret = 0;
+            _sqlLog = string.Empty;
+
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
+                    oCmd.CommandType = CommandType.Text;                    
+
+                    myConnection.Open();
+
+                    _ret = oCmd.ExecuteNonQuery();
+                }
+                return _ret;
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);
+                return 0;
             }
             finally
             {
@@ -60,13 +265,45 @@ namespace m1.DAC
             }
         }
 
+        public string bExecuteScalar(string sqlSelectQuery)
+        {
+            string _s_ret = string.Empty;
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(sqlSelectQuery, myConnection);
+                    oCmd.CommandType = CommandType.Text;
+                    myConnection.Open();
+
+                    var _v = oCmd.ExecuteScalar();
+                    if (_v != null) { _s_ret =  _v.ToString(); }
+                    else { _s_ret =  string.Empty; }
+                }
+                return _s_ret;
+                
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);
+                return _s_ret;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;
+            }
+        }
+
+
+        #region Scrap
         /// <summary>
         /// Dont Use
         /// </summary>
         /// <param name="SQLselect"></param>
         /// <returns></returns>
         protected DataSet ExecuteDataAdapter(string SQLselect)
-        {       
+        {
             //Dont Use
             string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
             DataSet ds = new DataSet();
@@ -86,53 +323,14 @@ namespace m1.DAC
             }
             catch (Exception Ex)
             {
-                _sqlLog = "\r\n" + Ex.InnerException + "\r\n" + Ex.StackTrace;
+                this.SetExceptionLog(Ex);
                 return ds;
             }
             finally
             {
-                AppGlobal.sqlErrorLog = _sqlLog;    
-            }    
-        }
-
-        protected DataTable ExecuteDataAdapter(string SQLselect,List<SqlParameter> sp = null)
-        {
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-            try
-            {
-                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
-                using (SqlConnection myConnection = new SqlConnection(conStrng))
-                {
-                    SqlCommand oCmd = new SqlCommand(SQLselect, myConnection);
-                    oCmd.CommandType = CommandType.Text;
-
-                    if (sp != null)
-                    {
-                        oCmd.Parameters.AddRange(sp.ToArray());
-                    }
-
-                    myConnection.Open();
-                    SqlDataAdapter da = new SqlDataAdapter(oCmd);
-                    int res = da.Fill(ds,"dt");
-                    dt = ds.Tables["dt"];
-                    return dt;
-                }
+                AppGlobal.sqlErrorLog = _sqlLog;
             }
-            catch (Exception Ex)
-            {
-                _sqlLog = "\r\n" + Ex.InnerException + "\r\n" + Ex.StackTrace;
-                return dt;
-            }
-            finally
-            {
-                AppGlobal.sqlErrorLog = _sqlLog;    
-            }            
-
         }
-
-       
-        #region Scrap
         /*
           protected SqlDataReader ExecuteDataReader(string SQLselect)
         {
