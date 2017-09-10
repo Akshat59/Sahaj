@@ -76,6 +76,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(751, 555);
             this.panel1.TabIndex = 7;
+            this.panel1.Leave += new System.EventHandler(this.panel1_Leave);
             // 
             // richTextBox1
             // 

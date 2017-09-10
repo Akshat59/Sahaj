@@ -222,8 +222,13 @@ namespace Sayen.UserControls
 
         }
 
+
         #endregion UserMethods
 
+        private void panel1_Leave(object sender, EventArgs e)
+        {
 
+        }
+       
     }
 }

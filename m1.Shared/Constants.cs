@@ -191,6 +191,9 @@ namespace m1.Shared
         public const string RetrieveEmpDocsFailed = "Error while retrieving employee docs";
         public const string ConfirmTerminateEmp_text = "Are you sure you want to terminate the Employee";
         public const string ConfirmTerminateEmp_title = "Terminate Employee?";
+        public const string ConfirmAppLogOut = "Are you sure you want to Log Out?";
+        public const string ConfirmAppExit = "Are you sure you want to Exit Application?";
+        public const string Ques_AreYouSure = "Are You Sure?";
 
 
     }

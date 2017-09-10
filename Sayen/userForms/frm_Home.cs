@@ -15,44 +15,48 @@ namespace Sayen
 {
     public partial class frm_Home : Form
     {
+        #region Initialization
         public frm_Home()
         {
-            InitializeComponent();          
+            InitializeComponent();
 
         }
+
+        uc_welcome ucWel;
+        uc_search ucSrch;
+        uc_AddEmpl _ucAddEmp;
+        uc_ViewEntity _ucViewEmp;
+        #endregion Initialization
+
 
 
         #region Controls
         private void lbl_logOut_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
-            this.Hide();
-            var objFrmLogin = new frm_login();
-            objFrmLogin.Show();
-            objFrmLogin.Closed += (s, args) => this.Close();
-            objFrmLogin.Show();
+            DialogResult res = Utilities.GetYesNoConfirmation(UserMessages.Ques_AreYouSure,UserMessages.ConfirmAppLogOut);
+            if (res.Equals(DialogResult.Yes))
+            {
+                this.Hide();
+                var objFrmLogin = new frm_login();
+                objFrmLogin.Show();
+                objFrmLogin.Closed += (s, args) => this.Close();
+                objFrmLogin.Show();
+            }
         }
 
 
-        private void RmvObj(Control.ControlCollection ParentControl)
-        {
-            foreach (Control control in ParentControl)
-             {
-                if (control.HasChildren)
-                {
-                    RmvObj(control.Controls);
-                }
-                else
-                {
-                    bool _b = control.Contains(control);
-                }
-            }
-            
+        private void DisposeTabPageObjects()
+        {            
+            if(ucWel != null){ucWel.Dispose(); ucWel = null; }
+            if (ucSrch != null) { ucSrch.Dispose(); ucSrch = null; }
+            if (_ucAddEmp != null) { _ucAddEmp.Dispose(); _ucAddEmp = null; }
+            if (_ucViewEmp != null) { _ucViewEmp.Dispose(); _ucViewEmp = null; }            
         }
 
         private void tabCtrl_home_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RmvObj(this.Controls);
+            DisposeTabPageObjects();
 
 
             if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageWelcome))
@@ -69,15 +73,15 @@ namespace Sayen
             }
             else
             {
-                Exception Ex = new Exception("Operation Not allowed; Tab is not Designed; Source: " + "tabCtrl_home_SelectedIndexChanged");
-                ExceptionManagement.logUserException(Ex);
+                //Exception Ex = new Exception("Operation Not allowed; Tab is not Designed; Source: " + "tabCtrl_home_SelectedIndexChanged");
+                //ExceptionManagement.logUserException(Ex);
             }
         }
 
         private void lbl_exit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Application.Exit();
-
+            DialogResult res = Utilities.GetYesNoConfirmation( UserMessages.Ques_AreYouSure, UserMessages.ConfirmAppExit);
+            if (res.Equals(DialogResult.Yes)){Application.Exit();}
         }
 
 
@@ -145,29 +149,36 @@ namespace Sayen
 
         #region HomeStrip
 
-        private void logsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tabCtrl_home_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            {
+                //e.Handled = true;
+            }
+        }
+
+        private void viewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string _message = AppGlobal.appErrorLog + "\r\n" + AppGlobal.sqlErrorLog;
             if (_message.Trim().Length < 1) { _message = UserMessages.NoLogsMsg; }
 
             MessageBox.Show(_message.Trim(), UserMessages.ShowLogTitle);
+        }
 
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AppGlobal.appErrorLog = string.Empty;
+            AppGlobal.sqlErrorLog = string.Empty;
         }
         #endregion HomeStrip
 
 
         #region WelcomeStrip
 
-        private void tabPage_welcome_Click(object sender, EventArgs e)
-        {
-            //this.LoadWelcome();
-            
-        }
-
-
         public void LoadWelcome()
         {
-            uc_welcome ucWel = new uc_welcome();
+            ucWel = new uc_welcome();
             ucWel.AutoSize = true;
             ucWel.Dock = DockStyle.Fill;
             tabCtrl_home.TabPages[AppConstants.TabPageWelcome].Controls.Add(ucWel);
@@ -177,15 +188,10 @@ namespace Sayen
         #endregion WelcomeStrip
 
         #region SearchStrip
-
-        private void tabPage_search_Click(object sender, EventArgs e)
-        {
-            //this.LoadSearch();
-        }
-
+       
         public void LoadSearch()
         {
-            uc_search ucSrch = new uc_search();
+            ucSrch = new uc_search();
             tabCtrl_home.TabPages[AppConstants.TabPageSearch].Controls.Add(ucSrch);
 
         }
@@ -197,13 +203,13 @@ namespace Sayen
         #region ManageEmployee
         private void tsmi2_emp_addNew_Click(object sender, EventArgs e)
         {
-            uc_AddEmpl _ucAddEmp = new uc_AddEmpl(AppConstants.e_frmOperationType.S, this);          
+            _ucAddEmp = new uc_AddEmpl(AppConstants.e_frmOperationType.S, this);          
 
             this.LoadStripUC(_ucAddEmp, AppConstants.TabPageManage);
         }
         private void tsmi2_emp_modify_Click(object sender, EventArgs e)
         {
-            uc_ViewEntity _ucViewEmp = new uc_ViewEntity(AppConstants.e_ViewEntityType.EMPLOYEE,this);
+            _ucViewEmp = new uc_ViewEntity(AppConstants.e_ViewEntityType.EMPLOYEE,this);
 
             this.LoadStripUC(_ucViewEmp, AppConstants.TabPageManage);
         }
@@ -232,8 +238,8 @@ namespace Sayen
         public void LoadStripUC_frmUC(UserControl objAdd, string stripID_add, UserControl objRmv, string stripID_rmv)
         {
             tabCtrl_home.TabPages[stripID_rmv].Controls.Remove(objRmv);
-            bool _b = this.Controls.ContainsKey("uc_AddEmpl");
-            bool _z = tabCtrl_home.TabPages[stripID_rmv].Controls.ContainsKey("uc_AddEmpl");
+            //bool _b = this.Controls.ContainsKey("uc_AddEmpl");
+            //bool _z = tabCtrl_home.TabPages[stripID_rmv].Controls.ContainsKey("uc_AddEmpl");
             objRmv.Dispose();
             objRmv = null;
             tabCtrl_home.TabPages[stripID_add].Controls.Add(objAdd);
@@ -258,15 +264,6 @@ namespace Sayen
 
         #endregion UserMethods
 
-        private void tabCtrl_home_KeyUp(object sender, KeyEventArgs e)
-        {           
-
-            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
-            {
-                //e.Handled = true;
-            }
-        }
-
-
+      
     }
 }

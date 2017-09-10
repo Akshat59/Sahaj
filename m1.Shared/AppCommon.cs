@@ -118,13 +118,7 @@ namespace m1.Shared
                 //Resolution - add child to grandchild in calling method e.g.CallResetControl
             }
 
-        }
-
-        public static DialogResult GetYesNoConfirmation(string title, string text)
-        {
-            DialogResult res = MessageBox.Show(text, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            return res;
-        }
+        }        
 
         public static void EnableDisableControls(Control.ControlCollection controls, bool status)
         {
@@ -340,6 +334,11 @@ namespace m1.Shared
             return age;
         }
 
+        public static DialogResult GetYesNoConfirmation(string title, string text)
+        {
+            DialogResult res = MessageBox.Show(text, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return res;
+        }
 
 
         #endregion GeneralFunctions

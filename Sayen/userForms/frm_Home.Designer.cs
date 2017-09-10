@@ -36,6 +36,8 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi1_view = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi1_viewlogs = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi1_help = new System.Windows.Forms.ToolStripMenuItem();
             this.reportIssueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contactUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -168,10 +170,26 @@
             // 
             // tsmi1_viewlogs
             // 
+            this.tsmi1_viewlogs.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewToolStripMenuItem,
+            this.clearToolStripMenuItem});
             this.tsmi1_viewlogs.Name = "tsmi1_viewlogs";
             this.tsmi1_viewlogs.Size = new System.Drawing.Size(99, 22);
             this.tsmi1_viewlogs.Text = "Logs";
-            this.tsmi1_viewlogs.Click += new System.EventHandler(this.logsToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // tsmi1_help
             // 
@@ -311,7 +329,6 @@
             this.tabPage_welcome.Size = new System.Drawing.Size(882, 377);
             this.tabPage_welcome.TabIndex = 7;
             this.tabPage_welcome.Text = "Welcome";
-            this.tabPage_welcome.Click += new System.EventHandler(this.tabPage_welcome_Click);
             // 
             // tabPage_notifications
             // 
@@ -713,5 +730,7 @@
         private System.Windows.Forms.Label lbl_environment;
         private System.Windows.Forms.ComboBox ddl_env;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
     }
 }
