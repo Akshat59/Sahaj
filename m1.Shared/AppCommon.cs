@@ -12,6 +12,8 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using static m1.Shared.AppConstants;
+using FileHelpers;
+using System.Data;
 
 namespace m1.Shared
 {
@@ -118,7 +120,9 @@ namespace m1.Shared
                 //Resolution - add child to grandchild in calling method e.g.CallResetControl
             }
 
-        }        
+        }
+
+
 
         public static void EnableDisableControls(Control.ControlCollection controls, bool status)
         {
@@ -340,7 +344,20 @@ namespace m1.Shared
             return res;
         }
 
+        public static void RemoveTimezoneForDataSet(DataSet ds)
+        {
+            foreach (DataTable dt in ds.Tables)
+            {
+                foreach (DataColumn dc in dt.Columns)
+                {
 
+                    if (dc.DataType == typeof(DateTime))
+                    {
+                        dc.DateTimeMode = DataSetDateTime.Unspecified;
+                    }
+                }
+            }
+        }
         #endregion GeneralFunctions
 
         #region GetAlertTextBox
@@ -603,6 +620,14 @@ namespace m1.Shared
         }
 
         #endregion ContextMenuStrips
+
+        #region FileHelpersLibrary
+
+        public void WriteDataToCSV(DataTable dt, string fileName)
+        {
+            CsvEngine q = new CsvEngine("z",'|',fileName);
+        }
+        #endregion FileHelpersLibrary
 
     }
     #endregion Utilities

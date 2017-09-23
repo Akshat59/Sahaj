@@ -108,10 +108,13 @@ namespace m1.DAC
 
             //Setting _queryLog as actual query got executed including parameters value
             string _queryLog = sqlQuery;
-            foreach (SqlParameter p in sp)
+            if (sp != null)
             {
-                _queryLog = _queryLog.Replace(p.ParameterName.ToString(), p.Value.ToString());
-                //Add _querylog to logs/db       #futureCode
+                foreach (SqlParameter p in sp)
+                {
+                    _queryLog = _queryLog.Replace(p.ParameterName.ToString(), p.Value.ToString());
+                    //Add _querylog to logs/db       #futureCode
+                }
             }
 
             try
@@ -143,6 +146,61 @@ namespace m1.DAC
             {
                 AppGlobal.sqlErrorLog = _sqlLog;    
             }            
+
+        }
+
+        protected DataTable bExecuteDataReader(string sqlQuery, List<SqlParameter> sp = null)
+        {
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            ds.Tables.Add(dt);
+
+            //Setting _queryLog as actual query got executed including parameters value
+            string _queryLog = sqlQuery;
+            if (sp != null)
+            {
+                foreach (SqlParameter p in sp)
+                {
+                    _queryLog = _queryLog.Replace(p.ParameterName.ToString(), p.Value.ToString());
+                    //Add _querylog to logs/db       #futureCode
+                }
+            }
+
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
+                    oCmd.CommandType = CommandType.Text;
+
+                    if (sp != null)
+                    {
+                        oCmd.Parameters.AddRange(sp.ToArray());
+                    }
+
+                    myConnection.Open();
+
+
+                    using (SqlDataReader rdr = oCmd.ExecuteReader())
+                    {
+                        while (!rdr.IsClosed && rdr.Read())
+                        {
+                            ds.Load(rdr, LoadOption.OverwriteChanges, dt);
+                        }
+                    }                  
+                    return dt;
+                }
+            }
+            catch (Exception Ex)
+            {
+                this.SetExceptionLog(Ex);
+                return dt;
+            }
+            finally
+            {
+                AppGlobal.sqlErrorLog = _sqlLog;
+            }
 
         }
 
@@ -302,7 +360,7 @@ namespace m1.DAC
         /// </summary>
         /// <param name="SQLselect"></param>
         /// <returns></returns>
-        protected DataSet ExecuteDataAdapter(string SQLselect)
+        protected DataSet ExecuteDataAdapter_srapped(string SQLselect)
         {
             //Dont Use
             string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();

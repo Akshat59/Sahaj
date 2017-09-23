@@ -10,6 +10,7 @@ namespace m1.DAC
     public class QueryConstants
     {
         public const string ValidateUserLogin = "Query_ValidateUserLogin";
+        public const string ReadTableData = "SELECT * FROM  {0}";
         public const string GetAppInfo = "Query_GetAppInfo";
         public const string TruncateTable = "TRUNCATE TABLE ";
         public const string InsertEmpDetails = "Query_InsertEmpDetails";

@@ -20,8 +20,6 @@ namespace m1.Shared
         {
             _appErrorLog += "\r\n" + Ex.Message;
             PublishLogs();
-
-
         }
 
         public static void PublishLogs()

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Home));
             this.lbl_titleHome = new System.Windows.Forms.Label();
             this.lbl_logOut = new System.Windows.Forms.LinkLabel();
@@ -89,6 +90,11 @@
             this.tsmi2_bulkUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage_booking = new System.Windows.Forms.TabPage();
             this.tabPage_admin = new System.Windows.Forms.TabPage();
+            this.panel_adminHeader = new System.Windows.Forms.Panel();
+            this.lbl_dataBackup = new System.Windows.Forms.LinkLabel();
+            this.panel_adminBody = new System.Windows.Forms.Panel();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.lbl_userControl = new System.Windows.Forms.LinkLabel();
             this.menuStrip_Home.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -96,6 +102,8 @@
             this.tabCtrl_home.SuspendLayout();
             this.tabPage_manage.SuspendLayout();
             this.menuStrip_Manage.SuspendLayout();
+            this.tabPage_admin.SuspendLayout();
+            this.panel_adminHeader.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_titleHome
@@ -625,12 +633,66 @@
             // 
             // tabPage_admin
             // 
+            this.tabPage_admin.AutoScroll = true;
+            this.tabPage_admin.BackColor = System.Drawing.Color.AliceBlue;
+            this.tabPage_admin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_admin.Controls.Add(this.panel_adminHeader);
+            this.tabPage_admin.Controls.Add(this.panel_adminBody);
             this.tabPage_admin.Location = new System.Drawing.Point(4, 22);
             this.tabPage_admin.Name = "tabPage_admin";
             this.tabPage_admin.Size = new System.Drawing.Size(882, 377);
             this.tabPage_admin.TabIndex = 4;
             this.tabPage_admin.Text = "Admin";
-            this.tabPage_admin.UseVisualStyleBackColor = true;
+            // 
+            // panel_adminHeader
+            // 
+            this.panel_adminHeader.Controls.Add(this.lbl_userControl);
+            this.panel_adminHeader.Controls.Add(this.lbl_dataBackup);
+            this.panel_adminHeader.Location = new System.Drawing.Point(0, 0);
+            this.panel_adminHeader.Name = "panel_adminHeader";
+            this.panel_adminHeader.Size = new System.Drawing.Size(882, 21);
+            this.panel_adminHeader.TabIndex = 2;
+            // 
+            // lbl_dataBackup
+            // 
+            this.lbl_dataBackup.ActiveLinkColor = System.Drawing.Color.LightSeaGreen;
+            this.lbl_dataBackup.AutoSize = true;
+            this.lbl_dataBackup.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_dataBackup.LinkColor = System.Drawing.Color.SteelBlue;
+            this.lbl_dataBackup.Location = new System.Drawing.Point(3, 2);
+            this.lbl_dataBackup.Name = "lbl_dataBackup";
+            this.lbl_dataBackup.Size = new System.Drawing.Size(74, 14);
+            this.lbl_dataBackup.TabIndex = 0;
+            this.lbl_dataBackup.TabStop = true;
+            this.lbl_dataBackup.Text = "Backup Data";
+            this.lbl_dataBackup.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_dataBackup_LinkClicked);
+            // 
+            // panel_adminBody
+            // 
+            this.panel_adminBody.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel_adminBody.Location = new System.Drawing.Point(0, 21);
+            this.panel_adminBody.Name = "panel_adminBody";
+            this.panel_adminBody.Size = new System.Drawing.Size(879, 352);
+            this.panel_adminBody.TabIndex = 1;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // lbl_userControl
+            // 
+            this.lbl_userControl.ActiveLinkColor = System.Drawing.Color.LightSeaGreen;
+            this.lbl_userControl.AutoSize = true;
+            this.lbl_userControl.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_userControl.LinkColor = System.Drawing.Color.SteelBlue;
+            this.lbl_userControl.Location = new System.Drawing.Point(95, 2);
+            this.lbl_userControl.Name = "lbl_userControl";
+            this.lbl_userControl.Size = new System.Drawing.Size(75, 14);
+            this.lbl_userControl.TabIndex = 1;
+            this.lbl_userControl.TabStop = true;
+            this.lbl_userControl.Text = "User Control";
             // 
             // frm_Home
             // 
@@ -665,6 +727,9 @@
             this.tabPage_manage.PerformLayout();
             this.menuStrip_Manage.ResumeLayout(false);
             this.menuStrip_Manage.PerformLayout();
+            this.tabPage_admin.ResumeLayout(false);
+            this.panel_adminHeader.ResumeLayout(false);
+            this.panel_adminHeader.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -732,5 +797,10 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.Panel panel_adminBody;
+        private System.Windows.Forms.LinkLabel lbl_dataBackup;
+        private System.Windows.Forms.Panel panel_adminHeader;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.LinkLabel lbl_userControl;
     }
 }

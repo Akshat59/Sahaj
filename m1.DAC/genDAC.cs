@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using m1.Shared;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
+using m1.Shared.DataBackUp;
 using System.Globalization;
 using System.Collections;
 
@@ -24,7 +25,7 @@ namespace m1.DAC
 
         }
 
-        #region PublicMethod
+        #region UserMethods
         public bool dacTestDatabaseConnection()
         {
             return base.TestDatabaseConnection();
@@ -66,6 +67,104 @@ namespace m1.DAC
             return _nextID;
         }
 
+        public void dacReadTableData(object obj)
+        {
+            DataBackupEntity _obj = (DataBackupEntity)obj;
+
+            string SQLselect = string.Format(QueryConstants.ReadTableData, _obj.TableName);
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            DataTable dt1 = new DataTable();
+
+            using (dt = base.bExecuteDataReader(SQLselect))
+            {
+                if (dt.Rows.Count >= 1)
+                {
+                    dt1 = dt.Copy();
+                    ds.Tables.Add(dt1);
+                }
+            }
+
+            _obj.ResultDataSet = ds;
+        }
+
+        public void dacWriteDataSetToTable(DataBackupEntity obj_dataBkup)
+        {
+            string _idCol = string.Empty;
+            StringBuilder _colList = new StringBuilder();
+            List<string> fieldNames;
+
+            switch (obj_dataBkup.TableName)
+            {
+                case "d1_cdt_employees":
+                    fieldNames = typeof(d1_cdt_employees).GetFields().Select(field => field.Name).ToList();
+                    foreach (var field in fieldNames)
+                    {
+                        _colList.Append(field);
+                        _colList.Append(",");
+                    }
+                    _colList.Length -= 1;
+                    break;
+            }
+
+            StringBuilder sqlQuery = new StringBuilder();
+            sqlQuery.Append(string.Format("SET IDENTITY_INSERT dbo.{0}{1} ON; ", obj_dataBkup.TableName,"_bkup"));
+            sqlQuery.Append("INSERT INTO ");
+            sqlQuery.Append(obj_dataBkup.TableName);
+            sqlQuery.Append("_bkup");
+            sqlQuery.Append(string.Format("({0})", _colList.ToString()));
+            sqlQuery.Append(" VALUES\r\n(");
+
+            DataTable dt = new DataTable();
+            dt = obj_dataBkup.ResultDataSet.Tables[0];
+
+            foreach (DataRow row in dt.Rows)
+            {
+                sqlQuery.Append(row[0].ToString());
+                sqlQuery.Append(",");
+                for (int i = 1; i < dt.Columns.Count; i++)
+                {
+                    sqlQuery.Append("'");
+                    sqlQuery.Append(row[i].ToString());
+                    sqlQuery.Append("'");
+                    sqlQuery.Append(",");
+                }
+                sqlQuery.Length -= 1;
+                sqlQuery.Append("),\r\n(");                
+            }
+            string _sqlQuery = sqlQuery.ToString().Trim();
+            sqlQuery = new StringBuilder(_sqlQuery);
+            
+            sqlQuery.Length -= 4;
+            string _q = sqlQuery.ToString();
+            sqlQuery.Append("; ");
+            sqlQuery.Append(string.Format("SET IDENTITY_INSERT dbo.{0} OFF; ", obj_dataBkup.TableName));
+            _sqlQuery = sqlQuery.ToString().Trim();
+
+            this.dacTruncateTable(obj_dataBkup.TableName);
+
+            int ret = base.bExecuteNonQuery(_sqlQuery);
+             if (dt.Rows.Count == ret)
+             {
+                obj_dataBkup.ReturnInd = AppKeys.Success;
+                obj_dataBkup.ReturnMessage = "Data Restore Successfull";
+            }
+             else
+            {
+                string _log = string.Format("Query Used - {0}", _sqlQuery);
+                Exception Ex = new Exception(string.Format("Some Issues while Restoring Data; Source - genDAC.WriteDataSetToTable ; Logs-{0}",_log));
+                ExceptionManagement.logUserException(Ex);
+            }
+        }
+
+        public void dacTruncateTable(string tableName)
+        {
+            string _sqlQuery = (QueryConstants.TruncateTable) + tableName;
+            _retCnt = base.bExecuteNonQuery(_sqlQuery);
+            if (_retCnt <= 0) { }
+            else { }
+
+        }
 
         public bool dacValidateUserLogin(GenEntity GEntity)
         {
@@ -222,6 +321,9 @@ namespace m1.DAC
             }
         }
 
+        #region ManageEmployee
+
+        
         public void dacGetEmpDetails(EmployeeEntity m_emp)
         {
             string SQLselect = base.RetrieveSqlQuery(QueryConstants.RetrieveEmpDetails).ToString();
@@ -341,14 +443,7 @@ namespace m1.DAC
 
         }
 
-        public void dacTruncateTable(string tableName)
-        {
-            string _sqlQuery = (QueryConstants.TruncateTable) + tableName;
-            _retCnt = base.bExecuteNonQuery(_sqlQuery);
-            if (_retCnt <= 0) { }
-            else { }
-
-        }
+        
 
         public void dacInsertEmpDetails(EmployeeEntity emp)
         {
@@ -562,7 +657,8 @@ namespace m1.DAC
             else { edoc.RetIndicator = AppKeys.Success; }
 
         }
+        #endregion ManageEmployee
 
-        #endregion PublicMethod
+        #endregion UserMethods
     }
 }

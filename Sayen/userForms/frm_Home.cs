@@ -218,6 +218,23 @@ namespace Sayen
 
         #endregion ManageStrip
 
+        #region AdminStrip
+        private void lbl_dataBackup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ResetAdminUserControlPanel();
+            uc_admin_bkup uc_admin_bkup = new uc_admin_bkup();
+            panel_adminBody.AutoSize = true;
+            panel_adminBody.Controls.Add(uc_admin_bkup);
+        }
+
+        private void ResetAdminUserControlPanel()
+        {
+            panel_adminBody.Controls.Clear();
+        }
+        #endregion AdminStrip
+
+
+
         #endregion Strips
 
         #region UserMethods
@@ -262,8 +279,7 @@ namespace Sayen
         }
 
 
-        #endregion UserMethods
 
-      
+        #endregion UserMethods
     }
 }

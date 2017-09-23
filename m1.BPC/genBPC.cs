@@ -39,29 +39,35 @@ namespace m1.BPC
 
             #endregion
 
-            #region PrivateMethods
+            #region UserMethods
 
-            #endregion
+           
 
             public bool bpcValidateUserLogin(GenEntity GEntity)
             {
                 return GenBC.bcValidateUserLogin(GEntity);
             }
 
-            public void initializeDisplay_Welcome( )
-            {
-                
-            }
+        public void bpcReadTableData(object obj)
+        {
+            GenBC.bcReadTableData(obj);
+        }
 
-            public void setLogonInfo(GenEntity GEntity)
-            {
-                throw new NotImplementedException();
-            }
+        public void bpcWriteDataSetToTable(DataBackupEntity obj_dataBkup)
+        {
+            GenBC.bcWriteDataSetToTable(obj_dataBkup);
+        }
 
-            public bool bpcTestDatabaseConnection(GenEntity GEntity)
-            {
-                return GenBC.bcTestDatabaseConnection(GEntity);
-            }
+
+        public void setLogonInfo(GenEntity GEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool bpcTestDatabaseConnection(GenEntity GEntity)
+        {
+            return GenBC.bcTestDatabaseConnection(GEntity);
+        }
 
         public void bpcGetUserNotes(UserEntity userEntity)
         {
@@ -88,6 +94,16 @@ namespace m1.BPC
             return GenBC.bcGetNextID(tableName, columnName, columnLen, seriesInitals);
         }
 
+
+
+        public void bpcSearchEntity(SearchEntity se)
+        {
+            GenBC.bcSearchEntity(se);
+        }
+
+
+
+        #region ManageEmployee
         public void bpcInsertEmployeeDetails(EmployeeCollection eCol)
         {
             StringBuilder _sb = new StringBuilder();
@@ -108,7 +124,7 @@ namespace m1.BPC
                     eCol.FormMessages.Add(fm);
                 }
                 if (emp.RetIndicator == AppKeys.Failure) { eCol.RetIndicator = AppKeys.Failure; }
-               
+
             }
 
             eCol.Messages = _sb.ToString();
@@ -169,11 +185,6 @@ namespace m1.BPC
             eCol.Messages = _sb.ToString();
         }
 
-        public void bpcSearchEntity(SearchEntity se)
-        {
-            GenBC.bcSearchEntity(se);
-        }
-
         public void bpcInsertEmployeeDocs(DocumentCollection edocCol)
         {
             FormMessageCollection fmCol = new FormMessageCollection();
@@ -199,8 +210,8 @@ namespace m1.BPC
         }
 
         public void bpcUpdateEmployeeDocs(DocumentCollection edocCol)
-        {            
-            FormMessageCollection  fmCol= new FormMessageCollection();
+        {
+            FormMessageCollection fmCol = new FormMessageCollection();
             FormMessage fm = new FormMessage();
 
             foreach (formDocs edoc in edocCol)
@@ -211,20 +222,21 @@ namespace m1.BPC
                 { GenBC.bcInsertEmpDocs(edoc); }
                 else if (edoc.DocUpdateType == e_DocAction.D && edoc.HasChange)
                 { GenBC.bcTerminateEmpDoc(edoc); }
-                else { //Ignore
+                else
+                { //Ignore
                     /*log alert as no action taken #futureCode*/
                 }
 
                 if (edoc.RetIndicator == AppKeys.Failure)
                 {
-                    edocCol.RetIndicator = AppKeys.Failure;                    
+                    edocCol.RetIndicator = AppKeys.Failure;
                 }
             }
 
-           
+
             if (edocCol.RetIndicator == AppKeys.Failure)
             { fm.Message = UserMessages.UpdateEmpDocFailure; fmCol.Add(fm); }
-            else if(edocCol.RetIndicator == AppKeys.Failure&&edocCol.Count>0)
+            else if (edocCol.RetIndicator == AppKeys.Failure && edocCol.Count > 0)
             { fm.Message = UserMessages.UpdateEmpDocSuccess; edocCol.RetIndicator = AppKeys.Success; fmCol.Add(fm); }
 
             edocCol.FormMessages = fmCol;
@@ -251,19 +263,24 @@ namespace m1.BPC
 
 
         public void bpcGetEmpDetails(EmployeeCollection m_eCol)
-        {            
+        {
             foreach (EmployeeEntity m_emp in m_eCol)
-            {                
-                GenBC.bcGetEmpDetails(m_emp);                
-                if(m_emp.RetIndicator == AppKeys.Failure)
+            {
+                GenBC.bcGetEmpDetails(m_emp);
+                if (m_emp.RetIndicator == AppKeys.Failure)
                 { m_eCol.RetIndicator = AppKeys.Failure; m_eCol.Messages = UserMessages.RetrieveEmpFailed; }
             }
         }
 
         public DocumentCollection bpcGetEmpDocs(DocumentCollection m_dCol)
-        {            
-            return GenBC.bcGetEmpDocs(m_dCol);            
+        {
+            return GenBC.bcGetEmpDocs(m_dCol);
         }
+
+
+        #endregion ManageEmployee
+
+        #endregion
     }
 }
     

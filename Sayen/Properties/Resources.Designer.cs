@@ -119,5 +119,15 @@ namespace Sahaj.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tango_preferences_system {
+            get {
+                object obj = ResourceManager.GetObject("tango_preferences_system", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

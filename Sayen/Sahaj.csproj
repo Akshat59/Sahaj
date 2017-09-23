@@ -98,6 +98,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserControls\uc_admin_bkup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_admin_bkup.Designer.cs">
+      <DependentUpon>uc_admin_bkup.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\uc_BulkUpload.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -160,6 +166,15 @@
     <Compile Include="UserControls\uc_search.Designer.cs">
       <DependentUpon>uc_search.cs</DependentUpon>
     </Compile>
+    <Compile Include="userForms\test1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="userForms\test1.Designer.cs">
+      <DependentUpon>test1.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UserControls\uc_admin_bkup.resx">
+      <DependentUpon>uc_admin_bkup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\uc_BulkUpload.resx">
       <DependentUpon>uc_BulkUpload.cs</DependentUpon>
     </EmbeddedResource>
@@ -200,6 +215,9 @@
     <EmbeddedResource Include="UserControls\uc_search.resx">
       <DependentUpon>uc_search.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="userForms\test1.resx">
+      <DependentUpon>test1.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -239,6 +257,7 @@
   <ItemGroup>
     <Content Include="img_appIco1.ico" />
     <Content Include="img_applogo.ico" />
+    <None Include="Resources\tango_preferences_system.png" />
     <None Include="Resources\notee.png" />
     <None Include="Resources\img_matrixCode.gif" />
   </ItemGroup>

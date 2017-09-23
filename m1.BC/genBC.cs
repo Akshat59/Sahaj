@@ -42,47 +42,13 @@ namespace m1.BC
             return GenDAC.dacGetNextID(tableName, sqlColumn, totallength, seriesInitials);
         }
 
-        public void bcInsertEmpDetails(EmployeeEntity emp)
-        {
-            GenDAC.dacInsertEmpDetails(emp);
-        }
+        public void bcInsertEmpDetails(EmployeeEntity emp){GenDAC.dacInsertEmpDetails(emp);}
 
-        public void bcUpdateEmpDetails(EmployeeEntity emp)
-        {
-            GenDAC.dacUpdateEmpDetails(emp);
-        }
+        public void bcReadTableData(object obj)
+        { GenDAC.dacReadTableData(obj);}
 
-        public void bcTerminateEmp(EmployeeEntity emp)
-        {
-            GenDAC.dacTerminateEmp(emp);
-        }
-
-        public void bcInsertEmpDocs(formDocs edoc)
-        {
-            GenDAC.dacInsertDocs(edoc);
-        }
-
-        public void bcUpdateEmpDocs(formDocs edoc)
-        {
-            GenDAC.dacUpdateEmpDocs(edoc);
-        }
-
-
-
-        public void bcTerminateEmpDoc(formDocs edoc)
-        {
-            GenDAC.dacTerminateEmpDoc(edoc);
-        }
-
-        public void bcGetEmpDetails(EmployeeEntity m_emp)
-        {
-            GenDAC.dacGetEmpDetails(m_emp);
-        }
-        public DocumentCollection bcGetEmpDocs(DocumentCollection m_dcol)
-        {
-           return GenDAC.dacGetEmpDocs(m_dcol);
-        }
-
+        public void bcWriteDataSetToTable(DataBackupEntity obj_dataBkup)
+        {GenDAC.dacWriteDataSetToTable(obj_dataBkup);}
 
         public void bcSearchEntity(SearchEntity se)
         {
@@ -107,5 +73,42 @@ namespace m1.BC
         {
             GenDAC.dacDeleteUserNotes(userEntity);
         }
+        
+        #region ManageEmployee
+        public void bcUpdateEmpDetails(EmployeeEntity emp)
+        {
+            GenDAC.dacUpdateEmpDetails(emp);
+        }
+
+        public void bcTerminateEmp(EmployeeEntity emp)
+        {
+            GenDAC.dacTerminateEmp(emp);
+        }
+
+        public void bcInsertEmpDocs(formDocs edoc)
+        {
+            GenDAC.dacInsertDocs(edoc);
+        }
+
+        public void bcUpdateEmpDocs(formDocs edoc)
+        {
+            GenDAC.dacUpdateEmpDocs(edoc);
+        }
+
+        public void bcTerminateEmpDoc(formDocs edoc)
+        {
+            GenDAC.dacTerminateEmpDoc(edoc);
+        }
+
+        public void bcGetEmpDetails(EmployeeEntity m_emp)
+        {
+            GenDAC.dacGetEmpDetails(m_emp);
+        }
+        public DocumentCollection bcGetEmpDocs(DocumentCollection m_dcol)
+        {
+            return GenDAC.dacGetEmpDocs(m_dcol);
+        }
+        #endregion
+        
     }
 }

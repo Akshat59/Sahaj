@@ -30,6 +30,7 @@ namespace Sayen.UserControls
         bool _isPostback = false;
         AppConstants.e_frmOperationType _operationType;
         EmployeeEntity emp = new EmployeeEntity();
+        
         static DocumentCollection docCol = null;
         string _empID = string.Empty;
         //EmployeeDocs edoc = new EmployeeDocs();
