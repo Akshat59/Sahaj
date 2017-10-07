@@ -101,6 +101,7 @@ namespace m1.BPC
             GenBC.bcSearchEntity(se);
         }
 
+        public void bpcRetrieveErrorLogs(SearchEntity se) { GenBC.bcRetrieveErrorLogs(se); }
 
 
         #region ManageEmployee

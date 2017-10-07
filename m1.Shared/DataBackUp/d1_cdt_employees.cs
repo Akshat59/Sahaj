@@ -51,4 +51,22 @@ namespace m1.Shared.DataBackUp
         public string update_date = string.Empty;
 
     }
+
+    public class d1_cdt_empdocs
+    {
+        public int    empdoc_id = 0;
+        public string emp_id = string.Empty;
+        public string doctype = string.Empty;
+        public string doctype_id = string.Empty;
+        public string doc_name = string.Empty;
+        public string doc_extn = string.Empty;
+        public string doc_img = string.Empty;
+        public string active_ind = string.Empty;
+        public string create_id = string.Empty;
+        public string create_date = string.Empty;
+        public string update_id = string.Empty;
+        public string update_date = string.Empty;
+
+
+    }
 }

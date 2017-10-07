@@ -83,35 +83,65 @@ namespace m1.DAC
                     dt1 = dt.Copy();
                     ds.Tables.Add(dt1);
                 }
+                else
+                {
+                    string _logDetail = string.Format("Query Used - {0}\r\nRows Retrieved: {1}", SQLselect, dt.Rows.Count);
+
+                    ErrorLogEntity elog = new ErrorLogEntity
+                    {
+                        U_error_message = "Some Issues while Backing Data",
+                        U_error_source = "genDAC.dacReadTableData",
+                        U_error_detail = _logDetail,
+                        U_IfLogtoDatabase = true,
+                        U_IfLogtoEventLogs = true,
+                        U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                        U_error_type = ErrorLogEntity.errorType.Error,
+                        U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,                        
+                    };
+
+                    ExceptionManagement.logUserException(elog);
+                }
             }
 
             _obj.ResultDataSet = ds;
         }
 
+        public void dacRetrieveErrorLogs(SearchEntity se)
+        {
+            string SQLselect = base.RetrieveSqlQuery(QueryConstants.RetrieveErrorLogs).ToString();
+            DataTable dt = new DataTable();
+
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@refDate", SqlDbType = SqlDbType.DateTime, Value= Convert.ToDateTime(se.SearchField1)},
+            };
+
+            using (dt = base.bExecuteDataReader(SQLselect, sp))
+            {
+                if (dt.Rows.Count < 1)
+                {
+                    se.RetCount = 0;
+                }
+                else
+                {
+                    se.RetCount = dt.Rows.Count;
+                    se._retDT = dt;
+                }
+            }
+        }
+
         public void dacWriteDataSetToTable(DataBackupEntity obj_dataBkup)
         {
-            string _idCol = string.Empty;
-            StringBuilder _colList = new StringBuilder();
-            List<string> fieldNames;
+            string _tableName = string.Format("{0}{1}", obj_dataBkup.TableName, "_bkup"); 
 
-            switch (obj_dataBkup.TableName)
-            {
-                case "d1_cdt_employees":
-                    fieldNames = typeof(d1_cdt_employees).GetFields().Select(field => field.Name).ToList();
-                    foreach (var field in fieldNames)
-                    {
-                        _colList.Append(field);
-                        _colList.Append(",");
-                    }
-                    _colList.Length -= 1;
-                    break;
-            }
+            StringBuilder _colList = new StringBuilder();
+            _colList = Utilities.RetrieveColumnList(obj_dataBkup.TableName);           
 
             StringBuilder sqlQuery = new StringBuilder();
-            sqlQuery.Append(string.Format("SET IDENTITY_INSERT dbo.{0}{1} ON; ", obj_dataBkup.TableName,"_bkup"));
+            sqlQuery.Append(string.Format("SET IDENTITY_INSERT dbo.{0} ON; ", _tableName));
             sqlQuery.Append("INSERT INTO ");
-            sqlQuery.Append(obj_dataBkup.TableName);
-            sqlQuery.Append("_bkup");
+            sqlQuery.Append(_tableName);
+            //sqlQuery.Append("_bkup");
             sqlQuery.Append(string.Format("({0})", _colList.ToString()));
             sqlQuery.Append(" VALUES\r\n(");
 
@@ -138,22 +168,33 @@ namespace m1.DAC
             sqlQuery.Length -= 4;
             string _q = sqlQuery.ToString();
             sqlQuery.Append("; ");
-            sqlQuery.Append(string.Format("SET IDENTITY_INSERT dbo.{0} OFF; ", obj_dataBkup.TableName));
+            sqlQuery.Append(string.Format("SET IDENTITY_INSERT dbo.{0} OFF; ", _tableName));
             _sqlQuery = sqlQuery.ToString().Trim();
 
-            this.dacTruncateTable(obj_dataBkup.TableName);
+            this.dacTruncateTable(_tableName);
 
             int ret = base.bExecuteNonQuery(_sqlQuery);
-             if (dt.Rows.Count == ret)
-             {
+            if (dt.Rows.Count == ret)
+            {
                 obj_dataBkup.ReturnInd = AppKeys.Success;
                 obj_dataBkup.ReturnMessage = "Data Restore Successfull";
             }
-             else
+            else
             {
-                string _log = string.Format("Query Used - {0}", _sqlQuery);
-                Exception Ex = new Exception(string.Format("Some Issues while Restoring Data; Source - genDAC.WriteDataSetToTable ; Logs-{0}",_log));
-                ExceptionManagement.logUserException(Ex);
+                string _logDetail = string.Format("Query Used - {0}", _sqlQuery);
+                
+                ErrorLogEntity elog = new ErrorLogEntity
+                {
+                    U_error_message = "Some Issues while Restoring Data",
+                    U_error_source = "genDAC.dacWriteDataSetToTable",
+                    U_error_detail = _logDetail,
+                    U_IfLogtoDatabase = true,
+                    U_IfLogtoEventLogs = true,
+                    U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                    U_error_type = ErrorLogEntity.errorType.Error,
+                    U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,
+                };
+                ExceptionManagement.logUserException(elog);
             }
         }
 
@@ -302,20 +343,21 @@ namespace m1.DAC
 
             List<SqlParameter> sp = new List<SqlParameter>()
             {
-                new SqlParameter() {ParameterName = "@searchtype", SqlDbType = SqlDbType.NVarChar, Value= se.SearchType.ToString()},
+               
                 new SqlParameter() {ParameterName = "@entId", SqlDbType = SqlDbType.NVarChar, Value= se.EntID},
                 new SqlParameter() {ParameterName = "@name", SqlDbType = SqlDbType.NVarChar, Value= se.Name},
+                new SqlParameter() {ParameterName = "@searchtype", SqlDbType = SqlDbType.NVarChar, Value= se.SearchType.ToString()},
             };
 
-            using (dt = base.ExecuteDataAdapter_SP(SQLselect, sp))
+            using (dt = base.ExecuteDataAdapter(SQLselect, sp,CommandType.StoredProcedure))
             {
                 if (dt.Rows.Count < 1)
                 {
-                    se.RetCount = "0";
+                    se.RetCount = 0;
                 }
                 else
                 {
-                    se.RetCount = dt.Rows.Count.ToString();
+                    se.RetCount = dt.Rows.Count;
                     se._retDT = dt;
                 }
             }

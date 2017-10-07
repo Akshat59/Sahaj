@@ -84,7 +84,18 @@ namespace Sayen
             }
             catch (Exception Ex)
             {
-                ExceptionManagement.logAppException(Ex);
+                ErrorLogEntity elog = new ErrorLogEntity();
+                elog.HelpLink = Ex.HelpLink;
+                //elog.InnerException = Ex.InnerException.ToString();
+                elog.U_error_message = Ex.Message;
+                elog.U_error_source = Ex.Source;
+                elog.U_stacktrace = Ex.StackTrace;
+                elog.TargetSite = Ex.TargetSite;
+                elog.U_IfLogtoDatabase = true;
+                elog.U_IfLogtoEventLogs = true;
+                elog.U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp;
+                elog.U_error_loggedby = ErrorLogEntity.errorLoggedBy.System;
+                ExceptionManagement.logAppException(elog);
                 setLables(AppConstants.CallStatusError, UserMessages.AppException);
             }            
         }
@@ -139,7 +150,7 @@ namespace Sayen
                             {
 
                                 this.Hide();
-                                var objFrmHome = new frm_Home();
+                                frm_Home objFrmHome = new frm_Home();
                                 objFrmHome.Show();
                                 objFrmHome.Closed += (s, args) => this.Close();
                                 objFrmHome.Show();
@@ -159,7 +170,18 @@ namespace Sayen
             }
             catch (Exception Ex)
             {
-                ExceptionManagement.logAppException(Ex);
+                ErrorLogEntity elog = new ErrorLogEntity();
+                elog.HelpLink = Ex.HelpLink;
+                //elog.InnerException = Ex.InnerException.ToString();
+                elog.U_error_message = Ex.Message;
+                elog.U_error_source = Ex.Source;
+                elog.U_stacktrace = Ex.StackTrace;
+                elog.TargetSite = Ex.TargetSite;
+                elog.U_IfLogtoDatabase = true;
+                elog.U_IfLogtoEventLogs = true;
+                elog.U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp;
+                elog.U_error_loggedby = ErrorLogEntity.errorLoggedBy.System;
+                ExceptionManagement.logAppException(elog);
                 setLables(AppConstants.CallStatusError, UserMessages.AppException);
             }
         }
@@ -188,14 +210,6 @@ namespace Sayen
 
         }
 
-        public void thread1(object data)
-        {
-            
-            //frm_login frmlgn = new frm_login();
-            lbl_loginMsg.Visible = true;
-            lbl_loginMsg.Text = "";
-        }
-        
         #endregion
        
     }

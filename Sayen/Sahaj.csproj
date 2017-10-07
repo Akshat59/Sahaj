@@ -98,6 +98,11 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="d1_devDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>d1_devDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\uc_admin_bkup.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +120,24 @@
     </Compile>
     <Compile Include="UserControls\uc_BulkUpload_z.Designer.cs">
       <DependentUpon>uc_BulkUpload_z.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\uc_AppSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_AppSettings.Designer.cs">
+      <DependentUpon>uc_AppSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\uc_ErrorLogs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_ErrorLogs.Designer.cs">
+      <DependentUpon>uc_ErrorLogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\uc_UnderConstruction.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_UnderConstruction.Designer.cs">
+      <DependentUpon>uc_UnderConstruction.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\uc_welcome.cs">
       <SubType>UserControl</SubType>
@@ -181,6 +204,15 @@
     <EmbeddedResource Include="UserControls\uc_BulkUpload_z.resx">
       <DependentUpon>uc_BulkUpload_z.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\uc_AppSettings.resx">
+      <DependentUpon>uc_AppSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\uc_ErrorLogs.resx">
+      <DependentUpon>uc_ErrorLogs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\uc_UnderConstruction.resx">
+      <DependentUpon>uc_UnderConstruction.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\uc_ViewEntity.resx">
       <DependentUpon>uc_ViewEntity.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,7 +253,19 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="d1_devDataSet.xsc">
+      <DependentUpon>d1_devDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="d1_devDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>d1_devDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="d1_devDataSet.xss">
+      <DependentUpon>d1_devDataSet.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\m1.Shared.AppConstants+e_AppEnvironment.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -257,6 +301,10 @@
   <ItemGroup>
     <Content Include="img_appIco1.ico" />
     <Content Include="img_applogo.ico" />
+    <None Include="Resources\img_settingsIcon.png" />
+    <None Include="Resources\undercstr2.jpg" />
+    <None Include="Resources\underconstruction-main1.gif" />
+    <None Include="Resources\underconstruction-main.gif" />
     <None Include="Resources\tango_preferences_system.png" />
     <None Include="Resources\notee.png" />
     <None Include="Resources\img_matrixCode.gif" />

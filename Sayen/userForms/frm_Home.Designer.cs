@@ -58,12 +58,12 @@
             this.menuStrip_Manage = new System.Windows.Forms.MenuStrip();
             this.tsmi2_daily = new System.Windows.Forms.ToolStripMenuItem();
             this.allocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tripToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.itenararyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.balanceSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.financeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.attendanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accidentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.appointmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi2_vehicle = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_service = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,7 +81,7 @@
             this.tsmi2_routes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi2_route_addnew = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi2_route_modify = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmi2_finance = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi2_branch = new System.Windows.Forms.ToolStripMenuItem();
             this.nagrotaHQToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kangraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kulluToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,11 +90,16 @@
             this.tsmi2_bulkUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage_booking = new System.Windows.Forms.TabPage();
             this.tabPage_admin = new System.Windows.Forms.TabPage();
+            this.pb_settingsAdmin = new System.Windows.Forms.PictureBox();
             this.panel_adminHeader = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel_admin = new System.Windows.Forms.TableLayoutPanel();
+            this.lbl_ErrorLogs = new System.Windows.Forms.LinkLabel();
             this.lbl_dataBackup = new System.Windows.Forms.LinkLabel();
+            this.lbl_userControl = new System.Windows.Forms.LinkLabel();
             this.panel_adminBody = new System.Windows.Forms.Panel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.lbl_userControl = new System.Windows.Forms.LinkLabel();
+            this.lbl_needAdminKey = new System.Windows.Forms.Label();
+            this.txt_adminKey = new System.Windows.Forms.TextBox();
             this.menuStrip_Home.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -103,7 +108,9 @@
             this.tabPage_manage.SuspendLayout();
             this.menuStrip_Manage.SuspendLayout();
             this.tabPage_admin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_settingsAdmin)).BeginInit();
             this.panel_adminHeader.SuspendLayout();
+            this.tableLayoutPanel_admin.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_titleHome
@@ -370,7 +377,9 @@
             // 
             this.tabPage_manage.AutoScroll = true;
             this.tabPage_manage.AutoScrollMargin = new System.Drawing.Size(1, 1);
-            this.tabPage_manage.BackColor = System.Drawing.Color.SpringGreen;
+            this.tabPage_manage.BackColor = System.Drawing.Color.White;
+            this.tabPage_manage.BackgroundImage = global::Sahaj.Properties.Resources.undercstr2;
+            this.tabPage_manage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tabPage_manage.Controls.Add(this.menuStrip_Manage);
             this.tabPage_manage.Location = new System.Drawing.Point(4, 22);
             this.tabPage_manage.Name = "tabPage_manage";
@@ -387,7 +396,7 @@
             this.tsmi2_vehicle,
             this.tsmi2_employee,
             this.tsmi2_routes,
-            this.tsmi2_finance,
+            this.tsmi2_branch,
             this.tsmi2_petrolPump,
             this.tsmi2_bulkUpload});
             this.menuStrip_Manage.Location = new System.Drawing.Point(0, 0);
@@ -400,11 +409,12 @@
             // 
             this.tsmi2_daily.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.allocationToolStripMenuItem,
-            this.addToolStripMenuItem,
+            this.itenararyToolStripMenuItem,
             this.balanceSheetToolStripMenuItem,
             this.financeToolStripMenuItem1,
             this.attendanceToolStripMenuItem,
-            this.accidentToolStripMenuItem});
+            this.accidentToolStripMenuItem,
+            this.appointmentsToolStripMenuItem});
             this.tsmi2_daily.Name = "tsmi2_daily";
             this.tsmi2_daily.Size = new System.Drawing.Size(45, 20);
             this.tsmi2_daily.Text = "Daily";
@@ -412,46 +422,44 @@
             // allocationToolStripMenuItem
             // 
             this.allocationToolStripMenuItem.Name = "allocationToolStripMenuItem";
-            this.allocationToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.allocationToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.allocationToolStripMenuItem.Text = "Allocation";
             // 
-            // addToolStripMenuItem
+            // itenararyToolStripMenuItem
             // 
-            this.addToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tripToolStripMenuItem});
-            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.addToolStripMenuItem.Text = "Add/Modify";
-            // 
-            // tripToolStripMenuItem
-            // 
-            this.tripToolStripMenuItem.Name = "tripToolStripMenuItem";
-            this.tripToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.tripToolStripMenuItem.Text = "Bus Trip";
+            this.itenararyToolStripMenuItem.Name = "itenararyToolStripMenuItem";
+            this.itenararyToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.itenararyToolStripMenuItem.Text = "Bus Trip";
             // 
             // balanceSheetToolStripMenuItem
             // 
             this.balanceSheetToolStripMenuItem.Name = "balanceSheetToolStripMenuItem";
-            this.balanceSheetToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.balanceSheetToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.balanceSheetToolStripMenuItem.Text = "Balance Sheet";
             // 
             // financeToolStripMenuItem1
             // 
             this.financeToolStripMenuItem1.Name = "financeToolStripMenuItem1";
-            this.financeToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.financeToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
             this.financeToolStripMenuItem1.Text = "Finance";
             // 
             // attendanceToolStripMenuItem
             // 
             this.attendanceToolStripMenuItem.Name = "attendanceToolStripMenuItem";
-            this.attendanceToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.attendanceToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.attendanceToolStripMenuItem.Text = "Attendance";
             // 
             // accidentToolStripMenuItem
             // 
             this.accidentToolStripMenuItem.Name = "accidentToolStripMenuItem";
-            this.accidentToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.accidentToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.accidentToolStripMenuItem.Text = "Accident";
+            // 
+            // appointmentsToolStripMenuItem
+            // 
+            this.appointmentsToolStripMenuItem.Name = "appointmentsToolStripMenuItem";
+            this.appointmentsToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.appointmentsToolStripMenuItem.Text = "Appointments";
             // 
             // tsmi2_vehicle
             // 
@@ -575,16 +583,16 @@
             this.tsmi2_route_modify.Size = new System.Drawing.Size(123, 22);
             this.tsmi2_route_modify.Text = "Modify";
             // 
-            // tsmi2_finance
+            // tsmi2_branch
             // 
-            this.tsmi2_finance.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi2_branch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nagrotaHQToolStripMenuItem,
             this.kangraToolStripMenuItem,
             this.kulluToolStripMenuItem,
             this.shimlaToolStripMenuItem});
-            this.tsmi2_finance.Name = "tsmi2_finance";
-            this.tsmi2_finance.Size = new System.Drawing.Size(56, 20);
-            this.tsmi2_finance.Text = "Branch";
+            this.tsmi2_branch.Name = "tsmi2_branch";
+            this.tsmi2_branch.Size = new System.Drawing.Size(56, 20);
+            this.tsmi2_branch.Text = "Branch";
             // 
             // nagrotaHQToolStripMenuItem
             // 
@@ -636,6 +644,7 @@
             this.tabPage_admin.AutoScroll = true;
             this.tabPage_admin.BackColor = System.Drawing.Color.AliceBlue;
             this.tabPage_admin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage_admin.Controls.Add(this.pb_settingsAdmin);
             this.tabPage_admin.Controls.Add(this.panel_adminHeader);
             this.tabPage_admin.Controls.Add(this.panel_adminBody);
             this.tabPage_admin.Location = new System.Drawing.Point(4, 22);
@@ -644,22 +653,72 @@
             this.tabPage_admin.TabIndex = 4;
             this.tabPage_admin.Text = "Admin";
             // 
+            // pb_settingsAdmin
+            // 
+            this.pb_settingsAdmin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pb_settingsAdmin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pb_settingsAdmin.Image = global::Sahaj.Properties.Resources.img_settingsIcon;
+            this.pb_settingsAdmin.Location = new System.Drawing.Point(865, 3);
+            this.pb_settingsAdmin.Name = "pb_settingsAdmin";
+            this.pb_settingsAdmin.Size = new System.Drawing.Size(17, 15);
+            this.pb_settingsAdmin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_settingsAdmin.TabIndex = 0;
+            this.pb_settingsAdmin.TabStop = false;
+            this.pb_settingsAdmin.Click += new System.EventHandler(this.pb_settingsAdmin_Click);
+            // 
             // panel_adminHeader
             // 
-            this.panel_adminHeader.Controls.Add(this.lbl_userControl);
-            this.panel_adminHeader.Controls.Add(this.lbl_dataBackup);
+            this.panel_adminHeader.Controls.Add(this.tableLayoutPanel_admin);
             this.panel_adminHeader.Location = new System.Drawing.Point(0, 0);
             this.panel_adminHeader.Name = "panel_adminHeader";
-            this.panel_adminHeader.Size = new System.Drawing.Size(882, 21);
+            this.panel_adminHeader.Size = new System.Drawing.Size(862, 21);
             this.panel_adminHeader.TabIndex = 2;
+            // 
+            // tableLayoutPanel_admin
+            // 
+            this.tableLayoutPanel_admin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tableLayoutPanel_admin.ColumnCount = 6;
+            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 326F));
+            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177F));
+            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
+            this.tableLayoutPanel_admin.Controls.Add(this.lbl_needAdminKey, 4, 0);
+            this.tableLayoutPanel_admin.Controls.Add(this.txt_adminKey, 3, 0);
+            this.tableLayoutPanel_admin.Controls.Add(this.lbl_ErrorLogs, 2, 0);
+            this.tableLayoutPanel_admin.Controls.Add(this.lbl_dataBackup, 0, 0);
+            this.tableLayoutPanel_admin.Controls.Add(this.lbl_userControl, 1, 0);
+            this.tableLayoutPanel_admin.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel_admin.Name = "tableLayoutPanel_admin";
+            this.tableLayoutPanel_admin.RowCount = 1;
+            this.tableLayoutPanel_admin.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel_admin.Size = new System.Drawing.Size(834, 21);
+            this.tableLayoutPanel_admin.TabIndex = 3;
+            // 
+            // lbl_ErrorLogs
+            // 
+            this.lbl_ErrorLogs.ActiveLinkColor = System.Drawing.Color.LightSeaGreen;
+            this.lbl_ErrorLogs.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_ErrorLogs.AutoSize = true;
+            this.lbl_ErrorLogs.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ErrorLogs.LinkColor = System.Drawing.Color.SteelBlue;
+            this.lbl_ErrorLogs.Location = new System.Drawing.Point(209, 3);
+            this.lbl_ErrorLogs.Name = "lbl_ErrorLogs";
+            this.lbl_ErrorLogs.Size = new System.Drawing.Size(61, 14);
+            this.lbl_ErrorLogs.TabIndex = 2;
+            this.lbl_ErrorLogs.TabStop = true;
+            this.lbl_ErrorLogs.Text = "Error Logs";
+            this.lbl_ErrorLogs.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_ErrorLogs_LinkClicked);
             // 
             // lbl_dataBackup
             // 
             this.lbl_dataBackup.ActiveLinkColor = System.Drawing.Color.LightSeaGreen;
+            this.lbl_dataBackup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_dataBackup.AutoSize = true;
             this.lbl_dataBackup.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_dataBackup.LinkColor = System.Drawing.Color.SteelBlue;
-            this.lbl_dataBackup.Location = new System.Drawing.Point(3, 2);
+            this.lbl_dataBackup.Location = new System.Drawing.Point(8, 3);
             this.lbl_dataBackup.Name = "lbl_dataBackup";
             this.lbl_dataBackup.Size = new System.Drawing.Size(74, 14);
             this.lbl_dataBackup.TabIndex = 0;
@@ -667,13 +726,30 @@
             this.lbl_dataBackup.Text = "Backup Data";
             this.lbl_dataBackup.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_dataBackup_LinkClicked);
             // 
+            // lbl_userControl
+            // 
+            this.lbl_userControl.ActiveLinkColor = System.Drawing.Color.LightSeaGreen;
+            this.lbl_userControl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_userControl.AutoSize = true;
+            this.lbl_userControl.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_userControl.LinkColor = System.Drawing.Color.SteelBlue;
+            this.lbl_userControl.Location = new System.Drawing.Point(102, 3);
+            this.lbl_userControl.Name = "lbl_userControl";
+            this.lbl_userControl.Size = new System.Drawing.Size(75, 14);
+            this.lbl_userControl.TabIndex = 1;
+            this.lbl_userControl.TabStop = true;
+            this.lbl_userControl.Text = "User Control";
+            this.lbl_userControl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_userControl_LinkClicked);
+            // 
             // panel_adminBody
             // 
+            this.panel_adminBody.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel_adminBody.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel_adminBody.Location = new System.Drawing.Point(0, 21);
             this.panel_adminBody.Name = "panel_adminBody";
             this.panel_adminBody.Size = new System.Drawing.Size(879, 352);
             this.panel_adminBody.TabIndex = 1;
+            this.panel_adminBody.Visible = false;
             // 
             // imageList1
             // 
@@ -681,18 +757,32 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // lbl_userControl
+            // lbl_needAdminKey
             // 
-            this.lbl_userControl.ActiveLinkColor = System.Drawing.Color.LightSeaGreen;
-            this.lbl_userControl.AutoSize = true;
-            this.lbl_userControl.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_userControl.LinkColor = System.Drawing.Color.SteelBlue;
-            this.lbl_userControl.Location = new System.Drawing.Point(95, 2);
-            this.lbl_userControl.Name = "lbl_userControl";
-            this.lbl_userControl.Size = new System.Drawing.Size(75, 14);
-            this.lbl_userControl.TabIndex = 1;
-            this.lbl_userControl.TabStop = true;
-            this.lbl_userControl.Text = "User Control";
+            this.lbl_needAdminKey.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lbl_needAdminKey.AutoSize = true;
+            this.lbl_needAdminKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_needAdminKey.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lbl_needAdminKey.Location = new System.Drawing.Point(626, 2);
+            this.lbl_needAdminKey.Name = "lbl_needAdminKey";
+            this.lbl_needAdminKey.Size = new System.Drawing.Size(164, 16);
+            this.lbl_needAdminKey.TabIndex = 3;
+            this.lbl_needAdminKey.Text = "You need admin pass key";
+            // 
+            // txt_adminKey
+            // 
+            this.txt_adminKey.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.txt_adminKey.BackColor = System.Drawing.Color.AliceBlue;
+            this.txt_adminKey.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_adminKey.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.txt_adminKey.Location = new System.Drawing.Point(484, 4);
+            this.txt_adminKey.Name = "txt_adminKey";
+            this.txt_adminKey.PasswordChar = ' ';
+            this.txt_adminKey.ShortcutsEnabled = false;
+            this.txt_adminKey.Size = new System.Drawing.Size(129, 13);
+            this.txt_adminKey.TabIndex = 6;
+            this.txt_adminKey.Text = " ";
+            this.txt_adminKey.TextChanged += new System.EventHandler(this.txt_adminKey_TextChanged);
             // 
             // frm_Home
             // 
@@ -728,8 +818,10 @@
             this.menuStrip_Manage.ResumeLayout(false);
             this.menuStrip_Manage.PerformLayout();
             this.tabPage_admin.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pb_settingsAdmin)).EndInit();
             this.panel_adminHeader.ResumeLayout(false);
-            this.panel_adminHeader.PerformLayout();
+            this.tableLayoutPanel_admin.ResumeLayout(false);
+            this.tableLayoutPanel_admin.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -758,8 +850,6 @@
         private System.Windows.Forms.MenuStrip menuStrip_Manage;
         private System.Windows.Forms.ToolStripMenuItem tsmi2_daily;
         private System.Windows.Forms.ToolStripMenuItem allocationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tripToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem balanceSheetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem financeToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem attendanceToolStripMenuItem;
@@ -781,7 +871,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmi2_routes;
         private System.Windows.Forms.ToolStripMenuItem tsmi2_route_addnew;
         private System.Windows.Forms.ToolStripMenuItem tsmi2_route_modify;
-        private System.Windows.Forms.ToolStripMenuItem tsmi2_finance;
+        private System.Windows.Forms.ToolStripMenuItem tsmi2_branch;
         private System.Windows.Forms.ToolStripMenuItem nagrotaHQToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kangraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kulluToolStripMenuItem;
@@ -802,5 +892,12 @@
         private System.Windows.Forms.Panel panel_adminHeader;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.LinkLabel lbl_userControl;
+        private System.Windows.Forms.ToolStripMenuItem itenararyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem appointmentsToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel lbl_ErrorLogs;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_admin;
+        private System.Windows.Forms.PictureBox pb_settingsAdmin;
+        private System.Windows.Forms.Label lbl_needAdminKey;
+        private System.Windows.Forms.TextBox txt_adminKey;
     }
 }

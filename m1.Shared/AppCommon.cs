@@ -14,6 +14,9 @@ using System.Windows.Forms;
 using static m1.Shared.AppConstants;
 using FileHelpers;
 using System.Data;
+using m1.Shared.DataBackUp;
+using System.Collections;
+using m1.Shared.Configs;
 
 namespace m1.Shared
 {
@@ -122,7 +125,52 @@ namespace m1.Shared
 
         }
 
+        public static StringBuilder RetrieveColumnList(string TableName)
+        {
+            StringBuilder _colList = new StringBuilder();
+            List<string> fieldNames;
+            switch (TableName)
+            {
+                case "d1_cdt_employees":
+                    fieldNames = typeof(d1_cdt_employees).GetFields().Select(field => field.Name).ToList();
+                    foreach (var field in fieldNames)
+                    {
+                        _colList.Append(field);
+                        _colList.Append(",");
+                    }
+                    _colList.Length -= 1;
+                    break;
+                case "d1_cdt_empdocs":
+                    fieldNames = typeof(d1_cdt_empdocs).GetFields().Select(field => field.Name).ToList();
+                    foreach (var field in fieldNames)
+                    {
+                        _colList.Append(field);
+                        _colList.Append(",");
+                    }
+                    _colList.Length -= 1;
+                    break;
 
+                default:
+                    ErrorLogEntity elog = new ErrorLogEntity
+                    {
+                        U_error_message = "Operation Not Designed; TableName Class is UnExpected Try adding it to  m1.Shared.DataBackUp",
+                        U_error_source = "Utilities.RetrieveColumnList",
+                        U_IfLogtoDatabase = true,
+                        U_IfLogtoEventLogs = true,
+                        U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                        U_error_type = ErrorLogEntity.errorType.Error,
+                        U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,
+                    };
+                    ExceptionManagement.logUserException(elog);
+                    break;
+            }
+
+            return _colList;
+
+
+        }
+
+        
 
         public static void EnableDisableControls(Control.ControlCollection controls, bool status)
         {
@@ -358,6 +406,27 @@ namespace m1.Shared
                 }
             }
         }
+
+        public static void CreateAppFolders()
+        {
+            ArrayList requiredPaths = new ArrayList();
+
+            //Backup path
+            string _systemDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString();
+            string bkup_path = ConfigSettings.GetAppSetting("BackupPath");
+            bkup_path = string.Format("{0}{1}", _systemDocuments, bkup_path.Substring(0, bkup_path.LastIndexOf("\\")));
+            requiredPaths.Add(bkup_path);
+
+            //Create app folderpath if not created
+            foreach (string item in requiredPaths)
+            {
+                if (!System.IO.Directory.Exists(item))
+                {
+                    System.IO.Directory.CreateDirectory(item);
+                }
+            }
+        }
+
         #endregion GeneralFunctions
 
         #region GetAlertTextBox
@@ -614,8 +683,17 @@ namespace m1.Shared
             }
             else
             {
-                Exception Ex = new Exception("Operation Not allowed; option for Context Menu Strip is UnExpected; Source: " + "Utilities.ContextMenuStrip_pb");
-                ExceptionManagement.logUserException(Ex);
+               ErrorLogEntity elog = new ErrorLogEntity
+                {
+                    U_error_message = "Operation Not allowed; option for Context Menu Strip is UnExpected",
+                    U_error_source = "Utilities.ContextMenuStrip_pb",                    
+                    U_IfLogtoDatabase = true,
+                    U_IfLogtoEventLogs = true,
+                    U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                    U_error_type = ErrorLogEntity.errorType.Error,
+                    U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,
+                };
+                ExceptionManagement.logUserException(elog);
             }
         }
 

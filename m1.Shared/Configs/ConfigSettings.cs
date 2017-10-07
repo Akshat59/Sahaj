@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 using System.Collections.Specialized;
+using m1.Shared.Entities;
 
 namespace m1.Shared.Configs
 {
@@ -20,7 +21,66 @@ namespace m1.Shared.Configs
         #region GetQueries
         public static string GetAppSetting(string key)
         {
-            return (ConfigurationManager.AppSettings[key]);
+            try
+            {
+                return (ConfigurationManager.AppSettings[key]);
+            }
+            catch(Exception Ex)
+            {
+                SetException(Ex);
+                return "Error - Invalid Key/Value found";
+            }
+        }
+
+        public static string GetAppSettingValue(string key)
+        {
+            try
+            {
+                return (ConfigurationManager.AppSettings[key]);
+            }
+            catch (Exception Ex)
+            {
+                SetException(Ex);
+                return "Error - Invalid Key/Value found";
+            }
+        }
+
+        private static void SetException(Exception Ex)
+        {
+            ErrorLogEntity elog = new ErrorLogEntity
+            {
+                U_error_message = "Invalid Key/Value used for app config",
+                U_error_detail = string.Format("{0}::{1)}", Ex.Message,Ex.Source),
+                U_stacktrace = Ex.StackTrace,
+                U_error_source = "ConfigSettings",
+                U_IfLogtoDatabase = true,
+                U_IfLogtoEventLogs = true,
+                U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                U_error_type = ErrorLogEntity.errorType.Error,
+                U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,
+            };
+            ExceptionManagement.logUserException(elog);
+        }
+
+        public static void SetAppSetting(string key, string value)
+        {
+            try
+            {
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                config.AppSettings.Settings[key].Value = value;
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+            catch (Exception Ex)
+            {
+                SetException(Ex);               
+            }
+        }
+
+        public static List<string> GetAllProperties()
+        {
+            return ConfigurationManager.AppSettings.AllKeys.ToList();
         }
 
         #endregion

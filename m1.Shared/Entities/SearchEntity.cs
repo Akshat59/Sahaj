@@ -22,7 +22,7 @@ namespace m1.Shared.Entities
         private string _searchField3 = string.Empty;
         private string _searchField4 = string.Empty;
         private string _searchField5 = string.Empty;
-        private string _retCount = string.Empty;
+        private int _retCount = 0;
         public DataTable _retDT = new DataTable();
         private e_ViewEntityType _searchType;
 
@@ -131,7 +131,7 @@ namespace m1.Shared.Entities
             }
         }
 
-        public string RetCount
+        public int RetCount
         {
             get
             {

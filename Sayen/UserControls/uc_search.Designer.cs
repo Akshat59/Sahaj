@@ -71,6 +71,7 @@
             this.btn_search.TabIndex = 5;
             this.btn_search.Text = "Search";
             this.btn_search.UseVisualStyleBackColor = true;
+            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
             // 
             // lbl_advSearch
             // 
@@ -82,6 +83,7 @@
             this.lbl_advSearch.TabIndex = 6;
             this.lbl_advSearch.TabStop = true;
             this.lbl_advSearch.Text = "Advanced Search";
+            this.lbl_advSearch.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_advSearch_LinkClicked);
             // 
             // dg_search
             // 

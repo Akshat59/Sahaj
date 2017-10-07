@@ -16,6 +16,7 @@ namespace m1.Shared
         public const string CallStatusSuccess = "Success";
         public const string CallStatusFailure = "Failure";
         public const string CallStatusError = "Error";
+        public const string DropDownListFirstItem = "--Select--";
 
         public static Dictionary<string, string> d_AppEnvironments = new Dictionary<string, string>()
         {

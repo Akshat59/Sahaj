@@ -95,6 +95,11 @@ namespace m1.BC
             GenDAC.dacUpdateEmpDocs(edoc);
         }
 
+        public void bcRetrieveErrorLogs(SearchEntity se)
+        {
+            GenDAC.dacRetrieveErrorLogs(se);
+        }
+
         public void bcTerminateEmpDoc(formDocs edoc)
         {
             GenDAC.dacTerminateEmpDoc(edoc);

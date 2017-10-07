@@ -10,6 +10,9 @@ using Sayen.UserControls;
 using m1.Shared;
 using Sayen.userForms;
 using Sahaj.UserControls;
+using System.IO;
+using m1.Shared.Configs;
+using System.Collections;
 
 namespace Sayen
 {
@@ -19,13 +22,17 @@ namespace Sayen
         public frm_Home()
         {
             InitializeComponent();
-
         }
 
         uc_welcome ucWel;
         uc_search ucSrch;
         uc_AddEmpl _ucAddEmp;
         uc_ViewEntity _ucViewEmp;
+        uc_UnderConstruction _ucUnderConstr;
+
+        Panel tmp = new Panel { Anchor = AnchorStyles.Top, AutoSize = true };      
+
+
         #endregion Initialization
 
 
@@ -51,7 +58,10 @@ namespace Sayen
             if(ucWel != null){ucWel.Dispose(); ucWel = null; }
             if (ucSrch != null) { ucSrch.Dispose(); ucSrch = null; }
             if (_ucAddEmp != null) { _ucAddEmp.Dispose(); _ucAddEmp = null; }
-            if (_ucViewEmp != null) { _ucViewEmp.Dispose(); _ucViewEmp = null; }            
+            if (_ucViewEmp != null) { _ucViewEmp.Dispose(); _ucViewEmp = null; }
+
+            if (_ucViewEmp != null) { _ucViewEmp.Dispose(); _ucViewEmp = null; }
+            if (_ucUnderConstr != null) { _ucUnderConstr.Dispose(); _ucUnderConstr = null; }
         }
 
         private void tabCtrl_home_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,12 +81,39 @@ namespace Sayen
             {
                 this.LoadSearch();
             }
-            else
+            else if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageAdmin))
             {
+                this.LoadAdmin();
+            }
+            else if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageNotifications))
+            {
+                _ucUnderConstr = new uc_UnderConstruction();
+                tabCtrl_home.TabPages[AppConstants.TabPageNotifications].Controls.Add(_ucUnderConstr);
+            }
+            else if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageView))
+            {
+                _ucUnderConstr = new uc_UnderConstruction();
+                tabCtrl_home.TabPages[AppConstants.TabPageView].Controls.Add(_ucUnderConstr);
+            }
+            else if (tabCtrl_home.SelectedTab.Name.Equals(AppConstants.TabPageBooking))
+            {                
+                _ucUnderConstr = new uc_UnderConstruction();
+
+                tmp.Controls.Add(_ucUnderConstr);
+                float compWidth = tmp.Width;
+                float parentWidth = tabCtrl_home.Width;
+                float middled = (parentWidth / 4);// - (compWidth / 2);
+                tmp.Left = Convert.ToInt32(middled);
+
+                tabCtrl_home.TabPages[AppConstants.TabPageBooking].Controls.Add(tmp);
+            }
+            else
+            {                
                 //Exception Ex = new Exception("Operation Not allowed; Tab is not Designed; Source: " + "tabCtrl_home_SelectedIndexChanged");
                 //ExceptionManagement.logUserException(Ex);
             }
         }
+
 
         private void lbl_exit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -87,11 +124,14 @@ namespace Sayen
 
         private void frm_Home_Load(object sender, EventArgs e)
         {
-            
+            CreateAppObjects();     
             LoadFormHome();
         }
 
-
+        private void CreateAppObjects()
+        {
+            Utilities.CreateAppFolders();
+        }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -100,14 +140,13 @@ namespace Sayen
 
         private void lbl_titleHome_Click(object sender, EventArgs e)
         {
-            if (AppGlobal.CurrentUserRole == "Admin")
-            {
-                ddl_env.Visible = true;
-                ddl_env.DataSource = new BindingSource(AppConstants.d_AppEnvironments, null);
-                ddl_env.ValueMember = "Value";
-                ddl_env.DisplayMember = "Key";
-
-            }
+            //if (AppGlobal.CurrentUserRole == "Admin")
+            //{
+            //    ddl_env.Visible = true;
+            //    ddl_env.DataSource = new BindingSource(AppConstants.d_AppEnvironments, null);
+            //    ddl_env.ValueMember = "Value";
+            //    ddl_env.DisplayMember = "Key";
+            //}
         }
 
         private void ddl_env_SelectedIndexChanged(object sender, EventArgs e)
@@ -173,7 +212,6 @@ namespace Sayen
         }
         #endregion HomeStrip
 
-
         #region WelcomeStrip
 
         public void LoadWelcome()
@@ -193,7 +231,12 @@ namespace Sayen
         {
             ucSrch = new uc_search();
             tabCtrl_home.TabPages[AppConstants.TabPageSearch].Controls.Add(ucSrch);
+        }
 
+        public void LoadAdmin()
+        {
+            panel_adminBody.Controls.Clear();
+            panel_adminBody.Visible = !lbl_needAdminKey.Visible;
         }
 
         #endregion SearchStrip
@@ -222,14 +265,36 @@ namespace Sayen
         private void lbl_dataBackup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ResetAdminUserControlPanel();
-            uc_admin_bkup uc_admin_bkup = new uc_admin_bkup();
-            panel_adminBody.AutoSize = true;
-            panel_adminBody.Controls.Add(uc_admin_bkup);
+            uc_admin_bkup _uc_admin_bkup = new uc_admin_bkup(this);
+            panel_adminBody.Controls.Add(_uc_admin_bkup);
         }
 
-        private void ResetAdminUserControlPanel()
+        private void lbl_userControl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ResetAdminUserControlPanel();
+            uc_UnderConstruction _uc_UnderConstruction = new uc_UnderConstruction();
+            panel_adminBody.Controls.Add(_uc_UnderConstruction);
+        }
+
+        private void lbl_ErrorLogs_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ResetAdminUserControlPanel();
+            uc_ErrorLogs _uc_ErrorLogs = new uc_ErrorLogs();
+            panel_adminBody.Controls.Add(_uc_ErrorLogs);
+        }
+
+        private void pb_settingsAdmin_Click(object sender, EventArgs e)
+        {
+            ResetAdminUserControlPanel();
+            uc_AppSettings _uc_AppSettings = new uc_AppSettings();
+            panel_adminBody.Controls.Add(_uc_AppSettings);
+        }
+
+        public void ResetAdminUserControlPanel()
         {
             panel_adminBody.Controls.Clear();
+            panel_adminBody.AutoSize = true;
+            panel_adminBody.Anchor = AnchorStyles.Top;
         }
         #endregion AdminStrip
 
@@ -273,13 +338,25 @@ namespace Sayen
                 || AppGlobal.CurrentAppEnv == AppConstants.d_AppEnvironments.FirstOrDefault(x => x.Key == AppConstants.e_AppEnvironment.TEST.ToString()).Key)
             {
                 lbl_environment.Text = AppGlobal.CurrentAppEnv;
-                lbl_environment.Visible = true;
+                //lbl_environment.Visible = true;
             }
             this.LoadWelcome();
         }
 
 
 
+
+
         #endregion UserMethods
+
+        private void txt_adminKey_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_adminKey.Text == AppGlobal.super_admin_PassKey)
+            {
+                panel_adminBody.Visible = true;
+                txt_adminKey.Visible = false;
+                lbl_needAdminKey.Visible = false;
+            }
+        }
     }
 }

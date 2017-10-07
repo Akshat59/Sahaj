@@ -22,5 +22,16 @@ namespace Sahaj.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-HKS5HV8\\SQLEXPRESS;Initial Catalog=d1_dev;Integrated Security" +
+            "=True")]
+        public string d1_devConnectionString {
+            get {
+                return ((string)(this["d1_devConnectionString"]));
+            }
+        }
     }
 }

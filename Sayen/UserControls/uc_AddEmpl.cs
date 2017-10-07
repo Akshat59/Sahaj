@@ -121,7 +121,17 @@ namespace Sayen.UserControls
             else
             {
                 Exception Ex = new Exception("Operation Not allowed; _operationType is UnExpected; Source: " + "uc_AddEmpl.btn_submit_Click");
-                ExceptionManagement.logUserException(Ex);
+                ErrorLogEntity elog = new ErrorLogEntity
+                {
+                    U_error_message = "Operation Not allowed; _operationType is UnExpected",
+                    U_error_source = "uc_AddEmpl.btn_submit_Click",
+                    U_IfLogtoDatabase = true,
+                    U_IfLogtoEventLogs = true,
+                    U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                    U_error_type = ErrorLogEntity.errorType.Error,
+                    U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,
+                };
+                ExceptionManagement.logUserException(elog);
             }
 
             
@@ -516,9 +526,18 @@ namespace Sayen.UserControls
 
             }
             else
-            {                
-                Exception Ex = new Exception("Operation Not allowed; empID is not set; Source: " + "LoadViewEmp");
-                ExceptionManagement.logUserException(Ex);
+            {
+                ErrorLogEntity elog = new ErrorLogEntity
+                {
+                    U_error_message = "Operation Not allowed; empID is not set",
+                    U_error_source = "uc_AddEmpl.LoadViewEmp",
+                    U_IfLogtoDatabase = true,
+                    U_IfLogtoEventLogs = true,
+                    U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                    U_error_type = ErrorLogEntity.errorType.Error,
+                    U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,
+                };
+                ExceptionManagement.logUserException(elog);
             }
 
         }
@@ -708,7 +727,18 @@ namespace Sayen.UserControls
             }
             catch (Exception Ex)
             {
-                ExceptionManagement.logAppException(Ex);
+                ErrorLogEntity elog = new ErrorLogEntity();
+                elog.HelpLink = Ex.HelpLink;
+               // elog.InnerException = Ex.InnerException.ToString();
+                elog.U_error_message = Ex.Message;
+                elog.U_error_source = Ex.Source;
+                elog.U_stacktrace = Ex.StackTrace;
+                elog.TargetSite = Ex.TargetSite;
+                elog.U_IfLogtoDatabase = true;
+                elog.U_IfLogtoEventLogs = true;
+                elog.U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp;
+                elog.U_error_loggedby = ErrorLogEntity.errorLoggedBy.System;
+                ExceptionManagement.logAppException(elog);
             }
             finally
             {
@@ -843,18 +873,38 @@ namespace Sayen.UserControls
                     else if (_sourceFile.Equals(_destFile) && _operationType == e_frmOperationType.U)
                     { }//ignore as file update is existing /*log into app logs #futureCode*/
                     else
-                    { /*log into app/error logs #futureCode*/
-                        Exception Ex = new Exception("Operation Not allowed. Source: " + "SetEmployeeDocCollection");
-                        ExceptionManagement.logUserException(Ex);
+                    { 
+                        ErrorLogEntity elog = new ErrorLogEntity
+                        {
+                            U_error_message = "Operation Not allowed",
+                            U_error_source = "uc_AddEmpl.SetEmployeeDocCollection-c1",
+                            U_error_detail = "Doc Modification operation is not expected",
+                            U_IfLogtoDatabase = true,
+                            U_IfLogtoEventLogs = true,
+                            U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                            U_error_type = ErrorLogEntity.errorType.Error,
+                            U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,
+                        };
+                        ExceptionManagement.logUserException(elog);
                     }
 
                 }
 
                 else
-                {
-                    Exception Ex = new Exception("Operation Not allowed. Source: " + "SetEmployeeDocCollection");
-                    ExceptionManagement.logUserException(Ex);
-                }/*log into app/error logs #futureCode*/
+                {                    
+                    ErrorLogEntity elog = new ErrorLogEntity
+                    {
+                        U_error_message = "Operation Not allowed",
+                        U_error_source = "uc_AddEmpl.SetEmployeeDocCollection-c2",
+                        U_error_detail = "Doc Modification operation is not expected",
+                        U_IfLogtoDatabase = true,
+                        U_IfLogtoEventLogs = true,
+                        U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                        U_error_type = ErrorLogEntity.errorType.Error,
+                        U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,
+                    };
+                    ExceptionManagement.logUserException(elog);
+                }
             }
             
         }
@@ -971,5 +1021,7 @@ namespace Sayen.UserControls
         }
 
         #endregion UserMethods
+
+      
     }
 }

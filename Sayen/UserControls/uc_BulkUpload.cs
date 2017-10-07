@@ -46,7 +46,7 @@ namespace Sayen.UserControls
             // if we get here the validation passed
             //this.close();
 
-            { MessageBox.Show("test TRUE"); }
+            { MessageBox.Show("Component not Designed yet"); }
 
         }
 

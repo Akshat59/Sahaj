@@ -113,6 +113,16 @@ namespace Sahaj.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap img_settingsIcon {
+            get {
+                object obj = ResourceManager.GetObject("img_settingsIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap notee {
             get {
                 object obj = ResourceManager.GetObject("notee", resourceCulture);
@@ -126,6 +136,36 @@ namespace Sahaj.Properties {
         internal static System.Drawing.Bitmap tango_preferences_system {
             get {
                 object obj = ResourceManager.GetObject("tango_preferences_system", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap underconstruction_main {
+            get {
+                object obj = ResourceManager.GetObject("underconstruction-main", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap underconstruction_main1 {
+            get {
+                object obj = ResourceManager.GetObject("underconstruction-main1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap undercstr2 {
+            get {
+                object obj = ResourceManager.GetObject("undercstr2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

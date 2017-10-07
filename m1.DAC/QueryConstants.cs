@@ -23,6 +23,7 @@ namespace m1.DAC
         public const string TerminateEmpDocs = "Query_TerminateEmpDocs";
         public const string GetNextID = "Query_GetNextID";
         public const string SearchEntity = "Query_SearchEntity";
+        public const string RetrieveErrorLogs = "Query_RetrieveErrorLogs";
         public const string DeleteUserNotes = "Query_DeleteUserNotes";
         public const string InsertUserNotes = "Query_InsertUserNotes";
         public const string RetrieveUserNotes = "Query_RetrieveUserNotes";

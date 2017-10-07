@@ -77,7 +77,7 @@ namespace Sahaj.userForms
             }
             catch (Exception Ex)
             {
-
+                MessageBox.Show(Ex.Message);
             }
         }
 

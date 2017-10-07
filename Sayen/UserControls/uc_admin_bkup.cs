@@ -13,18 +13,28 @@ using System.Globalization;
 using m1.Shared.DataBackUp;
 using System.IO;
 using m1.Shared;
+using System.Collections;
+using Sayen;
 
 namespace Sahaj.UserControls
 {
     public partial class uc_admin_bkup : UserControl
     {
-        public uc_admin_bkup()
+        frm_Home _obj_frmHome;
+        string bkup_path;
+        public uc_admin_bkup(frm_Home obj_frmHome)
         {
             InitializeComponent();
+            _obj_frmHome = obj_frmHome;
+            string _systemDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString();
+            bkup_path = ConfigSettings.GetAppSetting("BackupPath");
+            bkup_path = string.Format("{0}{1}", _systemDocuments, bkup_path);
+
             txt_filePath.Text = bkup_path.Substring(0,bkup_path.LastIndexOf("\\"));
+            string _s = ConfigSettings.GetAppSetting("AppConstants_BackupTablesList");
+            string[] _s1; _s1 = _s.Split(','); clb_dataTables.DataSource = _s1;
         }
 
-        string bkup_path = ConfigSettings.GetAppSetting("BackupPath");
 
         private genBPC _genBPC;
         public genBPC GenBPC
@@ -123,11 +133,25 @@ namespace Sahaj.UserControls
                         }
                     }
                 }
+                MessageBox.Show("Operation Successfull");
+                _obj_frmHome.ResetAdminUserControlPanel();
+
             }
             catch (Exception Ex)
             {
                 //Exception Exx = new Exception("Exception; Error while backing/restoring Data; Source: " + "uc_admin_bkup.btn_backup_Click");//logAppException
-                ExceptionManagement.logAppException(Ex);
+                ErrorLogEntity elog = new ErrorLogEntity();
+                elog.HelpLink = Ex.HelpLink;
+                //elog.InnerException = Ex.InnerException.ToString();
+                elog.U_error_message = Ex.Message;
+                elog.U_error_source = Ex.Source;
+                elog.U_stacktrace = Ex.StackTrace;
+                elog.TargetSite = Ex.TargetSite;
+                elog.U_IfLogtoDatabase = true;
+                elog.U_IfLogtoEventLogs = true;
+                elog.U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp;
+                elog.U_error_loggedby = ErrorLogEntity.errorLoggedBy.System;
+                ExceptionManagement.logAppException(elog);
             }
         }
         #endregion
@@ -145,8 +169,24 @@ namespace Sahaj.UserControls
 
             Utilities.RemoveTimezoneForDataSet(obj_dataBkup.ResultDataSet);
 
-            obj_dataBkup.ResultDataSet.WriteXml(_bkupPath);
-
+            if (obj_dataBkup.ResultDataSet.Tables.Count > 0)
+            { obj_dataBkup.ResultDataSet.WriteXml(_bkupPath); }
+            else
+            {
+                ErrorLogEntity elog = new ErrorLogEntity
+                {
+                    U_error_message = "No data was retrieved for Backup",
+                    U_error_source = "uc_admin_bkup.BackupData",
+                    U_IfLogtoDatabase = true,
+                    U_IfLogtoEventLogs = true,
+                    U_error_loggedby = ErrorLogEntity.errorLoggedBy.User,
+                    U_error_type = ErrorLogEntity.errorType.Error,
+                    U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp,
+                };
+                ExceptionManagement.logUserException(elog);
+            }
+            if (!File.Exists(_bkupPath))
+            {MessageBox.Show(string.Format("Data file {0} could not be created", _bkupPath));}
         }
 
         private void RestoreBackup(string tableName)
@@ -162,7 +202,7 @@ namespace Sahaj.UserControls
                     DataBackupEntity obj_dataBkup = new DataBackupEntity();
                     obj_dataBkup.TableName = tableName;
                     obj_dataBkup.ResultDataSet.ReadXml(_bkupPath);
-                    GenBPC.bpcWriteDataSetToTable(obj_dataBkup);
+                    GenBPC.bpcWriteDataSetToTable(obj_dataBkup);                    
                 }
                 else { MessageBox.Show(string.Format("Data file {0} does not Exists", _bkupPath)); }
             }
@@ -172,6 +212,9 @@ namespace Sahaj.UserControls
             }
         }
 
-        
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -25,5 +25,15 @@ namespace Sayen.UserControls
             panel1.Dock = DockStyle.Fill;
             panel1.AutoSize = true;
         }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+            { MessageBox.Show("Component not Designed yet"); }
+        }
+
+        private void lbl_advSearch_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            { MessageBox.Show("Component not Designed yet"); }
+        }
     }
 }
