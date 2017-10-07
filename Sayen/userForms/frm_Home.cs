@@ -135,7 +135,8 @@ namespace Sayen
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult res = Utilities.GetYesNoConfirmation(UserMessages.Ques_AreYouSure, UserMessages.ConfirmAppExit);
+            if (res.Equals(DialogResult.Yes)) { Application.Exit(); }
         }
 
         private void lbl_titleHome_Click(object sender, EventArgs e)
@@ -182,12 +183,6 @@ namespace Sayen
 
         }
 
-        #endregion Controls
-
-        #region Strips
-
-        #region HomeStrip
-
         private void tabCtrl_home_KeyUp(object sender, KeyEventArgs e)
         {
 
@@ -196,6 +191,7 @@ namespace Sayen
                 //e.Handled = true;
             }
         }
+
 
         private void viewToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -210,7 +206,11 @@ namespace Sayen
             AppGlobal.appErrorLog = string.Empty;
             AppGlobal.sqlErrorLog = string.Empty;
         }
-        #endregion HomeStrip
+
+        #endregion Controls
+
+        #region Strips
+
 
         #region WelcomeStrip
 
@@ -296,6 +296,15 @@ namespace Sayen
             panel_adminBody.AutoSize = true;
             panel_adminBody.Anchor = AnchorStyles.Top;
         }
+        private void txt_adminKey_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_adminKey.Text == AppGlobal.super_admin_PassKey)
+            {
+                panel_adminBody.Visible = true;
+                txt_adminKey.Visible = false;
+                lbl_needAdminKey.Visible = false;
+            }
+        }
         #endregion AdminStrip
 
 
@@ -349,14 +358,6 @@ namespace Sayen
 
         #endregion UserMethods
 
-        private void txt_adminKey_TextChanged(object sender, EventArgs e)
-        {
-            if (txt_adminKey.Text == AppGlobal.super_admin_PassKey)
-            {
-                panel_adminBody.Visible = true;
-                txt_adminKey.Visible = false;
-                lbl_needAdminKey.Visible = false;
-            }
-        }
+       
     }
 }

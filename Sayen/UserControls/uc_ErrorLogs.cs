@@ -82,7 +82,7 @@ namespace Sahaj.UserControls
                 height += dr.Height;
             }
 
-            dataGridView2.Height = height<270?height:270;
+            dataGridView2.Height = height<400?height:400;
             dataGridView2.Visible = true;
         }
 

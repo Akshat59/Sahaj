@@ -86,10 +86,10 @@
             this.dataGridView2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 14);
+            this.dataGridView2.Location = new System.Drawing.Point(6, 5);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(840, 273);
+            this.dataGridView2.Size = new System.Drawing.Size(840, 402);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.Visible = false;
             // 
@@ -116,8 +116,8 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 394F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 416F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(849, 550);
             this.tableLayoutPanel1.TabIndex = 2;
@@ -140,7 +140,7 @@
             this.panel_row2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_row2.Location = new System.Drawing.Point(3, 109);
             this.panel_row2.Name = "panel_row2";
-            this.panel_row2.Size = new System.Drawing.Size(843, 388);
+            this.panel_row2.Size = new System.Drawing.Size(843, 410);
             this.panel_row2.TabIndex = 8;
             // 
             // uc_ErrorLogs
