@@ -55,7 +55,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackgroundImage = global::Sahaj.Properties.Resources.img_matrixCode;
+            this.panel1.BackgroundImage = global::m1.Sahaj.Properties.Resources.img_matrixCode;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.lbl_backdoorAccess);
             this.panel1.Controls.Add(this.ddl_Environment);

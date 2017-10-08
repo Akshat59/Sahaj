@@ -8,8 +8,8 @@
     <ProjectGuid>{F14F640E-A629-4BAB-83BE-879BA91A1260}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sahaj</RootNamespace>
-    <AssemblyName>Sahaj</AssemblyName>
+    <RootNamespace>m1.Sahaj</RootNamespace>
+    <AssemblyName>m1.Sahaj</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -301,10 +301,16 @@
   <ItemGroup>
     <Content Include="img_appIco1.ico" />
     <Content Include="img_applogo.ico" />
+    <None Include="Resources\californication_bus_animation_tubik.gif" />
+    <None Include="Resources\underconstruction-main.gif" />
+    <None Include="Resources\screenshot-13.png" />
+    <None Include="Resources\screenshot-12-min.png" />
+    <None Include="Resources\under-construction-gif-11.gif" />
+    <None Include="Resources\HYS-construction.gif" />
+    <None Include="Resources\img_underConstr1.bmp" />
     <None Include="Resources\img_settingsIcon.png" />
     <None Include="Resources\undercstr2.jpg" />
     <None Include="Resources\underconstruction-main1.gif" />
-    <None Include="Resources\underconstruction-main.gif" />
     <None Include="Resources\tango_preferences_system.png" />
     <None Include="Resources\notee.png" />
     <None Include="Resources\img_matrixCode.gif" />

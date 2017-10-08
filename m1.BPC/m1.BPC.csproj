@@ -8,8 +8,8 @@
     <ProjectGuid>{4FC75858-E1B0-4673-8918-E26BCEB4D4AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BPC</RootNamespace>
-    <AssemblyName>BPC</AssemblyName>
+    <RootNamespace>m1.BPC</RootNamespace>
+    <AssemblyName>m1.BPC</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

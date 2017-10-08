@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Sahaj.Properties {
+namespace m1.Sahaj.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Sahaj.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sahaj.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("m1.Sahaj.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -123,6 +123,66 @@ namespace Sahaj.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap img_underConstr1 {
+            get {
+                object obj = ResourceManager.GetObject("img_underConstr1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap img_underConstr2 {
+            get {
+                object obj = ResourceManager.GetObject("img_underConstr2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap img_underConstr3 {
+            get {
+                object obj = ResourceManager.GetObject("img_underConstr3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap img_underConstr4 {
+            get {
+                object obj = ResourceManager.GetObject("img_underConstr4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap img_underConstr5 {
+            get {
+                object obj = ResourceManager.GetObject("img_underConstr5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap img_underConstr6 {
+            get {
+                object obj = ResourceManager.GetObject("img_underConstr6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap notee {
             get {
                 object obj = ResourceManager.GetObject("notee", resourceCulture);
@@ -136,26 +196,6 @@ namespace Sahaj.Properties {
         internal static System.Drawing.Bitmap tango_preferences_system {
             get {
                 object obj = ResourceManager.GetObject("tango_preferences_system", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap underconstruction_main {
-            get {
-                object obj = ResourceManager.GetObject("underconstruction-main", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap underconstruction_main1 {
-            get {
-                object obj = ResourceManager.GetObject("underconstruction-main1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

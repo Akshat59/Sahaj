@@ -39,14 +39,17 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(15, 13);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(980, 559);
+            this.panel1.Size = new System.Drawing.Size(980, 643);
             this.panel1.TabIndex = 0;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(5, 12);
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Image = global::m1.Sahaj.Properties.Resources.img_underConstr6;
+            this.pictureBox1.Location = new System.Drawing.Point(57, 33);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(959, 528);
+            this.pictureBox1.Size = new System.Drawing.Size(848, 561);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -60,7 +63,7 @@
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.Name = "uc_UnderConstruction";
-            this.Size = new System.Drawing.Size(1012, 581);
+            this.Size = new System.Drawing.Size(1203, 730);
             this.Load += new System.EventHandler(this.uc_UnderConstruction_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

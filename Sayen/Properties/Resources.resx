@@ -124,9 +124,6 @@
   <data name="img_loadinglabelbg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img_loadinglabelbg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="underconstruction-main1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\underconstruction-main1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="img_loading1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img_loading1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,9 +136,6 @@
   <data name="img_matrixCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img_matrixCode.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="underconstruction-main" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\underconstruction-main.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="notee" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\notee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -150,5 +144,23 @@
   </data>
   <data name="img_settingsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img_settingsIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_underConstr1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\californication_bus_animation_tubik.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_underConstr2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HYS-construction.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_underConstr3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\under-construction-gif-11.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_underConstr4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\screenshot-12-min.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_underConstr5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\screenshot-13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_underConstr6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\underconstruction-main.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

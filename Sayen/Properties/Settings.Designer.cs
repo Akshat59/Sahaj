@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Sahaj.Properties {
+namespace m1.Sahaj.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

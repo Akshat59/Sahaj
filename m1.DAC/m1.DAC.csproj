@@ -8,8 +8,8 @@
     <ProjectGuid>{FBD6D4BC-5D50-4165-A363-7095DADC3434}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>m1</RootNamespace>
-    <AssemblyName>DAC</AssemblyName>
+    <RootNamespace>m1.DAC</RootNamespace>
+    <AssemblyName>m1.DAC</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace Sahaj {
+namespace m1.Sahaj {
     
     
     /// <summary>
@@ -2029,7 +2029,7 @@ namespace Sahaj {
         }
     }
 }
-namespace Sahaj.d1_devDataSetTableAdapters {
+namespace m1.Sahaj.d1_devDataSetTableAdapters {
     
     
     /// <summary>
@@ -2496,7 +2496,7 @@ SELECT e_uid, emp_id, firstname, lastname, petname, dob, gender, emptype, design
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::Sahaj.Properties.Settings.Default.d1_devConnectionString;
+            this._connection.ConnectionString = global::m1.Sahaj.Properties.Settings.Default.d1_devConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

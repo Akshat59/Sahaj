@@ -829,8 +829,13 @@ namespace Sayen.UserControls
                     string _sourcePath = string.Empty;
                     string _fileName;
                     string _sp = Directory.GetParent(Path.GetDirectoryName(System.Windows.Forms.Application.StartupPath)).FullName;
-                    DirectoryInfo dir = new DirectoryInfo(AppConstants.setHomePath);
-                    string _targetPath = dir.FullName + AppConstants.setImagesPath + AppConstants.empImgDocPath;
+
+                    ///Commented code is to store docs in solution folder - implemented new to save docs in MyDocuments 
+                    //DirectoryInfo dir = new DirectoryInfo(AppConstants.setHomePath);
+                    //string _targetPath = dir.FullName + AppConstants.setImagesPath + AppConstants.empImgDocPath;
+
+                    string _targetPath = AppConstants.empImgDocPath;
+
                     string _sourceFile;
                     string _destFile;
 

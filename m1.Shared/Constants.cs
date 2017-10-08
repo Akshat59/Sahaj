@@ -124,7 +124,7 @@ namespace m1.Shared
         #region GetSetPaths
         public const string setHomePath = "..\\..\\..";
         public const string setImagesPath = "\\WEB\\images";
-        public const string empImgDocPath = "\\empDocs";
+        public static string empImgDocPath = "\\Sahaj\\Images\\empDocs";//"\\empDocs";
         #endregion GetSetPaths
 
         #region FileNameInitialsSeries  //fn - filename

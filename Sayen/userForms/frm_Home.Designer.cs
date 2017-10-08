@@ -378,7 +378,7 @@
             this.tabPage_manage.AutoScroll = true;
             this.tabPage_manage.AutoScrollMargin = new System.Drawing.Size(1, 1);
             this.tabPage_manage.BackColor = System.Drawing.Color.White;
-            this.tabPage_manage.BackgroundImage = global::Sahaj.Properties.Resources.undercstr2;
+            this.tabPage_manage.BackgroundImage = global::m1.Sahaj.Properties.Resources.undercstr2;
             this.tabPage_manage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tabPage_manage.Controls.Add(this.menuStrip_Manage);
             this.tabPage_manage.Location = new System.Drawing.Point(4, 22);
@@ -657,7 +657,7 @@
             // 
             this.pb_settingsAdmin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pb_settingsAdmin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pb_settingsAdmin.Image = global::Sahaj.Properties.Resources.img_settingsIcon;
+            this.pb_settingsAdmin.Image = global::m1.Sahaj.Properties.Resources.img_settingsIcon;
             this.pb_settingsAdmin.Location = new System.Drawing.Point(865, 3);
             this.pb_settingsAdmin.Name = "pb_settingsAdmin";
             this.pb_settingsAdmin.Size = new System.Drawing.Size(17, 15);

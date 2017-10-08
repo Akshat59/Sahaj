@@ -417,6 +417,13 @@ namespace m1.Shared
             bkup_path = string.Format("{0}{1}", _systemDocuments, bkup_path.Substring(0, bkup_path.LastIndexOf("\\")));
             requiredPaths.Add(bkup_path);
 
+            //EmpDocs            
+            string empDocs = "\\Sahaj\\Images\\empDocs";
+            empDocs = string.Format("{0}{1}", _systemDocuments, empDocs);
+            AppConstants.empImgDocPath = empDocs;
+            requiredPaths.Add(empDocs);
+
+
             //Create app folderpath if not created
             foreach (string item in requiredPaths)
             {
