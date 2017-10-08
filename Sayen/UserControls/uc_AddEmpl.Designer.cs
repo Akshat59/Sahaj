@@ -30,7 +30,6 @@ namespace Sayen.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(uc_AddEmpl));
             this.txt_dlno = new System.Windows.Forms.TextBox();
             this.lbl_dlTypes = new System.Windows.Forms.Label();
@@ -72,7 +71,7 @@ namespace Sayen.UserControls
             this.panel7_viewDoc = new System.Windows.Forms.Panel();
             this.lbl_hide_viewDoc = new System.Windows.Forms.LinkLabel();
             this.pb_viewDoc = new System.Windows.Forms.PictureBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
             this.tsmi_showPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_savePicture = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -135,7 +134,7 @@ namespace Sayen.UserControls
             this.lbl_empStatus = new System.Windows.Forms.Label();
             this.rdl_terminateEmp = new System.Windows.Forms.RadioButton();
             this.rdl_editEmp = new System.Windows.Forms.RadioButton();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider();
             this.fwd_addEmp = new System.Windows.Forms.FolderBrowserDialog();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Home));
             this.lbl_titleHome = new System.Windows.Forms.Label();
             this.lbl_logOut = new System.Windows.Forms.LinkLabel();
@@ -93,13 +92,13 @@
             this.pb_settingsAdmin = new System.Windows.Forms.PictureBox();
             this.panel_adminHeader = new System.Windows.Forms.Panel();
             this.tableLayoutPanel_admin = new System.Windows.Forms.TableLayoutPanel();
+            this.lbl_needAdminKey = new System.Windows.Forms.Label();
+            this.txt_adminKey = new System.Windows.Forms.TextBox();
             this.lbl_ErrorLogs = new System.Windows.Forms.LinkLabel();
             this.lbl_dataBackup = new System.Windows.Forms.LinkLabel();
             this.lbl_userControl = new System.Windows.Forms.LinkLabel();
             this.panel_adminBody = new System.Windows.Forms.Panel();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.lbl_needAdminKey = new System.Windows.Forms.Label();
-            this.txt_adminKey = new System.Windows.Forms.TextBox();
+            this.imageList1 = new System.Windows.Forms.ImageList();
             this.menuStrip_Home.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -696,6 +695,33 @@
             this.tableLayoutPanel_admin.Size = new System.Drawing.Size(834, 21);
             this.tableLayoutPanel_admin.TabIndex = 3;
             // 
+            // lbl_needAdminKey
+            // 
+            this.lbl_needAdminKey.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lbl_needAdminKey.AutoSize = true;
+            this.lbl_needAdminKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_needAdminKey.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lbl_needAdminKey.Location = new System.Drawing.Point(626, 2);
+            this.lbl_needAdminKey.Name = "lbl_needAdminKey";
+            this.lbl_needAdminKey.Size = new System.Drawing.Size(164, 16);
+            this.lbl_needAdminKey.TabIndex = 3;
+            this.lbl_needAdminKey.Text = "You need admin pass key";
+            // 
+            // txt_adminKey
+            // 
+            this.txt_adminKey.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.txt_adminKey.BackColor = System.Drawing.Color.AliceBlue;
+            this.txt_adminKey.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_adminKey.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.txt_adminKey.Location = new System.Drawing.Point(484, 4);
+            this.txt_adminKey.Name = "txt_adminKey";
+            this.txt_adminKey.PasswordChar = ' ';
+            this.txt_adminKey.ShortcutsEnabled = false;
+            this.txt_adminKey.Size = new System.Drawing.Size(129, 13);
+            this.txt_adminKey.TabIndex = 6;
+            this.txt_adminKey.Text = " ";
+            this.txt_adminKey.TextChanged += new System.EventHandler(this.txt_adminKey_TextChanged);
+            // 
             // lbl_ErrorLogs
             // 
             this.lbl_ErrorLogs.ActiveLinkColor = System.Drawing.Color.LightSeaGreen;
@@ -756,33 +782,6 @@
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // lbl_needAdminKey
-            // 
-            this.lbl_needAdminKey.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lbl_needAdminKey.AutoSize = true;
-            this.lbl_needAdminKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_needAdminKey.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lbl_needAdminKey.Location = new System.Drawing.Point(626, 2);
-            this.lbl_needAdminKey.Name = "lbl_needAdminKey";
-            this.lbl_needAdminKey.Size = new System.Drawing.Size(164, 16);
-            this.lbl_needAdminKey.TabIndex = 3;
-            this.lbl_needAdminKey.Text = "You need admin pass key";
-            // 
-            // txt_adminKey
-            // 
-            this.txt_adminKey.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.txt_adminKey.BackColor = System.Drawing.Color.AliceBlue;
-            this.txt_adminKey.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_adminKey.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.txt_adminKey.Location = new System.Drawing.Point(484, 4);
-            this.txt_adminKey.Name = "txt_adminKey";
-            this.txt_adminKey.PasswordChar = ' ';
-            this.txt_adminKey.ShortcutsEnabled = false;
-            this.txt_adminKey.Size = new System.Drawing.Size(129, 13);
-            this.txt_adminKey.TabIndex = 6;
-            this.txt_adminKey.Text = " ";
-            this.txt_adminKey.TextChanged += new System.EventHandler(this.txt_adminKey_TextChanged);
             // 
             // frm_Home
             // 
