@@ -109,6 +109,12 @@
     <Compile Include="UserControls\uc_admin_bkup.Designer.cs">
       <DependentUpon>uc_admin_bkup.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\uc_AdminTasks.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\uc_AdminTasks.Designer.cs">
+      <DependentUpon>uc_AdminTasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\uc_BulkUpload.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -150,6 +156,12 @@
     </Compile>
     <Compile Include="UserControls\uc_ViewEntity.Designer.cs">
       <DependentUpon>uc_ViewEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="userForms\frm_About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="userForms\frm_About.Designer.cs">
+      <DependentUpon>frm_About.cs</DependentUpon>
     </Compile>
     <Compile Include="userForms\frm_Backdoor.cs">
       <SubType>Form</SubType>
@@ -198,6 +210,9 @@
     <EmbeddedResource Include="UserControls\uc_admin_bkup.resx">
       <DependentUpon>uc_admin_bkup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\uc_AdminTasks.resx">
+      <DependentUpon>uc_AdminTasks.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\uc_BulkUpload.resx">
       <DependentUpon>uc_BulkUpload.cs</DependentUpon>
     </EmbeddedResource>
@@ -218,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\uc_welcome.resx">
       <DependentUpon>uc_welcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="userForms\frm_About.resx">
+      <DependentUpon>frm_About.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="userForms\frm_Backdoor.resx">
       <DependentUpon>frm_Backdoor.cs</DependentUpon>

@@ -67,6 +67,11 @@ namespace m1.DAC
             return _nextID;
         }
 
+        public void dacParseExecuteQuery(string _sqlQuery, int mode,out string retMsg,out DataTable retDT)
+        {
+            base.bParseExecute(_sqlQuery, mode, out retMsg,out retDT);            
+        }
+
         public void dacReadTableData(object obj)
         {
             DataBackupEntity _obj = (DataBackupEntity)obj;
@@ -216,10 +221,8 @@ namespace m1.DAC
             List<SqlParameter> sp = new List<SqlParameter>()
             {
                 new SqlParameter() {ParameterName = "@user_id", SqlDbType = SqlDbType.NVarChar, Value= GEntity.UserEntity.Input_user_id},
-                //new SqlParameter() {ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value= GEntity.UserEntity.User_pwd}, #futureCode add pwd
+                new SqlParameter() {ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value= GEntity.UserEntity.User_pwd}, //#futureCode add pwd
             };
-
-
 
             using (dt = base.ExecuteDataAdapter(SQLselect, sp))
             {

@@ -23,7 +23,8 @@ namespace Sayen
         [STAThread]
         static void Main()
         {
-            // Add handler to handle the exception raised by main threads
+
+           // Add handler to handle the exception raised by main threads
             Application.ThreadException +=
             new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
 
@@ -34,14 +35,21 @@ namespace Sayen
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-           // try
+
+            
+            bool result;
+            var mutex = new System.Threading.Mutex(true, "m1.sahaj.exe", out result);
+
+            if (!result)
             {
-                Application.Run(new frm_login());
+                MessageBox.Show("Another instance is already running.\nClose Existing process and retry","Operation Not allowed",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+                return;
             }
-          //  catch(Exception Ex)
-            {
-                //ShowExceptionDetails(Ex);
-            }
+
+            Application.Run(new frm_login());
+
+            GC.KeepAlive(mutex);
+
 
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using m1.Shared.Entities;
 using m1.DAC;
+using System.Data;
 
 namespace m1.BC
 {
@@ -63,6 +64,11 @@ namespace m1.BC
         public List<DateTime> bcGetUserNoteAlldates(string userID)
         {
             return GenDAC.dacGetUserNoteAlldates(userID);
+        }
+
+        public void bcParseExecuteQuery(string sqlQuery, int mode,out string retMsg,out DataTable retDT)
+        {
+            GenDAC.dacParseExecuteQuery(sqlQuery, mode,out retMsg, out retDT);
         }
 
         public void bcSaveUserNotes(UserEntity userEntity)

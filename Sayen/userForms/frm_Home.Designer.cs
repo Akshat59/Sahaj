@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Home));
             this.lbl_titleHome = new System.Windows.Forms.Label();
             this.lbl_logOut = new System.Windows.Forms.LinkLabel();
@@ -92,13 +93,14 @@
             this.pb_settingsAdmin = new System.Windows.Forms.PictureBox();
             this.panel_adminHeader = new System.Windows.Forms.Panel();
             this.tableLayoutPanel_admin = new System.Windows.Forms.TableLayoutPanel();
-            this.lbl_needAdminKey = new System.Windows.Forms.Label();
+            this.lbl_adminTasks = new System.Windows.Forms.LinkLabel();
             this.txt_adminKey = new System.Windows.Forms.TextBox();
             this.lbl_ErrorLogs = new System.Windows.Forms.LinkLabel();
             this.lbl_dataBackup = new System.Windows.Forms.LinkLabel();
             this.lbl_userControl = new System.Windows.Forms.LinkLabel();
+            this.lbl_needAdminKey = new System.Windows.Forms.Label();
             this.panel_adminBody = new System.Windows.Forms.Panel();
-            this.imageList1 = new System.Windows.Forms.ImageList();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip_Home.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -232,6 +234,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // lbl_exit
             // 
@@ -680,32 +683,36 @@
             this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 326F));
-            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177F));
-            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
-            this.tableLayoutPanel_admin.Controls.Add(this.lbl_needAdminKey, 4, 0);
+            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
+            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 231F));
+            this.tableLayoutPanel_admin.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 279F));
+            this.tableLayoutPanel_admin.Controls.Add(this.lbl_adminTasks, 0, 0);
             this.tableLayoutPanel_admin.Controls.Add(this.txt_adminKey, 3, 0);
             this.tableLayoutPanel_admin.Controls.Add(this.lbl_ErrorLogs, 2, 0);
             this.tableLayoutPanel_admin.Controls.Add(this.lbl_dataBackup, 0, 0);
             this.tableLayoutPanel_admin.Controls.Add(this.lbl_userControl, 1, 0);
+            this.tableLayoutPanel_admin.Controls.Add(this.lbl_needAdminKey, 5, 0);
             this.tableLayoutPanel_admin.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel_admin.Name = "tableLayoutPanel_admin";
             this.tableLayoutPanel_admin.RowCount = 1;
             this.tableLayoutPanel_admin.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel_admin.Size = new System.Drawing.Size(834, 21);
+            this.tableLayoutPanel_admin.Size = new System.Drawing.Size(827, 21);
             this.tableLayoutPanel_admin.TabIndex = 3;
             // 
-            // lbl_needAdminKey
+            // lbl_adminTasks
             // 
-            this.lbl_needAdminKey.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lbl_needAdminKey.AutoSize = true;
-            this.lbl_needAdminKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_needAdminKey.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lbl_needAdminKey.Location = new System.Drawing.Point(626, 2);
-            this.lbl_needAdminKey.Name = "lbl_needAdminKey";
-            this.lbl_needAdminKey.Size = new System.Drawing.Size(164, 16);
-            this.lbl_needAdminKey.TabIndex = 3;
-            this.lbl_needAdminKey.Text = "You need admin pass key";
+            this.lbl_adminTasks.ActiveLinkColor = System.Drawing.Color.LightSeaGreen;
+            this.lbl_adminTasks.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_adminTasks.AutoSize = true;
+            this.lbl_adminTasks.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_adminTasks.LinkColor = System.Drawing.Color.SteelBlue;
+            this.lbl_adminTasks.Location = new System.Drawing.Point(103, 3);
+            this.lbl_adminTasks.Name = "lbl_adminTasks";
+            this.lbl_adminTasks.Size = new System.Drawing.Size(74, 14);
+            this.lbl_adminTasks.TabIndex = 7;
+            this.lbl_adminTasks.TabStop = true;
+            this.lbl_adminTasks.Text = "Admin Tasks";
+            this.lbl_adminTasks.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_adminTasks_LinkClicked);
             // 
             // txt_adminKey
             // 
@@ -713,11 +720,11 @@
             this.txt_adminKey.BackColor = System.Drawing.Color.AliceBlue;
             this.txt_adminKey.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txt_adminKey.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.txt_adminKey.Location = new System.Drawing.Point(484, 4);
+            this.txt_adminKey.Location = new System.Drawing.Point(511, 4);
             this.txt_adminKey.Name = "txt_adminKey";
             this.txt_adminKey.PasswordChar = ' ';
             this.txt_adminKey.ShortcutsEnabled = false;
-            this.txt_adminKey.Size = new System.Drawing.Size(129, 13);
+            this.txt_adminKey.Size = new System.Drawing.Size(86, 13);
             this.txt_adminKey.TabIndex = 6;
             this.txt_adminKey.Text = " ";
             this.txt_adminKey.TextChanged += new System.EventHandler(this.txt_adminKey_TextChanged);
@@ -729,7 +736,7 @@
             this.lbl_ErrorLogs.AutoSize = true;
             this.lbl_ErrorLogs.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_ErrorLogs.LinkColor = System.Drawing.Color.SteelBlue;
-            this.lbl_ErrorLogs.Location = new System.Drawing.Point(209, 3);
+            this.lbl_ErrorLogs.Location = new System.Drawing.Point(299, 3);
             this.lbl_ErrorLogs.Name = "lbl_ErrorLogs";
             this.lbl_ErrorLogs.Size = new System.Drawing.Size(61, 14);
             this.lbl_ErrorLogs.TabIndex = 2;
@@ -759,13 +766,25 @@
             this.lbl_userControl.AutoSize = true;
             this.lbl_userControl.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_userControl.LinkColor = System.Drawing.Color.SteelBlue;
-            this.lbl_userControl.Location = new System.Drawing.Point(102, 3);
+            this.lbl_userControl.Location = new System.Drawing.Point(202, 3);
             this.lbl_userControl.Name = "lbl_userControl";
             this.lbl_userControl.Size = new System.Drawing.Size(75, 14);
             this.lbl_userControl.TabIndex = 1;
             this.lbl_userControl.TabStop = true;
             this.lbl_userControl.Text = "User Control";
             this.lbl_userControl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_userControl_LinkClicked);
+            // 
+            // lbl_needAdminKey
+            // 
+            this.lbl_needAdminKey.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbl_needAdminKey.AutoSize = true;
+            this.lbl_needAdminKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_needAdminKey.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.lbl_needAdminKey.Location = new System.Drawing.Point(657, 2);
+            this.lbl_needAdminKey.Name = "lbl_needAdminKey";
+            this.lbl_needAdminKey.Size = new System.Drawing.Size(164, 16);
+            this.lbl_needAdminKey.TabIndex = 3;
+            this.lbl_needAdminKey.Text = "You need admin pass key";
             // 
             // panel_adminBody
             // 
@@ -801,7 +820,7 @@
             this.MainMenuStrip = this.menuStrip_Home;
             this.Name = "frm_Home";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Home";
+            this.Text = "Sahaj";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frm_Home_Load);
             this.menuStrip_Home.ResumeLayout(false);
@@ -898,5 +917,6 @@
         private System.Windows.Forms.PictureBox pb_settingsAdmin;
         private System.Windows.Forms.Label lbl_needAdminKey;
         private System.Windows.Forms.TextBox txt_adminKey;
+        private System.Windows.Forms.LinkLabel lbl_adminTasks;
     }
 }

@@ -6,6 +6,7 @@ using m1.BC;
 using m1.Shared.Entities;
 using m1.Shared;
 using static m1.Shared.Utilities;
+using System.Data;
 
 namespace m1.BPC
     {
@@ -29,24 +30,23 @@ namespace m1.BPC
             {
                 get { if (_gEntity == null) { _gEntity = new GenEntity(); } return _gEntity; }
             }
-            #endregion
+        #endregion
 
-            #region Properties
+        #region Properties
 
-            #endregion
+        #endregion
 
-            #region Controls
+        #region Controls
 
-            #endregion
+        #endregion
 
-            #region UserMethods
+        #region UserMethods
 
-           
 
-            public bool bpcValidateUserLogin(GenEntity GEntity)
-            {
-                return GenBC.bcValidateUserLogin(GEntity);
-            }
+        public bool bpcValidateUserLogin(GenEntity GEntity)
+        {
+            return GenBC.bcValidateUserLogin(GEntity);
+        }
 
         public void bpcReadTableData(object obj)
         {
@@ -67,6 +67,16 @@ namespace m1.BPC
         public bool bpcTestDatabaseConnection(GenEntity GEntity)
         {
             return GenBC.bcTestDatabaseConnection(GEntity);
+        }
+        /// <summary>
+        /// Parse/Execute Query Mode 0-Parse, 1-Execute
+        /// </summary>
+        /// <param name="sqlQuery">Query to parse/execute</param>
+        /// <param name="mode">parse = 0 , execute = 1</param>
+        /// <param name="retMsg">returned message</param>
+        public void bpcParseExecuteQuery(string sqlQuery,int mode,out string retMsg,out DataTable retDT )
+        {
+            GenBC.bcParseExecuteQuery(sqlQuery,mode, out retMsg,out retDT);
         }
 
         public void bpcGetUserNotes(UserEntity userEntity)

@@ -17,6 +17,7 @@ using System.Data;
 using m1.Shared.DataBackUp;
 using System.Collections;
 using m1.Shared.Configs;
+using Microsoft.Win32;
 
 namespace m1.Shared
 {
@@ -90,7 +91,7 @@ namespace m1.Shared
                 else if (control is DateTimePicker)
                 {
                     DateTimePicker dtp = (DateTimePicker)control;
-                    dtp.Value = DateTime.Now;
+                    dtp.Value = dtp.MinDate;
                 }
                 else if (control is CheckedListBox)
                 {
@@ -244,7 +245,7 @@ namespace m1.Shared
             }
         }
 
-        public static void DontAllow_InvalidDOB(Control control, Control errControl, ErrorProvider errorProvider, CancelEventArgs e)
+        public static void DontAllow_InvalidDOB(Control control, ErrorProvider errorProvider, CancelEventArgs e)
         {
             if (control is DateTimePicker)
             {
@@ -255,10 +256,10 @@ namespace m1.Shared
 
                 if (dt2 >= dt1)
                 {
-                    errorProvider.SetError(errControl, "Should be of Past");
+                    errorProvider.SetError(control, "Should be of Past");
                     e.Cancel = true;
                 }                
-                else { errorProvider.SetError(errControl, ""); }
+                else { errorProvider.SetError(control, ""); }
             }
         }
         public static void DontAllow_FutureDate(Control control,  ErrorProvider errorProvider, CancelEventArgs e)
@@ -294,6 +295,46 @@ namespace m1.Shared
                     e.Cancel = true;
                 }
                 else { errorProvider.SetError(control, ""); }
+            }
+        }
+
+        public static void DontAllow_DTP_MinDate(Control control, ErrorProvider errorProvider, CancelEventArgs e)
+        {
+            if (control is DateTimePicker)
+            {
+                DateTimePicker dtp = (DateTimePicker)control;
+
+                if ((dtp.Value) == dtp.MinDate)
+                {
+                    errorProvider.SetError(dtp, "Select Valid Date");
+                    e.Cancel = true;
+                }
+                else { errorProvider.SetError(control, ""); }
+            }
+        }
+
+        public static void DontAllowBlankRadioBtn(Control controlP, ErrorProvider errorProvider, CancelEventArgs e)
+        {
+            if (controlP is Panel)
+            {
+                bool isValid = false;
+                foreach (Control control in controlP.Controls)
+                {
+                    if (control is RadioButton)
+                    {
+                        RadioButton rb = (RadioButton)control;
+
+                        if ((rb.Checked))
+                        {
+                            isValid = true;
+                            break;
+                        }
+
+                    }
+                }
+
+                if (!isValid) { errorProvider.SetError(controlP, "Select 1 Option"); e.Cancel = true; }
+                else { errorProvider.SetError(controlP, ""); }
             }
         }
 
@@ -432,6 +473,32 @@ namespace m1.Shared
                     System.IO.Directory.CreateDirectory(item);
                 }
             }
+        }
+
+        public static string ReadRegSubKeyValue(string path, string key)
+
+        {
+
+            string str = string.Empty;
+
+            using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(path))
+
+            {
+
+                if (registryKey != null)
+
+                {
+                    try { str = registryKey.GetValue(key).ToString(); }
+                    catch { return "xxxxxxxxxx"; }
+
+                    registryKey.Close();
+
+                }
+
+            }
+
+            return str==string.Empty? "xxxxxxxxxx": str;
+
         }
 
         #endregion GeneralFunctions
@@ -712,6 +779,8 @@ namespace m1.Shared
         {
             CsvEngine q = new CsvEngine("z",'|',fileName);
         }
+
+       
         #endregion FileHelpersLibrary
 
     }

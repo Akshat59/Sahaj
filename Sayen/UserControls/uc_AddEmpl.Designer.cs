@@ -30,6 +30,7 @@ namespace Sayen.UserControls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(uc_AddEmpl));
             this.txt_dlno = new System.Windows.Forms.TextBox();
             this.lbl_dlTypes = new System.Windows.Forms.Label();
@@ -71,7 +72,7 @@ namespace Sayen.UserControls
             this.panel7_viewDoc = new System.Windows.Forms.Panel();
             this.lbl_hide_viewDoc = new System.Windows.Forms.LinkLabel();
             this.pb_viewDoc = new System.Windows.Forms.PictureBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmi_showPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_savePicture = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -123,7 +124,6 @@ namespace Sayen.UserControls
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dtp_dob = new System.Windows.Forms.DateTimePicker();
             this.lbl_dob = new System.Windows.Forms.Label();
-            this.txt_age = new System.Windows.Forms.TextBox();
             this.lbl_education = new System.Windows.Forms.Label();
             this.txt_education = new System.Windows.Forms.TextBox();
             this.lbl_email = new System.Windows.Forms.Label();
@@ -134,7 +134,9 @@ namespace Sayen.UserControls
             this.lbl_empStatus = new System.Windows.Forms.Label();
             this.rdl_terminateEmp = new System.Windows.Forms.RadioButton();
             this.rdl_editEmp = new System.Windows.Forms.RadioButton();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider();
+            this.panel6_age = new System.Windows.Forms.Panel();
+            this.txt_age = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.fwd_addEmp = new System.Windows.Forms.FolderBrowserDialog();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -157,6 +159,7 @@ namespace Sayen.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.pb_del_dl)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel6_age.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -167,6 +170,7 @@ namespace Sayen.UserControls
             this.txt_dlno.Name = "txt_dlno";
             this.txt_dlno.Size = new System.Drawing.Size(200, 20);
             this.txt_dlno.TabIndex = 2;
+            this.txt_dlno.TextChanged += new System.EventHandler(this.txt_dlno_TextChanged);
             this.txt_dlno.Validating += new System.ComponentModel.CancelEventHandler(this.txt_dlno_Validating);
             // 
             // lbl_dlTypes
@@ -284,6 +288,7 @@ namespace Sayen.UserControls
             this.rdl_gender_m.TabStop = true;
             this.rdl_gender_m.Text = "Male";
             this.rdl_gender_m.UseVisualStyleBackColor = true;
+            this.rdl_gender_m.Validating += new System.ComponentModel.CancelEventHandler(this.rdl_gender_m_Validating);
             // 
             // lbl_gender
             // 
@@ -786,6 +791,7 @@ namespace Sayen.UserControls
             this.dtp_hiringDate.Name = "dtp_hiringDate";
             this.dtp_hiringDate.Size = new System.Drawing.Size(185, 20);
             this.dtp_hiringDate.TabIndex = 38;
+            this.dtp_hiringDate.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtp_hiringDate.Validating += new System.ComponentModel.CancelEventHandler(this.dtp_hiringDate_Validating);
             // 
             // ddl_hiring_manager
@@ -907,6 +913,7 @@ namespace Sayen.UserControls
             this.dtp_dlValidity.Name = "dtp_dlValidity";
             this.dtp_dlValidity.Size = new System.Drawing.Size(200, 20);
             this.dtp_dlValidity.TabIndex = 5;
+            this.dtp_dlValidity.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtp_dlValidity.Validating += new System.ComponentModel.CancelEventHandler(this.dtp_validity_Validating);
             // 
             // txt_rto
@@ -1217,7 +1224,6 @@ namespace Sayen.UserControls
             this.tableLayoutPanel1.Controls.Add(this.lbl_pinCode, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.lbl_homePhone, 0, 10);
             this.tableLayoutPanel1.Controls.Add(this.lbl_dob, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.txt_age, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.lbl_mobileNo, 0, 11);
             this.tableLayoutPanel1.Controls.Add(this.lbl_education, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.txt_education, 1, 13);
@@ -1226,6 +1232,7 @@ namespace Sayen.UserControls
             this.tableLayoutPanel1.Controls.Add(this.txt_email, 1, 12);
             this.tableLayoutPanel1.Controls.Add(this.lbl_empId, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel7, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel6_age, 2, 5);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(84, 104);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 14;
@@ -1255,6 +1262,7 @@ namespace Sayen.UserControls
             this.dtp_dob.Name = "dtp_dob";
             this.dtp_dob.Size = new System.Drawing.Size(188, 20);
             this.dtp_dob.TabIndex = 4;
+            this.dtp_dob.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtp_dob.ValueChanged += new System.EventHandler(this.dtp_dob_ValueChanged);
             this.dtp_dob.Validating += new System.ComponentModel.CancelEventHandler(this.dtp_dob_Validating);
             // 
@@ -1267,16 +1275,6 @@ namespace Sayen.UserControls
             this.lbl_dob.Size = new System.Drawing.Size(66, 13);
             this.lbl_dob.TabIndex = 44;
             this.lbl_dob.Text = "Date of Birth";
-            // 
-            // txt_age
-            // 
-            this.txt_age.Enabled = false;
-            this.txt_age.Location = new System.Drawing.Point(273, 137);
-            this.txt_age.Name = "txt_age";
-            this.txt_age.Size = new System.Drawing.Size(21, 20);
-            this.txt_age.TabIndex = 54;
-            this.txt_age.TabStop = false;
-            this.txt_age.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lbl_education
             // 
@@ -1314,6 +1312,7 @@ namespace Sayen.UserControls
             this.txt_mobileNo.Name = "txt_mobileNo";
             this.txt_mobileNo.Size = new System.Drawing.Size(188, 20);
             this.txt_mobileNo.TabIndex = 58;
+            this.txt_mobileNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_mobileNo_KeyPress);
             this.txt_mobileNo.Validating += new System.ComponentModel.CancelEventHandler(this.txt_mobileNo_Validating);
             // 
             // txt_email
@@ -1383,6 +1382,26 @@ namespace Sayen.UserControls
             this.rdl_editEmp.UseVisualStyleBackColor = true;
             this.rdl_editEmp.CheckedChanged += new System.EventHandler(this.rdl_editEmp_CheckedChanged);
             // 
+            // panel6_age
+            // 
+            this.panel6_age.Controls.Add(this.txt_age);
+            this.panel6_age.Location = new System.Drawing.Point(273, 137);
+            this.panel6_age.Name = "panel6_age";
+            this.panel6_age.Size = new System.Drawing.Size(38, 20);
+            this.panel6_age.TabIndex = 61;
+            // 
+            // txt_age
+            // 
+            this.txt_age.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txt_age.Enabled = false;
+            this.txt_age.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_age.Location = new System.Drawing.Point(11, 0);
+            this.txt_age.Name = "txt_age";
+            this.txt_age.Size = new System.Drawing.Size(27, 20);
+            this.txt_age.TabIndex = 54;
+            this.txt_age.TabStop = false;
+            this.txt_age.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -1436,6 +1455,8 @@ namespace Sayen.UserControls
             this.tableLayoutPanel1.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.panel6_age.ResumeLayout(false);
+            this.panel6_age.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
@@ -1547,5 +1568,6 @@ namespace Sayen.UserControls
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmi_showPicture;
         private System.Windows.Forms.ToolStripMenuItem tsmi_savePicture;
+        private System.Windows.Forms.Panel panel6_age;
     }
 }

@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		SampleClass.cs = SampleClass.cs
 		TextFile1.txt = TextFile1.txt
+		trial1.cs = trial1.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "m1.DAC", "m1.DAC\m1.DAC.csproj", "{FBD6D4BC-5D50-4165-A363-7095DADC3434}"
@@ -23,6 +24,8 @@ Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Sahaj_Installer", "Sahaj_In
 	ProjectSection(ProjectDependencies) = postProject
 		{F14F640E-A629-4BAB-83BE-879BA91A1260} = {F14F640E-A629-4BAB-83BE-879BA91A1260}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Scripts", "SQL Scripts", "{9FC05831-9555-4314-89DA-24A8DFE22357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -218,5 +221,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9FC05831-9555-4314-89DA-24A8DFE22357} = {3BC63A4C-32AC-43BA-ADD5-C658492E382D}
 	EndGlobalSection
 EndGlobal

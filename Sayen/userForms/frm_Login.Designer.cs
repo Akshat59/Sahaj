@@ -53,7 +53,7 @@
             this.lbl_title.Size = new System.Drawing.Size(69, 29);
             this.lbl_title.TabIndex = 0;
             this.lbl_title.Text = "Sahaj";
-            this.lbl_title.Click += new System.EventHandler(this.lbl_title_Click);
+            this.lbl_title.DoubleClick += new System.EventHandler(this.lbl_title_DoubleClick);
             // 
             // lbl_uname
             // 
@@ -89,7 +89,7 @@
             this.txt_pwd.PasswordChar = '•';
             this.txt_pwd.Size = new System.Drawing.Size(100, 20);
             this.txt_pwd.TabIndex = 4;
-            this.txt_pwd.Text = "Test123!";
+            this.txt_pwd.Text = "Test123";
             this.txt_pwd.UseSystemPasswordChar = true;
             this.txt_pwd.TextChanged += new System.EventHandler(this.txt_pwd_TextChanged);
             // 
@@ -156,6 +156,7 @@
             // 
             // frm_login
             // 
+            this.AcceptButton = this.btn_login;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;

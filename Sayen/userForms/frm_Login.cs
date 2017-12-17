@@ -14,8 +14,7 @@ namespace Sayen
         {
             InitializeComponent();
             lbl_loginMsg.Visible = false;
-            this._genBPC = null;
-            
+            this._genBPC = null;            
         }
 
         #region Objects
@@ -74,7 +73,7 @@ namespace Sayen
             MessageBox.Show(UserMessages.LoginIsuuesMsg, UserMessages.LoginIsuuesTitle);
         }
 
-        private void lbl_title_Click(object sender, EventArgs e)
+        private void lbl_title_DoubleClick(object sender, EventArgs e)
         {
             try
             {
@@ -97,7 +96,7 @@ namespace Sayen
                 elog.U_error_loggedby = ErrorLogEntity.errorLoggedBy.System;
                 ExceptionManagement.logAppException(elog);
                 setLables(AppConstants.CallStatusError, UserMessages.AppException);
-            }            
+            }
         }
 
 
@@ -106,9 +105,9 @@ namespace Sayen
             m_btnlogin_click();
 
         }
-        #endregion       
+        #endregion     Controls  
 
-        #region PrivateMethods
+        #region UserMethods
         private void m_btnlogin_click()
         {
             try
@@ -123,7 +122,7 @@ namespace Sayen
                 }
                 else
                 {
-                    GEntity.UserEntity.Input_user_id = S_uname;
+                    GEntity.UserEntity.Input_user_id = S_uname.Trim();
                     GEntity.UserEntity.User_pwd = S_pwd;
 
                     if (_genBPC == null) { _genBPC = new genBPC(); }
@@ -179,7 +178,7 @@ namespace Sayen
                 elog.TargetSite = Ex.TargetSite;
                 elog.U_IfLogtoDatabase = true;
                 elog.U_IfLogtoEventLogs = true;
-                elog.U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp;
+                elog.U_error_date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"); ;
                 elog.U_error_loggedby = ErrorLogEntity.errorLoggedBy.System;
                 ExceptionManagement.logAppException(elog);
                 setLables(AppConstants.CallStatusError, UserMessages.AppException);
@@ -210,9 +209,10 @@ namespace Sayen
 
         }
 
-        #endregion
-       
+        #endregion UserMethods
+
+
     }
 
-    
+
 }

@@ -48,6 +48,7 @@ namespace Sahaj.UserControls
             panel1.AutoSize = true;
             dataGridView1.BackgroundColor = Color.AliceBlue;
             _op_Type = op_Type;
+            objFrmHome.AcceptButton = btn_search;
 
             switch (op_Type)
             {
@@ -63,7 +64,7 @@ namespace Sahaj.UserControls
 
         private void uc_ViewEntity_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btn_search_Click(object sender, EventArgs e)

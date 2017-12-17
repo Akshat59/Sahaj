@@ -13,6 +13,7 @@ using Sahaj.UserControls;
 using System.IO;
 using m1.Shared.Configs;
 using System.Collections;
+using m1.Sahaj.userForms;
 
 namespace Sayen
 {
@@ -283,6 +284,13 @@ namespace Sayen
             panel_adminBody.Controls.Add(_uc_ErrorLogs);
         }
 
+        private void lbl_adminTasks_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ResetAdminUserControlPanel();
+            uc_AdminTasks _uc_AdminTasks = new uc_AdminTasks();
+            panel_adminBody.Controls.Add(_uc_AdminTasks);
+        }
+
         private void pb_settingsAdmin_Click(object sender, EventArgs e)
         {
             ResetAdminUserControlPanel();
@@ -356,8 +364,14 @@ namespace Sayen
 
 
 
+
+
         #endregion UserMethods
 
-       
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frm_About frm_About = new frm_About();
+            frm_About.Show();
+        }
     }
 }

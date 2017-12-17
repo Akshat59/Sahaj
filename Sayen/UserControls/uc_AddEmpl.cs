@@ -35,6 +35,8 @@ namespace Sayen.UserControls
         string _empID = string.Empty;
         //EmployeeDocs edoc = new EmployeeDocs();
 
+            private string empStatus;
+
         private genBPC _genBPC;
 
         public genBPC GenBPC
@@ -85,8 +87,6 @@ namespace Sayen.UserControls
         {
             ddl_designation.Text = ddl_empType.Text;
         }
-
-
 
         private void btn_reset_Click(object sender, EventArgs e) { this.ucResetControls(); } 
 
@@ -149,8 +149,11 @@ namespace Sayen.UserControls
 
         private void dtp_dob_ValueChanged(object sender, EventArgs e)
         {
-            int _age = Utilities.GetAge(DateTime.Now.AddDays(30), dtp_dob.Value);
-            txt_age.Text = _age.ToString();
+            if (dtp_dob.Value != dtp_dob.MinDate)
+            {
+                int _age = Utilities.GetAge(DateTime.Now.AddDays(30), dtp_dob.Value);
+                txt_age.Text = _age.ToString();
+            }
         }
 
         private void lbl_title_Click(object sender, EventArgs e)
@@ -176,7 +179,7 @@ namespace Sayen.UserControls
                 Utilities.SetControlReadonly(panel1.Controls, false);
                 txt_age.Enabled = false;
                 ddl_hiring_manager.Enabled = false;
-
+                ddl_designation.Enabled = false;
             }
             else if (rdl_terminateEmp.Checked)
             {
@@ -185,8 +188,11 @@ namespace Sayen.UserControls
                 Utilities.SetControlReadonly(panel1.Controls, true);
                 Utilities.EnableDisableControls(panel5.Controls, true);
                 Utilities.EnableDisableControls(panel7.Controls, true);
-
             }
+
+            //Disable/Enable Terminate option
+            if (empStatus != AppKeys.Active){rdl_terminateEmp.Enabled = false;}
+            else { rdl_terminateEmp.Enabled = true; }
         }
 
         private void rdl_terminateEmp_CheckedChanged(object sender, EventArgs e)
@@ -221,6 +227,23 @@ namespace Sayen.UserControls
                 chk_escalatedEmp.Visible = true;
             }
         }
+        
+        private void txt_dlno_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_dlno.Enabled)
+            {
+                if (txt_dlno.TextLength >= 5)
+                {
+                    //chk_dltype_hmv.Enabled = chk_dltype_htmv.Enabled = chk_dltype_lmv.Enabled = dtp_dlValidity.Enabled = txt_rto.Enabled = true;
+                }
+                else
+                {
+                    //chk_dltype_hmv.Enabled = chk_dltype_htmv.Enabled = chk_dltype_lmv.Enabled = dtp_dlValidity.Enabled = txt_rto.Enabled = false;
+                    Utilities.ResetControls(chk_dltype_hmv); Utilities.ResetControls(chk_dltype_htmv); Utilities.ResetControls(chk_dltype_lmv);
+                    Utilities.ResetControls(dtp_dlValidity); Utilities.ResetControls(txt_rto);
+                }
+            }
+        }
 
         #endregion Events
 
@@ -235,27 +258,34 @@ namespace Sayen.UserControls
             if (!txt_lastName.ReadOnly) { Utilities.DontAllow_Empty(txt_lastName, errorProvider1, e); }
         }
         private void dtp_dob_Validating(object sender, CancelEventArgs e)
-        {
-            if (dtp_dlValidity.Enabled) { Utilities.DontAllow_InvalidDOB(dtp_dob, txt_age, errorProvider1, e); }
+        {            
+            if (dtp_dob.Enabled)
+            {
+                if ((dtp_dob.Value) == dtp_dob.MinDate) { Utilities.DontAllow_DTP_MinDate(dtp_dob, errorProvider1, e); }
+                else { Utilities.DontAllow_InvalidDOB(dtp_dob, errorProvider1, e); }
+            }
         }
 
         private void dtp_validity_Validating(object sender, CancelEventArgs e)
         {
-
             if (dtp_dlValidity.Enabled && txt_dlno.Text.Length > 0)
-            { Utilities.DontAllow_InvalidExpiryDate(dtp_dlValidity, errorProvider1, e); }
+            {
+                if ((dtp_dlValidity.Value) == dtp_dlValidity.MinDate) { Utilities.DontAllow_DTP_MinDate(dtp_dlValidity, errorProvider1, e); }
+                else { Utilities.DontAllow_InvalidExpiryDate(dtp_dlValidity, errorProvider1, e); }
+            }
         }
 
         private void txt_mobileNo_Validating(object sender, CancelEventArgs e)
         {
             if (!txt_mobileNo.ReadOnly)
             {
-                Utilities.DontAllow_Empty(txt_mobileNo, errorProvider1, e);
+                //Utilities.DontAllow_Empty(txt_mobileNo, errorProvider1, e);
                 if (txt_mobileNo.TextLength != 10)
                 {
                     errorProvider1.SetError(txt_mobileNo, UserMessages.InvalidMobileNumber);
                     e.Cancel = true;
                 }
+                else { errorProvider1.SetError(txt_mobileNo, ""); }
             }
         }
 
@@ -278,7 +308,7 @@ namespace Sayen.UserControls
                 if (ddl_empType.Text == e_EmployeeType.Driver.ToString() && txt_dlno.TextLength < 5)
                 {
                     txt_rto.Text = string.Empty;
-                    dtp_dlValidity.Text = string.Empty;
+                    dtp_dlValidity.Value = dtp_dlValidity.MinDate;
                     errorProvider1.SetError(txt_dlno, UserMessages.ValidDLRequired);
                     e.Cancel = true;
                 }
@@ -290,10 +320,16 @@ namespace Sayen.UserControls
 
         private void dtp_hiringDate_Validating(object sender, CancelEventArgs e)
         {
-            if (dtp_hiringDate.Enabled) { Utilities.DontAllow_FutureDate(dtp_hiringDate, errorProvider1, e); }
+            if (dtp_hiringDate.Enabled)
+            {
+                if ((dtp_hiringDate.Value) == dtp_hiringDate.MinDate) { Utilities.DontAllow_DTP_MinDate(dtp_hiringDate, errorProvider1, e); }
+                else { Utilities.DontAllow_FutureDate(dtp_hiringDate, errorProvider1, e); }
+            }
         }
-
-
+        private void rdl_gender_m_Validating(object sender, CancelEventArgs e)
+        {
+            Utilities.DontAllowBlankRadioBtn(panel2, errorProvider1, e);
+        }
 
         #endregion Validation
 
@@ -460,6 +496,8 @@ namespace Sayen.UserControls
             ddl_empType.SelectedText = "";
             ddl_designation.Text = ddl_empType.Text;
 
+            dtp_dlValidity.Value = dtp_dob.Value = dtp_hiringDate.Value = dtp_dlValidity.MinDate;
+
             _isPostback = true;
 
             this.AutoSize = true;
@@ -497,15 +535,17 @@ namespace Sayen.UserControls
 
                 GenBPC.bpcGetEmpDetails(m_eCol);
 
-                string empStatus;
+                
                 foreach (EmployeeEntity _emp in m_eCol)
                 {
                     PopulateControls(_emp);
                     empStatus = _emp.Emp_status;
                     if(_emp.Emp_status !=AppKeys.Active)
-                    { MessageBox.Show("Employee is terminated, Edit and submit to Reactivate"); }
+                    { MessageBox.Show("Employee is terminated, Edit and submit to Reactivate"); rdl_terminateEmp.Enabled = false; }
                     else
                     {
+                        rdl_terminateEmp.Enabled = true;
+
                         //Retrieve emp docs
                         DocumentCollection m_dCol = new DocumentCollection();
                         formDocs m_doc = new formDocs();
@@ -727,6 +767,9 @@ namespace Sayen.UserControls
             }
             catch (Exception Ex)
             {
+                FormMessage fm = new FormMessage { RetIndicator = AppKeys.Failure, Message = string.Format("Application Exception occured; Contact Support team"), MessageType = e_MsgType.E };
+                empCol.FormMessages.Add(fm);
+
                 ErrorLogEntity elog = new ErrorLogEntity();
                 elog.HelpLink = Ex.HelpLink;
                // elog.InnerException = Ex.InnerException.ToString();
@@ -739,6 +782,7 @@ namespace Sayen.UserControls
                 elog.U_error_date = AppGlobal.g_GEntity.SessionEntity.CurrentTimeStamp;
                 elog.U_error_loggedby = ErrorLogEntity.errorLoggedBy.System;
                 ExceptionManagement.logAppException(elog);
+
             }
             finally
             {
@@ -794,6 +838,7 @@ namespace Sayen.UserControls
             emp.Experience = txt_experience.Text == String.Empty ? String.Empty : txt_experience.Text;
             emp.Attributes = txt_attributes.Text == String.Empty ? String.Empty : txt_attributes.Text;
             emp.Otherdetails = txt_otherDetails.Text == String.Empty ? String.Empty : txt_otherDetails.Text;
+
             if (_operationType == e_frmOperationType.S || _operationType == e_frmOperationType.U)
             {
                 emp.Emp_status = AppKeys.Active;
@@ -805,10 +850,33 @@ namespace Sayen.UserControls
                 emp.Allow_login = AppKeys.No;
             }
 
+            //Dont exceed databse table column lenght   
+            FormatEmpEnitityObjLenght(emp);
 
             //format emp properties
             this.formatEntity(emp);
 
+        }
+
+        private void FormatEmpEnitityObjLenght(EmployeeEntity emp) 
+        {
+            //#FutureCode - Make this method generic like taking length of columns from sql
+            emp.Firstname = txt_firstName.Text.Length <= 30 ? txt_firstName.Text : txt_firstName.Text.Substring(0, 30);
+            emp.Lastname = txt_lastName.Text.Length <= 30 ? txt_lastName.Text : txt_lastName.Text.Substring(0, 30);
+            emp.Petname = txt_petName.Text.Length <= 10 ? txt_petName.Text : txt_petName.Text.Substring(0, 10);
+            emp.Empaddress = txt_address.Text.Length <= 10000 ? txt_address.Text : txt_address.Text.Substring(0, 1000);
+            emp.Pincode = txt_pinCode.Text.Length <= 6 ? txt_pinCode.Text : txt_pinCode.Text.Substring(0, 6);
+            emp.Homephone = txt_homePhone.Text.Length <= 15 ? txt_homePhone.Text : txt_homePhone.Text.Substring(0, 15);
+            emp.Mobile = txt_mobileNo.Text.Length <= 10 ? txt_mobileNo.Text : txt_mobileNo.Text.Substring(0, 10);
+            emp.Emailid = txt_email.Text.Length <= 30 ? txt_email.Text : txt_email.Text.Substring(0, 30);
+            emp.Education = txt_education.Text.Length <= 20 ? txt_education.Text : txt_education.Text.Substring(0, 20);
+            emp.Aadhaarno = txt_aadhaar.Text.Length <=12 ? txt_aadhaar.Text : txt_aadhaar.Text.Substring(0, 12);
+            emp.Addressproof = txt_addressProof.Text.Length <= 20 ? txt_addressProof.Text : txt_addressProof.Text.Substring(0, 20);
+            emp.Dl_no = txt_dlno.Text.Length <= 40 ? txt_dlno.Text : txt_dlno.Text.Substring(0, 40);
+            emp.Dl_rto = txt_dlno.Text.Length <= 30 ? txt_dlno.Text : txt_rto.Text.Substring(0, 30);
+            emp.Experience = txt_experience.Text.Length <= 300 ? txt_experience.Text : txt_experience.Text.Substring(0, 300);
+            emp.Attributes = txt_attributes.Text.Length <= 1000 ? txt_attributes.Text : txt_attributes.Text.Substring(0, 1000);
+            emp.Otherdetails = txt_otherDetails.Text.Length <= 1000 ? txt_otherDetails.Text : txt_otherDetails.Text.Substring(0, 1000);
         }
 
         private void SetEmployeeDocCollection(string _empID)
@@ -1025,8 +1093,10 @@ namespace Sayen.UserControls
             errorProvider1.Clear();
         }
 
+
+
         #endregion UserMethods
 
-      
+
     }
 }

@@ -193,6 +193,7 @@ namespace m1.DAC
                         }
                     }                  
                     return dt;
+
                 }
             }
             catch (Exception Ex)
@@ -241,7 +242,7 @@ namespace m1.DAC
 
                     _ret = oCmd.ExecuteNonQuery();
                 }
-                return _ret;
+                 return _ret;
             }
               
             catch (Exception Ex)
@@ -253,7 +254,40 @@ namespace m1.DAC
             {
                 AppGlobal.sqlErrorLog = _sqlLog;               
             }
-        }        
+        }
+
+        public int bParseExecute(string sqlQuery,int mode,out string retMsg,out DataTable retDT)
+        {
+            _ret = 0;
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            try
+            {
+                string conStrng = ConfigSettings.GetConnectionString(DatabaseConstants.ConnStringKey).ToString();
+                using (SqlConnection myConnection = new SqlConnection(conStrng))
+                {
+                    myConnection.Open();
+                    SqlCommand oCmd = new SqlCommand(sqlQuery, myConnection);
+
+                    if (mode == 0) { _ret = oCmd.ExecuteNonQuery(); }
+                    else
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(oCmd);
+                        int res = da.Fill(ds, "dt");
+                        dt = ds.Tables["dt"];
+                    }
+                }
+                retDT = dt;
+                retMsg = string.Empty;
+                return _ret;
+            }
+            catch (Exception Ex)
+            {
+                retMsg = Ex.Message;
+                retDT = new DataTable();
+                return _ret;
+            }
+        }
 
         public string bExecuteScalar(string sqlSelectQuery, List<SqlParameter> sp = null)
         {
