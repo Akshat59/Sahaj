@@ -18,9 +18,13 @@ namespace m1.Sahaj.userForms
             loadForm();
         }
 
+        int elapsedtime = 0;
         private void loadForm()
         {
-            Timer t1 = new Timer();
+                        
+            timer1.Start();
+
+
             string msg = "Sahaj is inhouse app owned and managed by\r\nNew Prem Bus Service Nagrota Bagwan HP\r\n\r\nContact admin for any issues\r\n\r\n";
             
 
@@ -30,6 +34,43 @@ namespace m1.Sahaj.userForms
             string s_lastUpdated = Utilities.ReadRegSubKeyValue(@"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\New Prem\Sahaj", "UpdateDate");
 
             label1.Text = string.Format("{0}\r\nBuild: {1}\r\nVersion: {2}\r\nLast Build: {3}\r\n\r\n\r\n\r\nSahaj ©NewPrem 2018", msg,s_build,s_version,s_lastUpdated);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(elapsedtime<10)
+            {
+                elapsedtime+=1;
+            }
+            else
+            {
+                closeForm();
+                
+            }
+        }
+
+        private void closeForm()
+        {
+            timer1.Stop();
+            elapsedtime = 0;
+            this.Dispose();
+            this.Close();
+        }
+
+        private void frm_About_Leave(object sender, EventArgs e)
+        {
+            if (elapsedtime > 3)
+            {
+                closeForm();
+            }
+        }
+
+        private void frm_About_Deactivate(object sender, EventArgs e)
+        {
+            if (elapsedtime > 3)
+            {
+                closeForm();
+            }
         }
     }
 }

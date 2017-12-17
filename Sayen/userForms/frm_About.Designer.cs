@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_About));
             this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -45,6 +47,11 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "***message***";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // frm_About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -56,6 +63,8 @@
             this.Name = "frm_About";
             this.ShowInTaskbar = false;
             this.Text = "About";
+            this.Deactivate += new System.EventHandler(this.frm_About_Deactivate);
+            this.Leave += new System.EventHandler(this.frm_About_Leave);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -64,5 +73,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timer1;
     }
 }

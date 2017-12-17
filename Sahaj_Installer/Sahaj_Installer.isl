@@ -4423,8 +4423,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>Registry11</td><td>2</td><td>SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\New Prem\Sahaj</td><td>Build</td><td>4200071</td><td>Sahaj.Primary_output</td><td>0</td></row>
 		<row><td>Registry2</td><td>2</td><td>SOFTWARE\New Prem\Sahaj</td><td>UpdateDate</td><td>2017-12-14</td><td>ISX_DEFAULTCOMPONENT1</td><td>0</td></row>
 		<row><td>Registry3</td><td>2</td><td>SOFTWARE\New Prem\Sahaj</td><td>Build</td><td>4200071</td><td>ISX_DEFAULTCOMPONENT1</td><td>0</td></row>
-		<row><td>Registry4</td><td>2</td><td>SOFTWARE\New Prem\Sahaj</td><td>*</td><td/><td>ISX_DEFAULTCOMPONENT1</td><td>0</td></row>
-		<row><td>Registry5</td><td>2</td><td>SOFTWARE\New Prem</td><td>*</td><td/><td>ISX_DEFAULTCOMPONENT1</td><td>0</td></row>
 		<row><td>Registry6</td><td>2</td><td>Software\Microsoft\Windows\CurrentVersion\App Paths\|Built</td><td/><td/><td>Sahaj.Primary_output</td><td>1</td></row>
 		<row><td>Registry7</td><td>2</td><td>Software\Microsoft\Windows\CurrentVersion\App Paths\|Built</td><td>Path</td><td>[INSTALLDIR]</td><td>Sahaj.Primary_output</td><td>0</td></row>
 		<row><td>Registry8</td><td>2</td><td>Software\Microsoft\Windows\CurrentVersion\App Paths\|Built</td><td/><td>[!sahaj.primary_output]</td><td>Sahaj.Primary_output</td><td>0</td></row>
