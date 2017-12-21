@@ -78,10 +78,39 @@ namespace m1.Shared.Configs
             }
         }
 
-        public static List<string> GetAllProperties()
+        public static void SetConnectionString(string key, string value)
         {
-            return ConfigurationManager.AppSettings.AllKeys.ToList();
+            try
+            {
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                config.ConnectionStrings.ConnectionStrings[key].ConnectionString = value;               
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("connectionStrings");
+            }
+            catch (Exception Ex)
+            {
+                SetException(Ex);
+            }
         }
+
+        public static List<string> GetAllProperties()
+        {           
+            return  ConfigurationManager.AppSettings.AllKeys.ToList();
+        }
+
+        public static List<string> GetAllConnectionStrings()
+        {
+            List<string> op = new List<string>();
+            foreach (ConnectionStringSettings c in System.Configuration.ConfigurationManager.ConnectionStrings)
+            {
+                if (c.Name.EndsWith("ConnectionString"))
+                { op.Add(c.Name.ToString()); }
+            }
+                        
+            return op;
+        }
+       
 
         #endregion
 

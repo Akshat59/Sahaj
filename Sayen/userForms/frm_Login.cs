@@ -14,7 +14,9 @@ namespace Sayen
         {
             InitializeComponent();
             lbl_loginMsg.Visible = false;
-            this._genBPC = null;            
+            btn_login.Focus();
+            this._genBPC = null;
+            AppGlobal.g_GEntity = new GenEntity();
         }
 
         #region Objects
@@ -27,12 +29,12 @@ namespace Sayen
             
         }
 
-        private GenEntity _gEntity;
+        //private GenEntity _gEntity;
 
-        public GenEntity GEntity
-        {
-            get { if (_gEntity == null) { _gEntity = new GenEntity(); } return _gEntity; }
-        }
+        //public GenEntity GEntity
+        //{
+          //  get { if (_gEntity == null) { _gEntity = new GenEntity(); } return _gEntity; }
+        //}
         #endregion
 
         #region Properties
@@ -122,18 +124,18 @@ namespace Sayen
                 }
                 else
                 {
-                    GEntity.UserEntity.Input_user_id = S_uname.Trim();
-                    GEntity.UserEntity.User_pwd = S_pwd;
+                    AppGlobal.g_GEntity.UserEntity.Input_user_id = S_uname.Trim();
+                    AppGlobal.g_GEntity.UserEntity.User_pwd = S_pwd;
 
                     if (_genBPC == null) { _genBPC = new genBPC(); }
 
-                    if (!_genBPC.bpcTestDatabaseConnection(GEntity))
+                    if (!_genBPC.bpcTestDatabaseConnection(AppGlobal.g_GEntity))
                     {
                         setLables(AppConstants.CallStatusError, UserMessages.DatabaseNotConnected);
                     }
                     else
                     {
-                        if (_genBPC.bpcValidateUserLogin(GEntity))
+                        if (_genBPC.bpcValidateUserLogin(AppGlobal.g_GEntity))
                         {
                             //frm_login frmlgn = new frm_login();
                             //Thread newThread = new Thread(frmlgn.thread1);
@@ -142,8 +144,8 @@ namespace Sayen
 
                             Thread.Sleep(500);
 
-                            //DialogResult res = MessageBox.Show(UserMessages.LogonDisclaimer, UserMessages.LogonDisclaimerTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                            DialogResult res = DialogResult.Yes;
+                            DialogResult res = MessageBox.Show(UserMessages.LogonDisclaimer, UserMessages.LogonDisclaimerTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            //DialogResult res = DialogResult.Yes;
 
                             if (res == DialogResult.Yes)
                             {

@@ -18,8 +18,7 @@ namespace m1.Shared
         public static string sqlErrorLog = string.Empty;
         public const string super_admin_PassKey = "1234";
 
-        public static GenEntity g_GEntity = null;
-        
+        public static GenEntity g_GEntity = null;        
 
     }
 }

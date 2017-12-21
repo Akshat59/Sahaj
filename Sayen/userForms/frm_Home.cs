@@ -45,6 +45,7 @@ namespace Sayen
             DialogResult res = Utilities.GetYesNoConfirmation(UserMessages.Ques_AreYouSure,UserMessages.ConfirmAppLogOut);
             if (res.Equals(DialogResult.Yes))
             {
+                ClearAppObjects();
                 this.Hide();
                 var objFrmLogin = new frm_login();
                 objFrmLogin.Show();
@@ -53,6 +54,10 @@ namespace Sayen
             }
         }
 
+        private void ClearAppObjects()
+        {
+            AppGlobal.g_GEntity = null;
+        }
 
         private void DisposeTabPageObjects()
         {            
@@ -193,6 +198,11 @@ namespace Sayen
             }
         }
 
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frm_About frm_About = new frm_About();
+            frm_About.Show();
+        }
 
         private void viewToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -368,10 +378,6 @@ namespace Sayen
 
         #endregion UserMethods
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frm_About frm_About = new frm_About();
-            frm_About.Show();
-        }
+
     }
 }

@@ -139,7 +139,8 @@ namespace Sahaj.UserControls
             propertyValues = (ConfigSettings.GetAllProperties());
             //propertyValues = propertyValues.Where(key => !key.StartsWith("Query"));
             propertyValues.Insert(0, AppConstants.DropDownListFirstItem);
-            
+
+            propertyValues.AddRange(ConfigSettings.GetAllConnectionStrings());
             ddl_propertyKeys.DataSource = propertyValues.ToArray();
 
         }
@@ -147,12 +148,19 @@ namespace Sahaj.UserControls
         private void ddl_propertyKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(ddl_propertyKeys.SelectedIndex == 0) { btn_update.Enabled = false; }
-            else { txt_propertyValue.Text = ConfigSettings.GetAppSetting(ddl_propertyKeys.SelectedValue.ToString()); btn_update.Enabled = true; }
+            else
+            {
+                if (ddl_propertyKeys.SelectedValue.ToString().EndsWith("ConnectionString"))
+                { txt_propertyValue.Text= ConfigSettings.GetConnectionString(ddl_propertyKeys.SelectedValue.ToString()); btn_update.Enabled = true; }
+                else {txt_propertyValue.Text = ConfigSettings.GetAppSetting(ddl_propertyKeys.SelectedValue.ToString()); btn_update.Enabled = true; }
+            }
         }
 
         private void btn_update_Click(object sender, EventArgs e)
         {
-            ConfigSettings.SetAppSetting(ddl_propertyKeys.SelectedValue.ToString(), txt_propertyValue.Text);
+            if (ddl_propertyKeys.SelectedValue.ToString().EndsWith("ConnectionString"))
+            { ConfigSettings.SetConnectionString(ddl_propertyKeys.SelectedValue.ToString(), txt_propertyValue.Text); }
+            else { ConfigSettings.SetAppSetting(ddl_propertyKeys.SelectedValue.ToString(), txt_propertyValue.Text); }
         }
     }
 }

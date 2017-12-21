@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using m1.Shared;
+using Sahaj.UserControls;
+using System.Resources;
+using m1.Sahaj.Properties;
 
 namespace Sayen.userForms
 {
@@ -78,6 +81,51 @@ namespace Sayen.userForms
         private void ddl_Environment_SelectedIndexChanged(object sender, EventArgs e)
         {
             AppGlobal.CurrentAppEnv = ddl_Environment.Text;
+        }
+
+        private void pb_settingsAdmin_Click(object sender, EventArgs e)
+        {
+            if(panel2.Controls.ContainsKey("uc_AppSettings"))
+            {
+                panel2.Controls.RemoveByKey("uc_AppSettings");
+            }
+
+            uc_AppSettings _uc_AppSettings = new uc_AppSettings();
+            _uc_AppSettings.AutoSize = true;
+            _uc_AppSettings.BackColor = Color.Transparent;
+            ResourceManager rm = Resources.ResourceManager;
+            Bitmap img = (Bitmap)rm.GetObject("img_matrixCode");
+            _uc_AppSettings.BackgroundImage = img;
+
+            Control control;
+            Utilities.GetControlByNameFromControlList(_uc_AppSettings.Controls, "tableLayoutPanel1",out control);
+            if (!control.Equals(null))
+            {
+                var ww = (TableLayoutPanel)control;
+                ww.AutoSize = true;
+                ww.BackColor = Color.AliceBlue;
+            }
+            //Utilities.GetControlByNameFromControlList(_uc_AppSettings.Controls, "panel_row2", out control);
+            //if (control!=null)
+            //{
+            //    var ww = (Panel)control;
+            //    ww.BackColor = Color.AliceBlue;
+            //}
+            //Utilities.GetControlByNameFromControlList(_uc_AppSettings.Controls, "lbl_title", out control);
+            //if (control != null)
+            //{
+            //    var ww = (Label)control;
+            //    ww.BackColor = Color.White;
+            //    ww.BorderStyle = BorderStyle.Fixed3D;
+            //}          
+
+            this.AutoSize = true;
+            this.Width = 1200;
+            panel2.Width = 1150;
+            panel2.AutoSize = true;
+            panel2.Visible = true;
+            panel2.BackgroundImage = img;
+            panel2.Controls.Add(_uc_AppSettings);
         }
     }
 }

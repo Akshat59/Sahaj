@@ -126,6 +126,44 @@ namespace m1.Shared
 
         }
 
+        /// <summary>
+        /// DOES NOT WORK; Need modification
+        /// </summary>
+        /// <param name="controls"></param>
+        /// <param name="ControlName"></param>
+        /// <param name="retCtrl"></param>
+        public static void GetControlByNameFromControlList(Control.ControlCollection controls, string ControlName,out Control retCtrl)
+        {            
+            //////////////////////////Does Not Work
+
+            if (controls.Owner.Name.Equals(ControlName))
+            {
+                retCtrl = controls.Owner;
+                return;
+            }
+            else
+            {
+                foreach (Control item in controls)
+                {
+                    if (item.Name == ControlName)
+                    {
+                        retCtrl = item;
+                        //break;
+                        return;
+                    }
+                    else
+                    {
+                        if (item.HasChildren)
+                        { GetControlByNameFromControlList(item.Controls, ControlName,out retCtrl); }
+                    }
+                }
+                
+            }
+
+            retCtrl = null;
+            return;
+        }
+
         public static StringBuilder RetrieveColumnList(string TableName)
         {
             StringBuilder _colList = new StringBuilder();

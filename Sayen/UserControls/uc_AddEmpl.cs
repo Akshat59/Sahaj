@@ -851,14 +851,14 @@ namespace Sayen.UserControls
             }
 
             //Dont exceed databse table column lenght   
-            FormatEmpEnitityObjLenght(emp);
+            FormatEmpEnitityObjLength(emp);
 
             //format emp properties
             this.formatEntity(emp);
 
         }
 
-        private void FormatEmpEnitityObjLenght(EmployeeEntity emp) 
+        private void FormatEmpEnitityObjLength(EmployeeEntity emp) 
         {
             //#FutureCode - Make this method generic like taking length of columns from sql
             emp.Firstname = txt_firstName.Text.Length <= 30 ? txt_firstName.Text : txt_firstName.Text.Substring(0, 30);
@@ -873,7 +873,7 @@ namespace Sayen.UserControls
             emp.Aadhaarno = txt_aadhaar.Text.Length <=12 ? txt_aadhaar.Text : txt_aadhaar.Text.Substring(0, 12);
             emp.Addressproof = txt_addressProof.Text.Length <= 20 ? txt_addressProof.Text : txt_addressProof.Text.Substring(0, 20);
             emp.Dl_no = txt_dlno.Text.Length <= 40 ? txt_dlno.Text : txt_dlno.Text.Substring(0, 40);
-            emp.Dl_rto = txt_dlno.Text.Length <= 30 ? txt_dlno.Text : txt_rto.Text.Substring(0, 30);
+            emp.Dl_rto = txt_rto.Text.Length <= 30 ? txt_rto.Text : txt_rto.Text.Substring(0, 30);
             emp.Experience = txt_experience.Text.Length <= 300 ? txt_experience.Text : txt_experience.Text.Substring(0, 300);
             emp.Attributes = txt_attributes.Text.Length <= 1000 ? txt_attributes.Text : txt_attributes.Text.Substring(0, 1000);
             emp.Otherdetails = txt_otherDetails.Text.Length <= 1000 ? txt_otherDetails.Text : txt_otherDetails.Text.Substring(0, 1000);

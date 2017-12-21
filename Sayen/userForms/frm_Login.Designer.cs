@@ -79,7 +79,7 @@
             this.txt_uname.Name = "txt_uname";
             this.txt_uname.Size = new System.Drawing.Size(100, 20);
             this.txt_uname.TabIndex = 3;
-            this.txt_uname.Text = "akshats";
+            this.txt_uname.Text = "parass";
             this.txt_uname.TextChanged += new System.EventHandler(this.txt_uname_TextChanged);
             // 
             // txt_pwd

@@ -32,7 +32,7 @@ namespace m1.DAC
 
     public class DatabaseConstants
     {
-        public const string ConnStringKey = "ConnectionStringSQL_Dev";
+        public const string ConnStringKey = "SQL_d1_Dev_ConnectionString";
     }
 
     

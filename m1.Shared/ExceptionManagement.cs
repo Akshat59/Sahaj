@@ -88,7 +88,7 @@ namespace m1.Shared
 
             try
             {
-                string conStrng = ConfigSettings.GetConnectionString("ConnectionStringSQL_Dev").ToString();
+                string conStrng = ConfigSettings.GetConnectionString("SQL_d1_Dev_ConnectionString").ToString();
                 using (SqlConnection myConnection = new SqlConnection(conStrng))
                 {
                     SqlCommand oCmd = new SqlCommand(query, myConnection);
